@@ -17,12 +17,12 @@
                     <span class="glyphicon glyphicon-chevron-down"></span>
                     
                 </button>
-                <a class="navbar-brand" href="#/">Home</a>
+                <a class="navbar-brand" href="#/">Appointment Bee</a>
             </div>
             <div class="collapse navbar-collapse" id="appointmentbee-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li data-ng-hide="!authentication.isAuth"><a href="#">Welcome {{authentication.userName}}</a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/appointments">My Appointments</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/appointments">My appointments</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>
