@@ -25,6 +25,12 @@ app.config(function ($routeProvider) {
     $routeProvider.otherwise({ redirectTo: "/home" });
 });
 
+//var serviceBase = 'http://calrest.azurewebsites.net/';
+var serviceBase  = 'http://localhost:53292/';
+app.constant('serverSettings', {
+   serviceBaseUri: serviceBase
+});
+
 app.run(['authService', function (authService) {
     authService.fillAuthData();
 }]);

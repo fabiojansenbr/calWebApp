@@ -1,11 +1,11 @@
 ﻿'use strict';
-app.factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
+app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSettings', function ($http, $q, localStorageService, serverSettings) {
 
-    var serviceBase = 'http://calrest.azurewebsites.net/';   
+    var serviceBase = serverSettings.serviceBaseUri;
     var authServiceFactory = {};
 
     var _authentication = {
-        isAuth: false,
+        isAuth: false,  
         userName: ""
     };
 
@@ -49,6 +49,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', function ($htt
 
         _authentication.isAuth = false;
         _authentication.userName = "";
+        //stop the signalr connection.
+        $.connection.hub.stop();
 
     };
 

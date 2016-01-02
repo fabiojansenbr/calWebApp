@@ -7,6 +7,7 @@
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.4",
     "angular-loading-bar": "0.8.0",
-    "angular-local-storage": "0.2.2"
+    "angular-local-storage": "0.2.2",
+    "signalr": "~2.2.0"
   }
 }

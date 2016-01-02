@@ -1,7 +1,8 @@
 ﻿'use strict';
-app.factory('appointmentsService', ['$http', function ($http) {
+app.factory('appointmentsService', ['$http', 'serverSettings', function ( $http, serverSettings) {
 
-    var serviceBase = 'http://calrest.azurewebsites.net/';
+    var serviceBase = serverSettings.serviceBaseUri;
+
     var appointmentsServiceFactory = {};
 
     var _getAppointments = function () {
@@ -11,6 +12,7 @@ app.factory('appointmentsService', ['$http', function ($http) {
         });
     };
 
+   
     appointmentsServiceFactory.getAppointments = _getAppointments;
 
     return appointmentsServiceFactory;
