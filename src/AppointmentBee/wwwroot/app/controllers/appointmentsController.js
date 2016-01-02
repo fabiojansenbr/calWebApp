@@ -12,7 +12,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             $scope.appointments = results.data;
 
         }, function (error) {
-            alert(error.data.message);
+            //alert(error.data.message);
         });
     };
    
