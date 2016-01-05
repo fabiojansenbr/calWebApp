@@ -44,6 +44,3 @@ gulp.task("min:css", function () {
 
 gulp.task("min", ["min:js", "min:css"]);
 
-gulp.task('watch', function () {
-    return gulp.watch(paths.js, ['min']);
-});
