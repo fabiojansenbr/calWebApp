@@ -1,4 +1,4 @@
-﻿var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar']);
+﻿var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.calendar']);
 
 app.config(function ($routeProvider) {
 
