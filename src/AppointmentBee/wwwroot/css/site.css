@@ -17,3 +17,18 @@
   box-shadow: #0067b1 1px 0 6px 1px;
 }
 
+/*---appointments classe---*/
+.eventAvailable {
+    background: #30b602;
+    border: 1px solid #9AE089;
+}
+
+.eventUnavailable {
+    background: #d93535;
+    border: 1px solid #FF9797 ;
+}
+
+.fc-event {
+    border-radius: 0px;
+    
+}
