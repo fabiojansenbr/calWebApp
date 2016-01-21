@@ -115,7 +115,6 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             slotDuration: "00:45:00",
             slotLabelInterval: "00:45:00",
             snapDuration: "00:45:00",
-            slotLabelFormat: "HH:mm",
             weekends: false,
             displayEventEnd: false,
             timeFormat: "HH:mm",
