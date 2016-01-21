@@ -75,8 +75,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
 
         if (eventData.IsAvailable == false) {
             fullEvent.className = "eventUnavailable";
-            if (eventData.AppointmenNote)
-                fullEvent.title = eventData.AppointmenNote;
+            if (eventData.AppointmentNote)
+                fullEvent.title = eventData.AppointmentNote;
             else
                 fullEvent.title = "Unavailable";
         }
