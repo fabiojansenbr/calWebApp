@@ -95,7 +95,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
 
     $scope.viewRender = function (view, element) {
         var item = view;
-        TimeFix(45, "08:00:00");
+        TimeFix(45, "08:15:00");
     }
 
     /* config object */
@@ -110,8 +110,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             },
             defaultView: 'agendaWeek',
             slotLabelFormat: 'hh:mm',
-            minTime: "08:00:00",
-            maxTime: "20:00:00",
+            minTime: "08:15:00",
+            maxTime: "20:15:00",
             slotDuration: "00:45:00",
             slotLabelInterval: "00:45:00",
             snapDuration: "00:45:00",
