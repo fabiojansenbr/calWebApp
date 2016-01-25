@@ -80,8 +80,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             else
                 fullEvent.title = "Unavailable";
         }
-
-        return fullEvent;
+        
+        return $.extend(eventData, fullEvent);
     }
 
     //quick and dirty hack to show labels for each time slot for resolving fullcalendar issue:  https://github.com/fullcalendar/fullcalendar/issues/2786
@@ -98,10 +98,19 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         TimeFix(45, "08:00:00");
     }
 
+    $scope.dayClick = function(date, jsEvent, view) {
+
+        //alert('Clicked on: ' + date.format());
+
+        // change the day's background color just for fun
+        //$(this).css('background-color', 'red');
+
+    }
+
     /* config object */
     $scope.uiConfig = {
         calendar: {
-            height: 450,
+            height: 550,
             editable: true,
             header: {
                 left: 'title',
@@ -121,7 +130,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             eventDataTransform: $scope.eventDataTransform,
             changeView: $scope.changeView,
             renderCalender: $scope.renderCalender,
-            viewRender: $scope.viewRender
+            viewRender: $scope.viewRender,
+            dayClick: $scope.dayClick
         }
     };
 

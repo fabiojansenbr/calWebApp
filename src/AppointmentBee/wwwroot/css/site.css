@@ -27,8 +27,23 @@
     background: #d93535;
     border: 1px solid #FF9797 ;
 }
-
+/*
+    turn off rounded borders for appointments
 .fc-event {
     border-radius: 0px;
-    
+}
+*/
+.fc-agendaWeek-view tr {
+    height: 40px;
+    border-bottom: solid 1px #dedcdc;
+}
+
+.fc-agendaDay-view tr {
+    height: 40px;
+}
+
+/* below part is for different coloring odd and even colums - soft grey color - need some adjustments because of how fullcalendar is rendering the table*/
+/* thead th:nth-of-type(odd), */
+.fc-widget-content td:nth-of-type(odd) {
+	background: rgba(240,240,240,0.5);
 }
