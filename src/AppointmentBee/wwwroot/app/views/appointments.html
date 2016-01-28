@@ -39,4 +39,50 @@
     <div class="col-md-2">
         &nbsp;
     </div>
+
+    
 </div>
+
+<script type="text/ng-template" id="dialog1.tmpl.html">
+    <md-dialog aria-label="Mango (Fruit)" ng-cloak>
+        <form>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Add appointment {{ oNewAppointment.StartDate }} - {{ oNewAppointment.EndDate }}</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content>
+                <div class="md-dialog-content">
+                    <h2>Details</h2>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>First name</label>
+                        <input ng-model="oNewAppointment.Patient.PatientName">
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Phone</label>
+                        <input ng-model="oNewAppointment.Patient.PhoneNumber">
+                    </md-input-container>
+
+                    
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+                <span flex></span>
+                <md-button ng-click="cancel()">
+                    Cancel
+                </md-button>
+                <md-button ng-click="answer('useful')" style="margin-right:20px;">
+                    Add
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+</script>

@@ -1,6 +1,6 @@
-﻿var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.calendar']);
+﻿var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.calendar', 'ngMaterial']);
 
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider, $mdThemingProvider) {
 
     $routeProvider.when("/home", {
         controller: "homeController",
@@ -23,6 +23,12 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.otherwise({ redirectTo: "/home" });
+
+    $mdThemingProvider.theme('default')
+        .primaryPalette('blue',  {
+                'default': '600'
+            });
+        //.accentPalette('indigo');
 });
 
 var serviceBase = 'http://calrest.azurewebsites.net/';

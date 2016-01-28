@@ -1,9 +1,22 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', function ($scope, appointmentsService, calendarService, serverSettings) {
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog) {
 
     var serviceBase = serverSettings.serviceBaseUri;
 
     $scope.appointments = [];
+
+    var clearNewAppointment = function () {
+        $scope.oNewAppointment = {
+            StartDate: '',
+            EndDate: '',
+            Patient: {
+                PatientName: '',
+                PhoneNumber: ''
+            }
+        };
+    };
+
+    
 
     //this function get's only the users own calendars appointments.
     var getAppointments = function () {
@@ -16,6 +29,12 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         }, function (error) {
             //alert(error.data.message);
         });
+    };
+
+    var postAppointment = function (data) {
+        appointmentsService.postAppointment(data).then(function (result) {
+            getAppointments();
+        })
     };
 
 
@@ -69,7 +88,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     };
 
     $scope.eventDataTransform = function (eventData) {
-        var fullEvent = { title: "", start: eventData.StartDate, end: eventData.EndDate, className: "eventAvailable"};
+        var fullEvent = { id: eventData.Id, title: "", start: eventData.StartDate, end: eventData.EndDate, className: "eventAvailable" };
         if (eventData.Patient)
             fullEvent.title = eventData.Patient.PatientName;
 
@@ -98,8 +117,33 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         TimeFix(45, "08:00:00");
     }
 
-    $scope.dayClick = function(date, jsEvent, view) {
+    $scope.showAdvanced = function (ev, date) {
+        var useFullScreen = false; //($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+        clearNewAppointment();
 
+        $scope.oNewAppointment.StartDate = date.format("MM/DD/YYYY HH:mm");
+        $scope.oNewAppointment.EndDate = date.add(45, 'minutes').format("MM/DD/YYYY HH:mm");
+
+        $mdDialog.show({
+            templateUrl: 'dialog1.tmpl.html',
+            scope: $scope,
+            preserveScope: true,
+            bindToController: true,
+            targetEvent: ev,
+            clickOutsideToClose: true
+        })
+        .then(function (answer) {
+            postAppointment($scope.oNewAppointment);
+            clearNewAppointment();
+            //$scope.status = 'You said the information was "' + answer + '".';
+        }, function () {
+            clearNewAppointment();
+            //$scope.status = 'You cancelled the dialog.';
+        });
+    }
+
+    $scope.dayClick = function(date, jsEvent, view) {
+        $scope.showAdvanced(jsEvent, date);
         //alert('Clicked on: ' + date.format());
 
         // change the day's background color just for fun
@@ -139,5 +183,32 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     getAppointments();
     getUserCalendar();
 
+    
+
+    $scope.hide = function () {
+        $mdDialog.hide();
+    };
+
+    $scope.cancel = function () {
+        $mdDialog.cancel();
+    };
+
+    $scope.answer = function (answer) {
+        $mdDialog.hide(answer);
+    };
 
 }]);
+
+//function DialogController($scope, $mdDialog) {
+//    $scope.hide = function () {
+//        $mdDialog.hide();
+//    };
+
+//    $scope.cancel = function () {
+//        $mdDialog.cancel();
+//    };
+
+//    $scope.answer = function (answer) {
+//        $mdDialog.hide(answer);
+//    };
+//}
