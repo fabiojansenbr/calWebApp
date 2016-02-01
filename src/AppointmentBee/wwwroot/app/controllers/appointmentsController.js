@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog) {
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia) {
 
     var serviceBase = serverSettings.serviceBaseUri;
 
@@ -118,11 +118,11 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     }
 
     $scope.showAdvanced = function (ev, date) {
-        var useFullScreen = false; //($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+        var useFullScreen = true; //($mdMedia('sm') || $mdMedia('xs')); //  && $scope.customFullscreen;
         clearNewAppointment();
 
-        $scope.oNewAppointment.StartDate = date.format("MM/DD/YYYY HH:mm");
-        $scope.oNewAppointment.EndDate = date.add(45, 'minutes').format("MM/DD/YYYY HH:mm");
+        $scope.oNewAppointment.StartDate = date.clone();
+        $scope.oNewAppointment.EndDate = date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm");
 
         $mdDialog.show({
             templateUrl: 'dialog1.tmpl.html',
@@ -130,7 +130,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             preserveScope: true,
             bindToController: true,
             targetEvent: ev,
-            clickOutsideToClose: true
+            clickOutsideToClose: true,
+            fullscreen: useFullScreen
         })
         .then(function (answer) {
             postAppointment($scope.oNewAppointment);

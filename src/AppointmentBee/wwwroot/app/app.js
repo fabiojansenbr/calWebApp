@@ -25,10 +25,22 @@ app.config(function ($routeProvider, $mdThemingProvider) {
     $routeProvider.otherwise({ redirectTo: "/home" });
 
     $mdThemingProvider.theme('default')
-        .primaryPalette('blue',  {
-                'default': '600'
-            });
+        .primaryPalette('blue');
         //.accentPalette('indigo');
+
+    //var contrastBlue;
+
+    //contrastBlue = $mdThemingProvider.extendPalette('blue', {
+    //    //'600': '#689F38',
+    //    'contrastDefaultColor': 'light'
+    //});
+
+    //$mdThemingProvider.definePalette('contrastBlue', contrastBlue);
+
+
+    //$mdThemingProvider.theme('default').primaryPalette('contrastBlue', {
+    //    'default': '600'
+    //});
 });
 
 var serviceBase = 'http://calrest.azurewebsites.net/';

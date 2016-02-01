@@ -13,7 +13,7 @@ app.factory('appointmentsService', ['$http', 'serverSettings', function ( $http,
     };
 
     var _postAppointment = function (data) {
-
+        
         return $http.post(serviceBase + 'api/appointments', data).then(function (results) {
             return results;
         });
