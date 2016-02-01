@@ -1,9 +1,8 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia) {
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia',
+    function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia) {
 
     var serviceBase = serverSettings.serviceBaseUri;
-
-    $scope.appointments = [];
 
     var clearNewAppointment = function () {
         $scope.oNewAppointment = {
@@ -17,12 +16,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     };
 
     
-
     //this function get's only the users own calendars appointments.
     var getAppointments = function () {
         appointmentsService.getAppointments().then(function (results) {
-            $scope.appointments = results.data;
-
+          
             //maybe there is better way?
             $scope.eventSources[0] = results.data;
 
@@ -135,21 +132,14 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         })
         .then(function (answer) {
             postAppointment($scope.oNewAppointment);
-            clearNewAppointment();
-            //$scope.status = 'You said the information was "' + answer + '".';
+            clearNewAppointment();        
         }, function () {
-            clearNewAppointment();
-            //$scope.status = 'You cancelled the dialog.';
+            clearNewAppointment();          
         });
     }
 
     $scope.dayClick = function(date, jsEvent, view) {
         $scope.showAdvanced(jsEvent, date);
-        //alert('Clicked on: ' + date.format());
-
-        // change the day's background color just for fun
-        //$(this).css('background-color', 'red');
-
     }
 
     /* config object */
@@ -200,16 +190,3 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
 
 }]);
 
-//function DialogController($scope, $mdDialog) {
-//    $scope.hide = function () {
-//        $mdDialog.hide();
-//    };
-
-//    $scope.cancel = function () {
-//        $mdDialog.cancel();
-//    };
-
-//    $scope.answer = function (answer) {
-//        $mdDialog.hide(answer);
-//    };
-//}
