@@ -9,10 +9,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         $scope.oNewAppointment = {
             StartDate: '',
             EndDate: '',
-            Patient: {
-                PatientName: '',
-                PhoneNumber: ''
-            }
+            IsAvailable: true
         };
     };
 
@@ -34,7 +31,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     var postAppointment = function (data) {
         appointmentsService.postAppointment(data).then(function (result) {
             getAppointments();
-        })
+        },
+         function (err) {
+             //alert(err.statusText);
+         });
     };
 
 
@@ -117,40 +117,38 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         TimeFix(45, "08:00:00");
     }
 
-    $scope.showAdvanced = function (ev, date) {
+    $scope.showAddAppointmentDialog = function (start, end) {
         var useFullScreen = true; //($mdMedia('sm') || $mdMedia('xs')); //  && $scope.customFullscreen;
         clearNewAppointment();
 
-        $scope.oNewAppointment.StartDate = date.clone();
-        $scope.oNewAppointment.EndDate = date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm");
+        $scope.oNewAppointment.StartDate = start; //date.clone();
+        $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm");
 
         $mdDialog.show({
             templateUrl: 'dialog1.tmpl.html',
             scope: $scope,
             preserveScope: true,
             bindToController: true,
-            targetEvent: ev,
+            //targetEvent: ev,
             clickOutsideToClose: true,
             fullscreen: useFullScreen
         })
         .then(function (answer) {
             postAppointment($scope.oNewAppointment);
             clearNewAppointment();
-            //$scope.status = 'You said the information was "' + answer + '".';
         }, function () {
             clearNewAppointment();
-            //$scope.status = 'You cancelled the dialog.';
         });
     }
 
-    $scope.dayClick = function(date, jsEvent, view) {
+    /*$scope.dayClick = function(date, jsEvent, view) {
         $scope.showAdvanced(jsEvent, date);
         //alert('Clicked on: ' + date.format());
 
         // change the day's background color just for fun
         //$(this).css('background-color', 'red');
 
-    }
+    }*/
 
     /* config object */
     $scope.uiConfig = {
@@ -176,7 +174,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             changeView: $scope.changeView,
             renderCalender: $scope.renderCalender,
             viewRender: $scope.viewRender,
-            dayClick: $scope.dayClick
+            //dayClick: $scope.dayClick
+            selectable: true,
+            //selectHelper: true,
+            select: $scope.showAddAppointmentDialog
         }
     };
 
