@@ -146,7 +146,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     /* config object */
     $scope.uiConfig = {
         calendar: {
-            height: 550,
+            height: 800,
             editable: true,
             header: {
                 left: 'title',
