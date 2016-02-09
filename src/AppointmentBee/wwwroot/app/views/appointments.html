@@ -2,8 +2,10 @@
     <div class="col-md-2">
         &nbsp;
     </div>
+
     <div class="col-md-8">
-        <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>               
+        {{IsMouseDown}}
+        <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" ng-mousedown="IsMouseDown=true" ng-mouseup="IsMouseDown=false"></div>               
     </div>
     <div class="col-md-2">
         &nbsp;

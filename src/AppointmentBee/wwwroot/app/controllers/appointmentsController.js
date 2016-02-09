@@ -3,6 +3,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia) {
 
     var serviceBase = serverSettings.serviceBaseUri;
+    $scope.IsMouseDown = false;
 
     var clearNewAppointment = function () {
         $scope.oNewAppointment = {
@@ -139,15 +140,16 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         });
     }
 
-    $scope.dayClick = function(date, jsEvent, view) {
-        $scope.showAdvanced(jsEvent, date);
+    $scope.dayClick = function (date, jsEvent, view) {
+        if(!$scope.IsMouseDown)
+            $scope.showAddAppointmentDialog(date, date.clone().add(45, 'minutes'));
     }
 
     /* config object */
     $scope.uiConfig = {
         calendar: {
-            height: 800,
-            editable: true,
+            height: "auto",
+            //editable: true,
             header: {
                 left: 'title',
                 center: '',
@@ -167,10 +169,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             changeView: $scope.changeView,
             renderCalender: $scope.renderCalender,
             viewRender: $scope.viewRender,
-            //dayClick: $scope.dayClick
-            selectable: true,
-			selectHelper: true,
-			select: $scope.showAddAppointmentDialog
+            dayClick: $scope.dayClick
+            //selectable: true,
+			//selectHelper: true,
+			//select: $scope.showAddAppointmentDialog
         }
     };
 
