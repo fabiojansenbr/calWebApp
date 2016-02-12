@@ -3,7 +3,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia) {
 
     var serviceBase = serverSettings.serviceBaseUri;
-    $scope.IsMouseDown = false;
+    $scope.IsTouchMove = false;
 
     var clearNewAppointment = function () {
         $scope.oNewAppointment = {
@@ -141,8 +141,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     }
 
     $scope.dayClick = function (date, jsEvent, view) {
-        if(!$scope.IsMouseDown)
+        if (!$scope.IsTouchMove) {
             $scope.showAddAppointmentDialog(date, date.clone().add(45, 'minutes'));
+        } 
+        $scope.IsTouchMove = false;
     }
 
     /* config object */
@@ -194,5 +196,14 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         $mdDialog.hide(answer);
     };
 
+    }]
+).directive('hbTouchmove', [function () {
+    return function (scope, element, attr) {
+        element.on('touchmove', function (event) {
+            scope.$apply(function () {
+                scope.$eval(attr.hbTouchmove);
+            });
+        });
+    };
 }]);
 

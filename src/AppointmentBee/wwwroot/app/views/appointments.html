@@ -4,8 +4,8 @@
     </div>
 
     <div class="col-md-8">
-        {{IsMouseDown}}
-        <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" ng-mousedown="IsMouseDown=true" ng-mouseup="IsMouseDown=false"></div>               
+        {{IsTouchMove}}
+        <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true"></div>               
     </div>
     <div class="col-md-2">
         &nbsp;
@@ -22,7 +22,7 @@
                     <p>Add {{ oNewAppointment.StartDate.format('DD-MM-YYYY HH:mm')}} - {{ oNewAppointment.EndDate.format('HH:mm') }}</p>
                     <span flex></span>
                     <md-button class="md-icon-button" ng-click="cancel()">
-                        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                        <!--<md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>-->
                     </md-button>
                 </div>
             </md-toolbar>
