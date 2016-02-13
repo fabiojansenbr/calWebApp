@@ -170,10 +170,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             changeView: $scope.changeView,
             renderCalender: $scope.renderCalender,
             viewRender: $scope.viewRender,
-            dayClick: $scope.dayClick
-            //selectable: true,
-			//selectHelper: true,
-			//select: $scope.showAddAppointmentDialog
+            //dayClick: $scope.dayClick
+            selectable: true,
+			selectHelper: true,
+			select: $scope.showAddAppointmentDialog
         }
     };
 
