@@ -144,7 +144,6 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         if (!$scope.IsTouchMove) {
             $scope.showAddAppointmentDialog(date, date.clone().add(45, 'minutes'));
         } 
-        $scope.IsTouchMove = false;
     }
 
     /* config object */
@@ -202,6 +201,14 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         element.on('touchmove', function (event) {
             scope.$apply(function () {
                 scope.$eval(attr.hbTouchmove);
+            });
+        });
+    };
+}]).directive('hbTouchend', [function () {
+    return function (scope, element, attr) {
+        element.on('touchend', function (event) {
+            scope.$apply(function () {
+                scope.$eval(attr.hbTouchend);
             });
         });
     };

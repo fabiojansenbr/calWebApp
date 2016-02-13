@@ -4,8 +4,7 @@
     </div>
 
     <div class="col-md-8">
-        {{IsTouchMove}}
-        <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true"></div>               
+        <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false" ></div>               
     </div>
     <div class="col-md-2">
         &nbsp;
