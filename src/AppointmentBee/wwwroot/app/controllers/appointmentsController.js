@@ -146,6 +146,12 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         } 
     }
 
+    $scope.select = function (start, end) {
+        if (!$scope.IsTouchMove) {
+            $scope.showAddAppointmentDialog(start, end);
+        }
+    }
+
     /* config object */
     $scope.uiConfig = {
         calendar: {
@@ -170,10 +176,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             changeView: $scope.changeView,
             renderCalender: $scope.renderCalender,
             viewRender: $scope.viewRender,
-            //dayClick: $scope.dayClick
-            selectable: true,
-			selectHelper: true,
-			select: $scope.showAddAppointmentDialog
+            dayClick: $scope.dayClick
+            //selectable: true,
+			//selectHelper: true,
+			//select: $scope.select
         }
     };
 
