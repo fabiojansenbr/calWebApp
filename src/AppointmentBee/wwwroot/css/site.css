@@ -47,3 +47,8 @@
 .fc-widget-content td:nth-of-type(odd) {
 	background: rgba(240,240,240,0.5);
 }
+
+/*below definition may be removed after switching to angular material - no it is like that because bootstrap template css is making h2 on md dialog toolbar in black color*/
+.md-toolbar-tools h2 {
+    color: #fff;
+}
