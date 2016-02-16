@@ -5,6 +5,13 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
 
+    $scope.DetectTouchScreen = function () {
+        // solution based on http://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript/4819886#4819886
+        return 'ontouchstart' in window        // works on most browsers 
+            || navigator.maxTouchPoints;       // works on IE10/11 and Surface
+    };
+
+
     var clearNewAppointment = function () {
         $scope.oNewAppointment = {
             StartDate: '',
@@ -117,7 +124,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     }
 
     $scope.showAddAppointmentDialog = function (start, end) {
-        var useFullScreen = true; //($mdMedia('sm') || $mdMedia('xs')); //  && $scope.customFullscreen;
+        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')); //  && $scope.customFullscreen;
         clearNewAppointment();
 
         $scope.oNewAppointment.StartDate = start; //date.clone();
@@ -152,9 +159,46 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         }
     }
 
-    /* config object */
+        /* config object */
+    var calendarConfig = {
+        height: "auto",
+        //editable: true,
+        header: {
+            left: 'title',
+            center: '',
+            right: 'today prev,next'
+        },
+        defaultView: 'agendaWeek',
+        slotLabelFormat: 'hh:mm',
+        minTime: "08:00:00",
+        maxTime: "20:00:00",
+        slotDuration: "00:45:00",
+        slotLabelInterval: "00:45:00",
+        snapDuration: "00:45:00",
+        weekends: false,
+        displayEventEnd: false,
+        timeFormat: "HH:mm",
+        eventDataTransform: $scope.eventDataTransform,
+        changeView: $scope.changeView,
+        renderCalender: $scope.renderCalender,
+        viewRender: $scope.viewRender
+        
+
+    };
+    
+    if ($scope.DetectTouchScreen()) {
+        calendarConfig.dayClick = $scope.dayClick;
+    }
+    else {
+        calendarConfig.selectable = true;
+        calendarConfig.selectHelper = true;
+        calendarConfig.select = $scope.select;
+    }
+    
+
     $scope.uiConfig = {
-        calendar: {
+        calendar: calendarConfig
+            /*{
             height: "auto",
             //editable: true,
             header: {
@@ -176,11 +220,11 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             changeView: $scope.changeView,
             renderCalender: $scope.renderCalender,
             viewRender: $scope.viewRender,
-            dayClick: $scope.dayClick
+            dayClick: ($mdMedia('sm') || $mdMedia('xs')) ? null : $scope.dayClick 
             //selectable: true,
 			//selectHelper: true,
 			//select: $scope.select
-        }
+        }*/
     };
 
     $scope.eventSources = [];
