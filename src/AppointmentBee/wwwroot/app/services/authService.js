@@ -62,13 +62,22 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
             _authentication.userName = authData.userName;
         }
 
-    }
+    };
+
+    var _confirmEmail = function (confirmData) {
+
+        return $http.get(serviceBase + 'api/account/ConfirmEmail?userid=' + confirmData.userid + '&token=' + encodeURIComponent(confirmData.token))
+            .then(function (response) {
+            return response.status;
+        });           
+    };
 
     authServiceFactory.saveRegistration = _saveRegistration;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.authentication = _authentication;
+    authServiceFactory.confirmEmail = _confirmEmail;
 
     return authServiceFactory;
 }]);
