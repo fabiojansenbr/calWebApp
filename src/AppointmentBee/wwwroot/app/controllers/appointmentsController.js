@@ -141,9 +141,9 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         })
         .then(function (answer) {
             postAppointment($scope.oNewAppointment);
-            clearNewAppointment();        
+            clearNewAppointment();
         }, function () {
-            clearNewAppointment();          
+            clearNewAppointment();
         });
     }
 
@@ -162,10 +162,9 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         /* config object */
     var calendarConfig = {
         height: "auto",
-        //editable: true,
         header: {
             left: 'title',
-            center: '',
+            center: 'month,agendaWeek,agendaDay',
             right: 'today prev,next'
         },
         defaultView: 'agendaWeek',
@@ -182,8 +181,6 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         changeView: $scope.changeView,
         renderCalender: $scope.renderCalender,
         viewRender: $scope.viewRender
-        
-
     };
     
     if ($scope.DetectTouchScreen()) {
@@ -193,6 +190,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         calendarConfig.selectable = true;
         calendarConfig.selectHelper = true;
         calendarConfig.select = $scope.select;
+        calendarConfig.editable = true;
     }
     
 
