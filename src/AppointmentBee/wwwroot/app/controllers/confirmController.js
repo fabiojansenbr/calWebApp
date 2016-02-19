@@ -4,6 +4,7 @@ function ($scope, $location, $timeout, authService) {
 
     $scope.confirmSuccess = false;
     $scope.isConfirming = true;
+    $scope.confirmationProgress = 'indeterminate'
     $scope.message = "";
 
     $scope.confirmData = {
@@ -17,6 +18,7 @@ function ($scope, $location, $timeout, authService) {
                 $scope.message = "Your account is Activated!";
             };
             $scope.isConfirming = false;
+            $scope.confirmationProgress = null;
         }, 
         function (response) {
 
@@ -26,8 +28,8 @@ function ($scope, $location, $timeout, authService) {
                     errors.push(response.data.ModelState[key][i]);
                 }
             }
-            $scope.message = errors.join(' ');
-
+            $scope.message = 'Error Occured: ' + errors.join(' ');
+            $scope.confirmationProgress = null;
             $scope.confirmSuccess = false;
             $scope.isConfirming = false;
         });
