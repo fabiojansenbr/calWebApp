@@ -3,22 +3,21 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
 function ($scope, $location, $timeout, authService) {
 
     $scope.savedSuccessfully = false;
+    $scope.isProcessing = false;
     $scope.message = "";
 
     $scope.registration = {
-        userName: "",
+        email: "",
         password: "",
         confirmPassword: ""
     };
 
     $scope.signUp = function () {
-
-        authService.saveRegistration($scope.registration).then(function (response) {
+         $scope.isProcessing = true;
+        authService.register($scope.registration).then(function (response) {
 
             $scope.savedSuccessfully = true;
-            $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
-            startTimer();
-
+            $scope.message = "We just sent a confirmation email to " + $scope.registration.email + ".";
         },
          function (response) {
              var errors = [];
@@ -28,14 +27,11 @@ function ($scope, $location, $timeout, authService) {
                  }
              }
              $scope.message = errors.join(' ');
+         }).finally(function () {
+              $scope.isProcessing = false;
          });
     };
 
-    var startTimer = function () {
-        var timer = $timeout(function () {
-            $timeout.cancel(timer);
-            $location.path('/login');
-        }, 2000);
-    }
+   
 
 }]);

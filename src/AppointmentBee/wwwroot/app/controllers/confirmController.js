@@ -17,8 +17,7 @@ function ($scope, $location, $timeout, authService) {
                 $scope.confirmSuccess = true;
                 $scope.message = "Your account is Activated!";
             };
-            $scope.isConfirming = false;
-            $scope.confirmationProgress = null;
+          
         }, 
         function (response) {
 
@@ -28,10 +27,12 @@ function ($scope, $location, $timeout, authService) {
                     errors.push(response.data.ModelState[key][i]);
                 }
             }
-            $scope.message = 'Error Occured: ' + errors.join(' ');
-            $scope.confirmationProgress = null;
+            $scope.message = 'Error Occured: ' + errors.join(' ');           
             $scope.confirmSuccess = false;
+           
+        }).finally(function () {
             $scope.isConfirming = false;
+            $scope.confirmationProgress = null;
         });
 
 

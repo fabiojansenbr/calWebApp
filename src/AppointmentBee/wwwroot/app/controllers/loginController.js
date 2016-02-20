@@ -2,7 +2,7 @@
 app.controller('loginController', ['$scope', '$location', 'authService', function ($scope, $location, authService) {
 
     $scope.loginData = {
-        userName: "",
+        email: "",
         password: ""
     };
 
