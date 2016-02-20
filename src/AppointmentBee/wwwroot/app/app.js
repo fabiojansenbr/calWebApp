@@ -40,9 +40,12 @@ app.constant('serverSettings', {
    serviceBaseUri: serviceBase
 });
 
-app.run(['authService', function (authService) {
-    authService.fillAuthData();
+app.run(['authService', function (authService) {    
     authService.fillCredentials();
+    authService.fillAuthData();
+    if (authService.authentication.isAuth == false) {
+        authService.autoLogin();
+    }
 }]);
 
 app.config(function ($httpProvider) {

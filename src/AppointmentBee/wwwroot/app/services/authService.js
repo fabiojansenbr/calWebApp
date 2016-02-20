@@ -38,11 +38,14 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
 
         $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
-            localStorageService.set('authorizationData', { token: response.access_token, email: loginData.email });
-
+            localStorageService.set('authorizationData', { token: response.access_token, email: loginData.email, tokenExpiration: response['.expires'] });
+        
             _authentication.isAuth = true;
             _authentication.email = loginData.email;
-
+            //Save credentials for auto-log in.
+            localStorageService.set('credentials', { email: loginData.email, password: loginData.password });
+            _credentials.email = loginData.email;
+            _credentials.password = loginData.password;
             deferred.resolve(response);
 
         }).error(function (err, status) {
@@ -55,7 +58,10 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
     };
 
     var _autoLogin = function () {
-       return _login(_credentials);
+        if (_credentials)
+        {
+            return _login(_credentials);
+        }     
     };
 
     var _logOut = function () {
@@ -79,7 +85,9 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
 
         var authData = localStorageService.get('authorizationData');
         if (authData) {
-            _authentication.isAuth = true;
+            var tokenExpiration = new Date(authData.tokenExpiration);
+            var currentDate = new Date();
+            tokenExpiration > currentDate ? _authentication.isAuth = true : _authentication.isAuth = false;
             _authentication.email = authData.email;
         }
 
