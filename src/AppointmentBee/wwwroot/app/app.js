@@ -42,6 +42,7 @@ app.constant('serverSettings', {
 
 app.run(['authService', function (authService) {
     authService.fillAuthData();
+    authService.fillCredentials();
 }]);
 
 app.config(function ($httpProvider) {

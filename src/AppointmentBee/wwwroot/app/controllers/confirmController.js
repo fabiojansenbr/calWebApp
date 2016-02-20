@@ -3,19 +3,26 @@ app.controller('confirmController', ['$scope', '$location', '$timeout', 'authSer
 function ($scope, $location, $timeout, authService) {
 
     $scope.confirmSuccess = false;
-    $scope.isConfirming = true;
-    $scope.confirmationProgress = 'indeterminate'
+    $scope.isProcessing = true;
     $scope.message = "";
+    $scope.progressMessage = "";
 
     $scope.confirmData = {
         userid: $location.search().userid,
         token: $location.search().token
     };
 
+    $scope.progressMessage = "Confirming your email..";
+    $scope.isProcessing = true;
+
         authService.confirmEmail($scope.confirmData).then(function (response) {
             if (response == 200) {
                 $scope.confirmSuccess = true;
                 $scope.message = "Your account is Activated!";
+                $scope.isProcessing = true;
+                $scope.progressMessage = "Logging you in..";
+                authService.autoLogin().then(function (response) { startTimer('/appointments'); }, //autologin succesful navigate to appointments
+                                             function (response) { startTimer('/login'); });
             };
           
         }, 
@@ -29,11 +36,17 @@ function ($scope, $location, $timeout, authService) {
             }
             $scope.message = 'Error Occured: ' + errors.join(' ');           
             $scope.confirmSuccess = false;
-           
+            $scope.isProcessing = false;
         }).finally(function () {
-            $scope.isConfirming = false;
-            $scope.confirmationProgress = null;
+           // 
         });
 
 
+    var startTimer = function (navigationpath) {
+         var timer = $timeout(function () {
+             $timeout.cancel(timer);
+             $location.search({ }); //clear the query parameters
+             $location.path(navigationpath);
+         }, 2000);
+     }
 }]);

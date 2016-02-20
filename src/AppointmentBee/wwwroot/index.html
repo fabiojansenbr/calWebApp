@@ -29,7 +29,7 @@
             </div>
             <div id="appointmentbee-navbar-collapse-1" class="collapse navbar-collapse" >
                 <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!authentication.isAuth"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" >Welcome {{authentication.userName}}</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" >Welcome {{authentication.email}}</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/appointments" data-toggle="collapse" data-target=".navbar-collapse.in">My appointments</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()" data-toggle="collapse" data-target=".navbar-collapse.in">Logout</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/login" data-toggle="collapse" data-target=".navbar-collapse.in">Login</a></li>

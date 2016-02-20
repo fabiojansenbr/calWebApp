@@ -54,15 +54,25 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
 
     };
 
+    var _autoLogin = function () {
+       return _login(_credentials);
+    };
+
     var _logOut = function () {
 
-        localStorageService.remove('authorizationData');
-
-        _authentication.isAuth = false;
-        _authentication.email = "";
+        _clearLocalData();
         //stop the signalr connection.
         $.connection.hub.stop();
 
+    };
+
+    var _clearLocalData = function (){
+        localStorageService.remove('authorizationData');
+        localStorageService.remove('credentials');
+        _authentication.isAuth = false;
+        _authentication.email = "";
+        _credentials.email = "";
+        _credentials.password = "";
     };
 
     var _fillAuthData = function () {
@@ -84,7 +94,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
         });           
     };
 
-    var _getCredentials = function () {
+    var _fillCredentials = function () {
         var credentials = localStorageService.get('credentials');
         if (credentials) {
             _credentials.email = credentials.email;
@@ -95,10 +105,12 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
 
     authServiceFactory.register = _register;
     authServiceFactory.login = _login;
+    authServiceFactory.autoLogin = _autoLogin;
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
-    authServiceFactory.getCredentials = _getCredentials;
+    authServiceFactory.fillCredentials = _fillCredentials;
     authServiceFactory.authentication = _authentication;
+    authServiceFactory.credentials = _credentials;
     authServiceFactory.confirmEmail = _confirmEmail;
 
     return authServiceFactory;
