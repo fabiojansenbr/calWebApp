@@ -3,15 +3,14 @@
     <div class="col-md-6 col-md-offset-3" data-ng-hide="message == ''" data-ng-class="(confirmSuccess) ? 'alert alert-success' : 'alert alert-danger'">
         {{message}}
     </div>
-    <div class="col-md-6 col-md-offset-3">     
-        <div class="col-md-12">
-            <div layout="row" layout-align="center center">
+     
+    <div class="col-md-12">
+            <div layout="column" layout-align="center center">
                 <md-progress-circular md-mode="{{isConfirming ? 'indeterminate' : 'null'}}" md-diameter="96"></md-progress-circular>
-                <p ng-style="{'visibility': isConfirming?'visible':'hidden'}">Confirming your e-mail.. </p>
+                <p style="text-align:center" ng-style="{'visibility': isConfirming?'visible':'hidden'}">Confirming your e-mail.. </p>
             </div>
-        </div>
-    
     </div>
+    
    
 </div>
 
