@@ -38,13 +38,16 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
 
         $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
-            localStorageService.set('authorizationData', { token: response.access_token, email: loginData.email, tokenExpiration: response['.expires'] });
+            //TODO - Note, username coming from server is email. 
+            //When usernames are actually introduced as a different data we may need to change this
+            var userEmail = response.userName;
+            localStorageService.set('authorizationData', { token: response.access_token, email: userEmail, tokenExpiration: response['.expires'] });
         
             _authentication.isAuth = true;
-            _authentication.email = loginData.email;
+            _authentication.email = userEmail;
             //Save credentials for auto-log in.
-            localStorageService.set('credentials', { email: loginData.email, password: loginData.password });
-            _credentials.email = loginData.email;
+            localStorageService.set('credentials', { email: userEmail, password: loginData.password });
+            _credentials.email = userEmail;
             _credentials.password = loginData.password;
             deferred.resolve(response);
 
@@ -58,10 +61,13 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
     };
 
     var _autoLogin = function () {
-        if (_credentials)
-        {
-            return _login(_credentials);
-        }     
+
+     var credentials = localStorageService.get('credentials');
+        if (credentials) {
+            _credentials.email = credentials.email;
+            _credentials.password = credentials.password;
+            return _login(_credentials);             
+        }   
     };
 
     var _logOut = function () {
@@ -81,16 +87,27 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
         _credentials.password = "";
     };
 
+
     var _fillAuthData = function () {
 
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
+            _authentication.isAuth = _getAuthStatus();
+            _authentication.email = authData.email;
+        }
+    };
+
+    //Checks the local storage token for expiration. Returns true if token is not expired.
+    //Note that it doesn't validate the token from the server side.
+    var _getAuthStatus = function () {
         var authData = localStorageService.get('authorizationData');
         if (authData) {
             var tokenExpiration = new Date(authData.tokenExpiration);
             var currentDate = new Date();
             tokenExpiration > currentDate ? _authentication.isAuth = true : _authentication.isAuth = false;
-            _authentication.email = authData.email;
-        }
+        } else { _authentication.isAuth = false; }
 
+        return _authentication.isAuth;
     };
 
     var _confirmEmail = function (confirmData) {
@@ -102,21 +119,14 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
         });           
     };
 
-    var _fillCredentials = function () {
-        var credentials = localStorageService.get('credentials');
-        if (credentials) {
-            _credentials.email = credentials.email;
-            _credentials.password = credentials.password;
-             
-        }
-    };
+ 
 
     authServiceFactory.register = _register;
     authServiceFactory.login = _login;
     authServiceFactory.autoLogin = _autoLogin;
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
-    authServiceFactory.fillCredentials = _fillCredentials;
+    authServiceFactory.getAuthStatus = _getAuthStatus;
     authServiceFactory.authentication = _authentication;
     authServiceFactory.credentials = _credentials;
     authServiceFactory.confirmEmail = _confirmEmail;

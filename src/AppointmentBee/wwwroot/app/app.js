@@ -40,10 +40,11 @@ app.constant('serverSettings', {
    serviceBaseUri: serviceBase
 });
 
-app.run(['authService', function (authService) {    
-    authService.fillCredentials();
+app.run(['authService', function (authService) {
+    //This is used to populate user email from local storage here.
     authService.fillAuthData();
-    if (authService.authentication.isAuth == false) {
+
+    if (authService.getAuthStatus() == false) {
         authService.autoLogin();
     }
 }]);
