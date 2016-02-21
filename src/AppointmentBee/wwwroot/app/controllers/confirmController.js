@@ -21,8 +21,12 @@ function ($scope, $location, $timeout, authService) {
                 $scope.message = "Your account is Activated!";
                 $scope.isProcessing = true;
                 $scope.progressMessage = "Logging you in..";
-                authService.autoLogin().then(function (response) { startTimer('/appointments'); }, //autologin succesful navigate to appointments
-                                             function (response) { startTimer('/login'); });
+                //
+                if (authService.getAuthStatus() == false) {
+                    authService.autoLogin().then(function (response) { startTimer('/appointments'); }, //autologin succesful navigate to appointments
+                                          function (response) { startTimer('/login'); });
+                } else { startTimer('/appointments'); }
+             
             };
           
         }, 
