@@ -142,7 +142,10 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
         });           
     };
 
- 
+    //Returns the email from credentials that is first populated after sign-up and updated after logins.
+    var _getEmail = function () {
+       return localStorageService.get('credentials').email;
+    };
 
     authServiceFactory.register = _register;
     authServiceFactory.login = _login;
@@ -154,6 +157,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
     authServiceFactory.authentication = _authentication;
     authServiceFactory.credentials = _credentials;
     authServiceFactory.confirmEmail = _confirmEmail;
+    authServiceFactory.getEmail = _getEmail;
 
     return authServiceFactory;
 }]);

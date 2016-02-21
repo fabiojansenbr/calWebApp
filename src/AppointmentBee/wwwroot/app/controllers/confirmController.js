@@ -9,7 +9,8 @@ function ($scope, $location, $timeout, authService) {
 
     $scope.confirmData = {
         userid: $location.search().userid,
-        token: $location.search().token
+        token: $location.search().token,
+        email: $location.search().email
     };
 
     $scope.progressMessage = "Confirming your email..";
@@ -21,11 +22,21 @@ function ($scope, $location, $timeout, authService) {
                 $scope.message = "Your account is Activated!";
                 $scope.isProcessing = true;
                 $scope.progressMessage = "Logging you in..";
-                //
-                if (authService.getAuthStatus() == false) {
-                   var result = authService.autoLogin().then(function (response) { startTimer('/appointments'); }, //autologin succesful navigate to appointments
-                                          function (response) { startTimer('/login'); });
-                } else { startTimer('/appointments'); }
+
+                //Check the email from the confirmation link, if matches auto-login user
+                if ($scope.confirmData.email == authService.getEmail()) {
+                    //No previous authentication
+                    if (authService.getAuthStatus() == false) {
+                        var result = authService.autoLogin().then(function (response) { startTimer('/appointments'); }, //autologin succesful navigate to appointments
+                                               function (response) { startTimer('/login'); });
+                    } else {
+                        startTimer('/appointments');
+                    }
+                } else {
+                    authService.logOut();
+                    startTimer('/login');
+                }
+               
              
             };
           
