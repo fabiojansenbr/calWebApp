@@ -41,7 +41,7 @@ app.constant('serverSettings', {
 });
 
 app.run(['authService', function (authService) {
-    //This is used to populate user email from local storage here.
+    //Populate authService variables from local storage.
     authService.fillAuthData();
 
     if (authService.getAuthStatus() == false) {

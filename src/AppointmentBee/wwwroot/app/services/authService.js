@@ -110,6 +110,22 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
         return _authentication.isAuth;
     };
 
+    //Returns true if the token is about to expire or doesn't exist at all.
+    //TODO: Currently using this method in authinterceptor in every http request.
+    var _shouldRefreshToken = function () {
+        var authData = localStorageService.get('authorizationData');
+        var shouldRefresh = true;
+        if (authData) {
+            var tokenExpiration = new Date(authData.tokenExpiration);
+            var currentDate = new Date();
+            var diffMinutes = Math.floor(((tokenExpiration - currentDate) / 1000) / 60);
+            diffMinutes < 10 ? shouldRefresh = true : shouldRefresh = false;
+        }
+
+        return shouldRefresh;
+
+    };
+
     var _confirmEmail = function (confirmData) {
 
         return $http.get(serviceBase + 'api/account/ConfirmEmail?userid=' + confirmData.userid
@@ -127,6 +143,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.getAuthStatus = _getAuthStatus;
+    authServiceFactory.shouldRefreshToken = _shouldRefreshToken;
     authServiceFactory.authentication = _authentication;
     authServiceFactory.credentials = _credentials;
     authServiceFactory.confirmEmail = _confirmEmail;
