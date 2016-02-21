@@ -23,7 +23,7 @@ function ($scope, $location, $timeout, authService) {
                 $scope.progressMessage = "Logging you in..";
                 //
                 if (authService.getAuthStatus() == false) {
-                    authService.autoLogin().then(function (response) { startTimer('/appointments'); }, //autologin succesful navigate to appointments
+                   var result = authService.autoLogin().then(function (response) { startTimer('/appointments'); }, //autologin succesful navigate to appointments
                                           function (response) { startTimer('/login'); });
                 } else { startTimer('/appointments'); }
              

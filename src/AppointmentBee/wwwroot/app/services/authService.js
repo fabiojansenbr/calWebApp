@@ -62,12 +62,19 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
 
     var _autoLogin = function () {
 
+        var deferred = $q.defer();
+
      var credentials = localStorageService.get('credentials');
         if (credentials) {
             _credentials.email = credentials.email;
             _credentials.password = credentials.password;
             return _login(_credentials);             
-        }   
+        } else {
+            deferred.reject(false);
+            return deferred.promise;
+        }
+
+       
     };
 
     var _logOut = function () {
