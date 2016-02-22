@@ -44,9 +44,13 @@ app.run(['$rootScope', '$location', 'authService', function ($rootScope, $locati
     //Populate authService variables from local storage.
     authService.fillAuthData();
 
-    //Attempt auto-login if user is not authenticated
+    //Attempt auto-login if user is not authenticated/token is expired.
     if (authService.getAuthStatus() == false) {
-        authService.autoLogin();
+        authService.autoLogin().finally(function () {
+            //ReDirect to home, if authentication succeeds, user will be redirected to appointments on listener.
+            authService.fillAuthData();
+            $location.path('/home');
+        });
     }
 
     //Direct user to appointment page if authenticated
