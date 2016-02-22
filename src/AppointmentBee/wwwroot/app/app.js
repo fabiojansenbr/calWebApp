@@ -49,7 +49,6 @@ app.run(['$rootScope', '$location', 'authService', function ($rootScope, $locati
         authService.autoLogin().finally(function () {
             //ReDirect to home, if authentication succeeds, user will be redirected to appointments on listener.
             authService.fillAuthData();
-            $location.path('/home');
         });
     }
 
