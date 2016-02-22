@@ -144,7 +144,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
 
     //Returns the email from credentials that is first populated after sign-up and updated after logins.
     var _getEmail = function () {
-        var credetentials = localStorageService.get('credentials');
+        var credentials = localStorageService.get('credentials');
         if (credentials) {
             return localStorageService.get('credentials').email;
         } else { return null;}
