@@ -43,7 +43,17 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         })
     };
 
+    var deleteAppointment = function (data) {
+        appointmentsService.deleteAppointment(data).then(function (result) {
+            getAppointments();
+        })
+    };
 
+    var putAppointment = function (data) {
+        appointmentsService.putAppointment(data).then(function (result) {
+            getAppointments();
+        })
+    };
 
     //get the User's own calendar
     var getUserCalendar = function () {
@@ -123,13 +133,23 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         TimeFix(45, "08:00:00");
     }
 
-    $scope.showAddAppointmentDialog = function (start, end) {
+    $scope.showAddAppointmentDialog = function (start, end, data) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')); //  && $scope.customFullscreen;
         clearNewAppointment();
 
-        $scope.oNewAppointment.StartDate = start; //date.clone();
-        $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm");
-
+        if (data)
+        {
+            $scope.oNewAppointment = data;
+            $scope.oNewAppointment.StartDate = data.start;
+            $scope.oNewAppointment.EndDate = data.end;
+            
+        }
+        else
+        {
+            $scope.oNewAppointment.StartDate = start; //date.clone();
+            $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm");
+        }
+        
         $mdDialog.show({
             templateUrl: 'dialog1.tmpl.html',
             scope: $scope,
@@ -139,9 +159,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             clickOutsideToClose: true,
             fullscreen: useFullScreen
         })
-        .then(function (answer) {
-            postAppointment($scope.oNewAppointment);
-            clearNewAppointment();
+        .then(function () {
+            
         }, function () {
             clearNewAppointment();
         });
@@ -151,6 +170,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         if (!$scope.IsTouchMove) {
             $scope.showAddAppointmentDialog(date, date.clone().add(45, 'minutes'));
         } 
+    }
+
+    $scope.eventClick = function (event, jsEvent, view) {
+        $scope.showAddAppointmentDialog(null, null, event);
     }
 
     $scope.select = function (start, end) {
@@ -177,10 +200,12 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         weekends: false,
         displayEventEnd: false,
         timeFormat: "HH:mm",
+        //eventOverlap: false,
         eventDataTransform: $scope.eventDataTransform,
         changeView: $scope.changeView,
         renderCalender: $scope.renderCalender,
-        viewRender: $scope.viewRender
+        viewRender: $scope.viewRender,
+        eventClick: $scope.eventClick
     };
     
     if ($scope.DetectTouchScreen()) {
@@ -235,13 +260,29 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         $mdDialog.hide();
     };
 
-    $scope.cancel = function () {
+    $scope.DialogCancel = function () {
+        clearNewAppointment();
         $mdDialog.cancel();
     };
 
-    $scope.answer = function (answer) {
-        $mdDialog.hide(answer);
+    $scope.DialogAddAppointment = function () {
+        if ($scope.oNewAppointment.Id) {
+            $scope.oNewAppointment.source = {}; //was causing circular reference exceptiion - probably needs to limit appointment object
+            putAppointment($scope.oNewAppointment);
+        }
+        else
+            postAppointment($scope.oNewAppointment);
+        clearNewAppointment();
+        $mdDialog.hide();
     };
+
+    $scope.DialogDeleteAppointment = function () {
+        deleteAppointment($scope.oNewAppointment);
+        clearNewAppointment();
+        $mdDialog.hide();
+    };
+
+
 
     }]
 ).directive('hbTouchmove', [function () {

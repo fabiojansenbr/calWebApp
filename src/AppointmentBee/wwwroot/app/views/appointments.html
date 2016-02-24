@@ -50,12 +50,15 @@
             </md-dialog-content>
 
             <md-dialog-actions layout="row">
-                <span flex></span>
-                <md-button ng-click="cancel()">
-                    Cancel
+                <md-button ng-click="DialogDeleteAppointment()">
+                    <md-icon class="material-icons">delete</md-icon>
                 </md-button>
-                <md-button ng-click="answer('useful')" style="margin-right:20px;">
-                    Add
+                <span flex></span>
+                <md-button ng-click="DialogAddAppointment()">
+                    <md-icon class="material-icons">check_circle</md-icon>
+                </md-button>
+                <md-button ng-click="DialogCancel()">
+                    <md-icon class="material-icons md-accent">cancel</md-icon>
                 </md-button>
             </md-dialog-actions>
         </form>
