@@ -2,11 +2,14 @@
     <h2 class="form-login-heading">Login</h2>
     <input type="text" class="form-control" placeholder="Email" data-ng-model="loginData.email" required autofocus>
     <input type="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
-    <div>
-        <md-checkbox md-no-ink data-ng-model="loginData.remember">Remember Me</md-checkbox>
+    <div layout="column"  layout-align="center start">
+       <md-checkbox data-ng-model="loginData.remember"><small class="md-caption">Remember Me </small> </md-checkbox>      
     </div>
     <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="login()">Login</button>
-    <div data-ng-hide="message == ''" class="alert alert-danger">
-        {{message}}
+    <div layout="column" layout-align="center center">
+        <md-button style="text-transform:none !important" class="md-primary" ng-href="#/forgotpassword"><small class="md-caption">Forgot Password?</small> </md-button>
     </div>
+        <div data-ng-hide="message == ''" class="alert alert-danger">
+            {{message}}
+        </div>
 </form>
