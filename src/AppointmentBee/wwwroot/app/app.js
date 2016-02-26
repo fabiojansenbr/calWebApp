@@ -41,29 +41,34 @@ app.constant('serverSettings', {
 });
 
 app.run(['$rootScope', '$location', 'authService', function ($rootScope, $location, authService) {
-    //Populate authService variables from local storage.
-    authService.fillAuthData();
 
-    //Attempt auto-login if user is not authenticated/token is expired.
-    if (authService.getAuthStatus() == false) {
+
+    //Attempt auto-login if user is not authenticated/token is expired and credentials saved.
+    if (authService.getAuthStatus() == false && authService.rememberMe()) {
         authService.autoLogin().finally(function () {
-            //ReDirect to home, if authentication succeeds, user will be redirected to appointments on listener.
             authService.fillAuthData();
         });
     }
 
-    //Direct user to appointment page if authenticated
-    //Note this could be done in homecontroller as well, but in that case it would load the home.html
-    $rootScope.$on('$routeChangeStart', function (event, next, current) {
-        if (next.originalPath == '/home') {
-            if (authService.getAuthStatus()) {
-                event.preventDefault();
-                $location.path('/appointments');
-            }
-           
-        }
+    if (authService.getAuthStatus()) {
+        //Populate authService variables from local storage.
+        authService.fillAuthData();
+       
 
-    });
+        //Direct user to appointment page if authenticated
+        //Note this could be done in homecontroller as well, but in that case it would load the home.html
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+            if (next.originalPath == '/home') {
+                if (authService.getAuthStatus()) {
+                    event.preventDefault();
+                    $location.path('/appointments');
+                }
+
+            }
+
+        });
+    }
+ 
 
 }]);
 

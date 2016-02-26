@@ -42,13 +42,18 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
             //When usernames are actually introduced as a different data we may need to change this
             var userEmail = response.userName;
             localStorageService.set('authorizationData', { token: response.access_token, email: userEmail, tokenExpiration: response['.expires'] });
-        
+
             _authentication.isAuth = true;
             _authentication.email = userEmail;
-            //Save credentials for auto-log in.
-            localStorageService.set('credentials', { email: userEmail, password: loginData.password });
-            _credentials.email = userEmail;
-            _credentials.password = loginData.password;
+
+            if (loginData.remember) {               
+                //Save credentials for auto-log in.
+                localStorageService.set('credentials', { email: userEmail, password: loginData.password });
+                _credentials.email = userEmail;
+                _credentials.password = loginData.password;
+            }
+           
+
             deferred.resolve(response);
 
         }).error(function (err, status) {
@@ -76,6 +81,15 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
 
        
     };
+
+    //If credentials are saved, it means remember me.
+    var _rememberMe = function () {
+        var credentials = localStorageService.get('credentials');
+        var rememberMe = false;
+        credentials ? rememberMe = true : rememberMe = false;
+
+        return rememberMe;
+    }
 
     var _logOut = function () {
 
@@ -154,6 +168,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
     authServiceFactory.register = _register;
     authServiceFactory.login = _login;
     authServiceFactory.autoLogin = _autoLogin;
+    authServiceFactory.rememberMe = _rememberMe;
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.getAuthStatus = _getAuthStatus;
