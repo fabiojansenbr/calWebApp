@@ -165,6 +165,14 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
       
     };
 
+    var _retrievePasswordReset = function (email) {
+
+        return $http.get(serviceBase + 'api/account/RequestPasswordReset?email=' + email)
+        .then(function (response) {
+            return response.status;
+        });
+    };
+
     authServiceFactory.register = _register;
     authServiceFactory.login = _login;
     authServiceFactory.autoLogin = _autoLogin;
@@ -177,6 +185,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
     authServiceFactory.credentials = _credentials;
     authServiceFactory.confirmEmail = _confirmEmail;
     authServiceFactory.getEmail = _getEmail;
+    authServiceFactory.retrievePasswordReset = _retrievePasswordReset;
 
     return authServiceFactory;
 }]);

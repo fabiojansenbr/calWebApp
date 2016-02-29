@@ -27,6 +27,11 @@ app.config(function ($routeProvider, $mdThemingProvider) {
         templateUrl: "/app/views/appointments.html"
     });
 
+    $routeProvider.when("/forgotpassword", {
+        controller: "loginController",
+        templateUrl: "/app/views/forgotpassword.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
     $mdThemingProvider.theme('default')
