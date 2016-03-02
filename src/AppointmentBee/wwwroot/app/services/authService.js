@@ -156,6 +156,16 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
         });           
     };
 
+     var _resetPassword = function (newPassword, resetPasswordData) {
+
+         return $http.get(serviceBase + 'api/account/ResetPassword?userid=' + resetPasswordData.userid
+                                     + '&token=' + encodeURIComponent(resetPasswordData.token)
+                                     + '&newPassword=' + newPassword)
+            .then(function (response) {
+            return response.status;
+        });           
+    };
+
     //Returns the email from credentials that is first populated after sign-up and updated after logins.
     var _getEmail = function () {
         var credentials = localStorageService.get('credentials');
@@ -186,6 +196,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
     authServiceFactory.confirmEmail = _confirmEmail;
     authServiceFactory.getEmail = _getEmail;
     authServiceFactory.retrievePasswordReset = _retrievePasswordReset;
+    authServiceFactory.resetPassword = _resetPassword;
 
     return authServiceFactory;
 }]);

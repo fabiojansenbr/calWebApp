@@ -34,8 +34,14 @@ app.controller('loginController', ['$scope', '$location', 'authService', functio
             $scope.message = 'We just sent a password reset link to ' + $scope.loginData.email;
             startTimer('/login');
         },
-        function (err) {
-            $scope.message = err.error_description;
+        function (response) {
+            var errors = [];
+            for (var key in response.data.ModelState) {
+                for (var i = 0; i < response.data.ModelState[key].length; i++) {
+                    errors.push(response.data.ModelState[key][i]);
+                }
+            }
+            $scope.message = errors.join(' ');
         }).finally(function () {
             $scope.isProcessing = false;
         });

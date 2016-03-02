@@ -6,6 +6,7 @@
 /// <reference path="app/controllers/homeController.js" />
 /// <reference path="app/controllers/indexController.js" />
 /// <reference path="app/controllers/loginController.js" />
+/// <reference path="app/controllers/passwordresetcontroller.js" />
 /// <reference path="app/controllers/signupController.js" />
 /// <reference path="app/services/appointmentsService.js" />
 /// <reference path="app/services/authInterceptorService.js" />
