@@ -24,7 +24,8 @@ function ($scope, $location, $timeout, authService) {
             authService.resetPassword($scope.newPassword.password, $scope.resetPasswordData).then(function (response) {
                 if (response == 200) {
                     $scope.resetSuccess = true;
-                    $scope.message = "Your password is changed. Redirecting you to login page..";
+                    $scope.message = "Your password is changed.";
+                    $scope.progressMessage = "Redirecting you to login page.."; 
                     $scope.isProcessing = true;
                     startTimer('/login');
                 };
