@@ -1,66 +1,76 @@
-﻿<div class="row">
-    <div class="col-md-2">
-        &nbsp;
-    </div>
+﻿
+<div layout="column" data-ng-controller="sideNavController" >
 
-    <div class="col-md-8">
-        <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false" ></div>               
-    </div>
-    <div class="col-md-2">
-        &nbsp;
-    </div>
+    <md-toolbar layout="row">
+        <md-button  class="menu" hide-gt-sm data-ng-click="toggleList()" aria-label="Show User List">
+            <md-icon class="material-icons md-accent">menu</md-icon>
+        </md-button>
+        <h3>VizitBee</h3>
+    </md-toolbar>
 
-    
+    <div layout="row">
+
+        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
+            <md-button data-ng-controller="indexController" data-ng-click="logOut()" class="md-primary" type="button"><p class="md-caption">Logout</p> </md-button>
+        </md-sidenav>
+
+        <md-content id="content">
+            <div class="col-md-12">
+                <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false"></div>
+            </div>
+        </md-content>
+
+    </div>
 </div>
 
-<script type="text/ng-template" id="dialog1.tmpl.html">
-    <md-dialog aria-label="Mango (Fruit)" ng-cloak>
-        <form>
-            <md-toolbar>
-                <div class="md-toolbar-tools">
-                    <h2>Add {{ oNewAppointment.StartDate.format('DD-MM-YYYY HH:mm')}} - {{ oNewAppointment.EndDate.format('HH:mm') }}</h2>
-                    <span flex></span>
-                    <md-button class="md-icon-button" ng-click="DialogCancel()">
-                        <i class="material-icons">clear</i>
-                    </md-button>
-                </div>
-            </md-toolbar>
-
-            <md-dialog-content>
-                <div class="md-dialog-content">
-                    <div>
-                        <h2>Details</h2>
-                        <md-switch ng-model="oNewAppointment.IsAvailable" aria-label="Available">
-                            Available
-                        </md-switch>
+    <script type="text/ng-template" id="dialog1.tmpl.html">
+        <md-dialog aria-label="Mango (Fruit)" ng-cloak>
+            <form>
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <h2>Add {{ oNewAppointment.StartDate.format('DD-MM-YYYY HH:mm')}} - {{ oNewAppointment.EndDate.format('HH:mm') }}</h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="DialogCancel()">
+                            <i class="material-icons">clear</i>
+                        </md-button>
                     </div>
-                    <p ng-show="oNewAppointment.IsAvailable">
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label>First name</label>
-                            <input ng-model="oNewAppointment.Patient.PatientName">
-                        </md-input-container>
+                </md-toolbar>
 
-                        <md-input-container class="md-block" flex-gt-sm>
-                            <label>Phone</label>
-                            <input ng-model="oNewAppointment.Patient.PhoneNumber">
-                        </md-input-container>
-                    </p>
-                    
-                </div>
-            </md-dialog-content>
+                <md-dialog-content>
+                    <div class="md-dialog-content">
+                        <div>
+                            <h2>Details</h2>
+                            <md-switch ng-model="oNewAppointment.IsAvailable" aria-label="Available">
+                                Available
+                            </md-switch>
+                        </div>
+                        <p ng-show="oNewAppointment.IsAvailable">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>First name</label>
+                                <input ng-model="oNewAppointment.Patient.PatientName">
+                            </md-input-container>
 
-            <md-dialog-actions layout="row">
-                <md-button ng-click="DialogDeleteAppointment()">
-                    <md-icon class="material-icons">delete</md-icon>
-                </md-button>
-                <span flex></span>
-                <md-button ng-click="DialogAddAppointment()">
-                    <md-icon class="material-icons">check_circle</md-icon>
-                </md-button>
-                <md-button ng-click="DialogCancel()">
-                    <md-icon class="material-icons md-accent">cancel</md-icon>
-                </md-button>
-            </md-dialog-actions>
-        </form>
-    </md-dialog>
-</script>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Phone</label>
+                                <input ng-model="oNewAppointment.Patient.PhoneNumber">
+                            </md-input-container>
+                        </p>
+
+                    </div>
+                </md-dialog-content>
+
+                <md-dialog-actions layout="row">
+                    <md-button ng-click="DialogDeleteAppointment()">
+                        <md-icon class="material-icons">delete</md-icon>
+                    </md-button>
+                    <span flex></span>
+                    <md-button ng-click="DialogAddAppointment()">
+                        <md-icon class="material-icons">check_circle</md-icon>
+                    </md-button>
+                    <md-button ng-click="DialogCancel()">
+                        <md-icon class="material-icons md-accent">cancel</md-icon>
+                    </md-button>
+                </md-dialog-actions>
+            </form>
+        </md-dialog>
+    </script>

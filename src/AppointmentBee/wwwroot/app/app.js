@@ -1,4 +1,4 @@
-﻿var app = angular.module('AngularCalendar', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.calendar', 'ngMaterial', 'ngMessages']);
+﻿var app = angular.module('AngularCalendar', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.calendar', 'ngMaterial', 'ngMessages', 'ngAria']);
 
 app.config(function ($routeProvider, $mdThemingProvider) {
 
