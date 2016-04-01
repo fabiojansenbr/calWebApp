@@ -1,21 +1,23 @@
 ﻿
 <div layout="column" data-ng-controller="sideNavController" >
 
-    <md-toolbar layout="row">
-        <md-button  class="menu" hide-gt-sm data-ng-click="toggleList()" aria-label="Show User List">
-            <md-icon class="material-icons md-accent">menu</md-icon>
-        </md-button>
-        <h3>VizitBee</h3>
-    </md-toolbar>
-
+  
     <div layout="row">
 
         <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
-            <md-button data-ng-controller="indexController" data-ng-click="logOut()" class="md-primary" type="button"><p class="md-caption">Logout</p> </md-button>
+            <md-button  data-ng-controller="indexController" data-ng-click="logOut()" class="md-primary" type="button">Logout</md-button>
         </md-sidenav>
 
         <md-content id="content">
-            <div class="col-md-12">
+            <md-toolbar layout="row">
+                    <md-button hide-gt-sm data-ng-click="toggleList()" style="min-width:50px;">
+                        <md-icon class="material-icons md-accent">menu</md-icon>
+                    </md-button>
+
+               
+            </md-toolbar>
+
+            <div class="col-md-10 col-md-offset-1">
                 <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false"></div>
             </div>
         </md-content>
