@@ -69,3 +69,5 @@ md-sidenav.md-closed.md-locked-open-add-active {
     width: 85vw !important;
     max-width: 250px !important;
 } 
+
+.ng-scope, #mainContainer { height: 100%; }

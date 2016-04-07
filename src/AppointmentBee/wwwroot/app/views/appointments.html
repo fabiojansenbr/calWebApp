@@ -1,38 +1,39 @@
 ﻿
-<div layout="column" data-ng-controller="sideNavController" >
+<div layout="column" data-ng-controller="sideNavController">
 
   
-    <div layout="row">
+    <div layout="row" layout-fill>
 
-        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
+        <md-sidenav layout="column" md-is-locked-open="$mdMedia('gt-sm')" class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
             <md-button  data-ng-controller="indexController" data-ng-click="logOut()" class="md-primary" type="button">Logout</md-button>
+    
         </md-sidenav>
-
-        <md-content id="content">
-            <md-toolbar style="min-height:50px !important; height:50px !important;" layout="row">
+        <div layout="column" id="content">
+            <md-content >
+                <md-toolbar style="min-height:50px !important; height:50px !important;" layout="row">
                     <md-button hide-gt-sm data-ng-click="toggleList()" style="min-width:50px;">
                         <md-icon class="material-icons md-accent">menu</md-icon>
                     </md-button>
-                <div class="md-toolbar-tools" style="height:inherit !important;">
-                    <span></span>
-                    <!-- fill up the space between left and right area -->
-                    <span flex></span>
-                    <md-button style="min-width:18px;">
-                        <md-icon class="material-icons md-accent">search</md-icon>
-                        <md-tooltip>Search clients</md-tooltip>
-                    </md-button>
-                    <md-button style="min-width:18px;">
-                        <md-icon class="material-icons md-accent">more vert</md-icon>
-                        <md-tooltip>Calendar view</md-tooltip>
-                    </md-button>
-                </div>              
-            </md-toolbar>
+                    <div class="md-toolbar-tools" style="height:inherit !important;">
+                        <span></span>
+                        <!-- fill up the space between left and right area -->
+                        <span flex></span>
+                        <md-button style="min-width:18px;">
+                            <md-icon class="material-icons md-accent">search</md-icon>
+                            <md-tooltip>Search clients</md-tooltip>
+                        </md-button>
+                        <md-button style="min-width:18px;">
+                            <md-icon class="material-icons md-accent">more vert</md-icon>
+                            <md-tooltip>Calendar view</md-tooltip>
+                        </md-button>
+                    </div>
+                </md-toolbar>
 
-            <div class="col-md-10 col-md-offset-1">
-                <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false"></div>
-            </div>
-        </md-content>
-
+                <div class="col-md-10 col-md-offset-1">
+                    <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false"></div>
+                </div>
+            </md-content>
+        </div>
     </div>
 </div>
 
