@@ -81,6 +81,41 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             });
 
         };
+
+        appointments.client.deleteAppointment = function (data) {
+            getAppointments();
+            // $.notify("<strong>" + data.Creator.Name + "<strong>" + " added an appointment");
+            $.notify({
+                title: '<strong>' + data.Creator.Name + '</strong>' + ' removed an appointment.',
+                message: '<p>' + data.StartDate + '</p>',
+                icon: 'glyphicon glyphicon-plus'
+            }, {
+                type: 'info',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                }
+            });
+
+        };
+
+        appointments.client.updateAppointment = function (data) {
+            getAppointments();
+            // $.notify("<strong>" + data.Creator.Name + "<strong>" + " added an appointment");
+            $.notify({
+                title: '<strong>' + data.Creator.Name + '</strong>' + ' modified an appointment.',
+                message: '<p>' + data.StartDate + '</p>',
+                icon: 'glyphicon glyphicon-plus'
+            }, {
+                type: 'info',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                }
+            });
+
+        };
+
         $.connection.hub.logging = true;
 
         if ($.connection.hub && $.connection.hub.state === $.signalR.connectionState.disconnected) {
@@ -268,6 +303,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     $scope.DialogAddAppointment = function () {
         if ($scope.oNewAppointment.Id) {
             $scope.oNewAppointment.source = {}; //was causing circular reference exceptiion - probably needs to limit appointment object
+            $scope.oNewAppointment.CreatorId = $scope.oNewAppointment.Creator.Id;
             putAppointment($scope.oNewAppointment);
         }
         else
