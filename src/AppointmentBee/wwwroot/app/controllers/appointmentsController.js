@@ -256,33 +256,6 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
 
     $scope.uiConfig = {
         calendar: calendarConfig
-            /*{
-            height: "auto",
-            //editable: true,
-            header: {
-                left: 'title',
-                center: '',
-                right: 'today prev,next'
-            },
-            defaultView: 'agendaWeek',
-            slotLabelFormat: 'hh:mm',
-            minTime: "08:00:00",
-            maxTime: "20:00:00",
-            slotDuration: "00:45:00",
-            slotLabelInterval: "00:45:00",
-            snapDuration: "00:45:00",
-            weekends: false,
-            displayEventEnd: false,
-            timeFormat: "HH:mm",
-            eventDataTransform: $scope.eventDataTransform,
-            changeView: $scope.changeView,
-            renderCalender: $scope.renderCalender,
-            viewRender: $scope.viewRender,
-            dayClick: ($mdMedia('sm') || $mdMedia('xs')) ? null : $scope.dayClick 
-            //selectable: true,
-			//selectHelper: true,
-			//select: $scope.select
-        }*/
     };
 
     $scope.eventSources = [];
