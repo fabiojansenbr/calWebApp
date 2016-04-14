@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia',
-    function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia) {
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$rootScope',
+    function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $rootScope, uiCalendarConfig) {
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
@@ -127,16 +127,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
 
 
 
-    /* Change View */
-    $scope.changeView = function (view, calendar) {
-        uiCalendarConfig.calendars[calendar].fullCalendar('changeView', view);
-    };
-    /* Change View */
-    $scope.renderCalender = function (calendar) {
-        if (uiCalendarConfig.calendars[calendar]) {
-            uiCalendarConfig.calendars[calendar].fullCalendar('render');
-        }
-    };
+  
 
     $scope.eventDataTransform = function (eventData) {
         var fullEvent = { id: eventData.Id, title: "", start: eventData.StartDate, end: eventData.EndDate, className: "eventAvailable" };
@@ -217,13 +208,24 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         }
     }
 
+    $scope.changeView = function (view) {
+        if (view == 'today')
+            $('#calendar').fullCalendar('today');
+        else
+            $('#calendar').fullCalendar('changeView', view);
+    };
+        /* Change View */
+    $scope.renderCalender = function (calendar) {
+        if (uiCalendarConfig.calendars[calendar]) {
+            uiCalendarConfig.calendars[calendar].fullCalendar('render');
+        }
+    };
         /* config object */
     var calendarConfig = {
         height: "auto",
         header: {
             left: 'title',
-            center: 'month,agendaWeek,agendaDay',
-            right: 'today prev,next'
+            right: 'prev,next'
         },
         defaultView: 'agendaWeek',
         slotLabelFormat: 'hh:mm',
@@ -237,7 +239,6 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         timeFormat: "HH:mm",
         //eventOverlap: false,
         eventDataTransform: $scope.eventDataTransform,
-        changeView: $scope.changeView,
         renderCalender: $scope.renderCalender,
         viewRender: $scope.viewRender,
         eventClick: $scope.eventClick
@@ -257,7 +258,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     $scope.uiConfig = {
         calendar: calendarConfig
     };
-
+        /* Change View */
+   
     $scope.eventSources = [];
     getAppointments();
     getUserCalendar();
@@ -290,8 +292,6 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         clearNewAppointment();
         $mdDialog.hide();
     };
-
-
 
     }]
 ).directive('hbTouchmove', [function () {

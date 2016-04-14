@@ -1,5 +1,5 @@
 ﻿
-<div layout="column" data-ng-controller="sideNavController">
+<div layout="column" data-ng-controller="sideNavController as sn">
 
   
     <div layout="row" layout-fill>
@@ -27,8 +27,21 @@
                             </md-button>
                             <md-menu-content width="3">
                                 <md-menu-item>
-                                    <md-button style="min-width:18px;">
+                                    <md-button style="min-width:18px;" data-ng-click="changeView('agendaDay')">
                                         <md-icon class="material-icons md-accent">more vert</md-icon>
+                                        day
+                                    </md-button>
+                                    <md-button style="min-width:18px;" data-ng-click="changeView('agendaWeek')">
+                                        <md-icon class="material-icons md-accent">more vert</md-icon>
+                                        week
+                                    </md-button>
+                                    <md-button style="min-width:18px;" data-ng-click="changeView('month')">
+                                        <md-icon class="material-icons md-accent">more vert</md-icon>
+                                        month
+                                    </md-button>
+                                    <md-button style="min-width:18px;" data-ng-click="changeView('today')">
+                                        <md-icon class="material-icons md-accent">more vert</md-icon>
+                                       today
                                     </md-button>
                                 </md-menu-item>
                             </md-menu-content>
@@ -38,7 +51,7 @@
                 </md-toolbar>
 
                 <div class="col-md-10 col-md-offset-1">
-                    <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false"></div>
+                    <div id="calendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false" calendar="myCalendar"></div>
                 </div>
             </md-content>
         </div>
