@@ -88,3 +88,17 @@ Colors: Use the following - https://www.google.com/design/spec/style/color.html#
   margin-left: 12px !important;
   padding: 5px! important;
 }
+
+/* This is to fix Next, Prev buttons not displaying in Edge browser*/
+.fc-icon:after {margin: 0 0; color: black}
+
+/*Changing size of next, prev buttons*/
+.fc-next-button, .fc-prev-button {
+width:50px !important;
+height:50px !important;
+}
+
+/*top padding for center*/
+.fc-center {
+    padding-top: 10px; 
+}

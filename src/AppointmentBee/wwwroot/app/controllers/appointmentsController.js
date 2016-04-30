@@ -230,8 +230,9 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     var calendarConfig = {
         height: "auto",
         header: {
-            left: 'title',
-            right: 'prev,next'
+            left: 'prev',
+            center: 'title',
+            right: 'next'
         },
         defaultView: 'agendaWeek',
         slotLabelFormat: 'hh:mm',
