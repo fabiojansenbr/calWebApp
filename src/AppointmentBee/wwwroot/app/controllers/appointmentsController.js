@@ -208,13 +208,19 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         }
     }
 
+    //Change the calendars view
     $scope.changeView = function (view) {
         if (view == 'today')
             $('#calendar').fullCalendar('today');
         else
             $('#calendar').fullCalendar('changeView', view);
     };
-        /* Change View */
+
+    //hook calendar view change event to update pressed button status
+    $scope.viewChanged = function (view) {
+        //TODO - change pressed buttons
+    };
+       
     $scope.renderCalender = function (calendar) {
         if (uiCalendarConfig.calendars[calendar]) {
             uiCalendarConfig.calendars[calendar].fullCalendar('render');
@@ -239,6 +245,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         timeFormat: "HH:mm",
         //eventOverlap: false,
         eventDataTransform: $scope.eventDataTransform,
+        changeView: $scope.viewChanged,
         renderCalender: $scope.renderCalender,
         viewRender: $scope.viewRender,
         eventClick: $scope.eventClick
