@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$rootScope',
-    function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $rootScope, uiCalendarConfig) {
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast' , '$rootScope',
+    function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $rootScope, uiCalendarConfig) {
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
@@ -67,53 +67,42 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         var appointments = $.connection.appointmentHub;
         appointments.client.newAppointment = function (data) {
             getAppointments();
-            // $.notify("<strong>" + data.Creator.Name + "<strong>" + " added an appointment");
-            $.notify({
-                title: '<strong>' + data.Creator.Name + '</strong>' + ' added an appointment.',
-                message: '<p>' + data.StartDate + '</p>',
-                icon: 'glyphicon glyphicon-plus'
-            }, {
-                type: 'info',
-                placement: {
-                    from: "bottom",
-                    align: "right"
-                }
-            });
+          
+            var appointmantDate = new Date(data.StartDate);
 
+            $mdToast.show($mdToast.simple()
+                         .textContent(data.Creator.Name + ' added an appointment.  ' + appointmantDate.toUTCString())
+                         .action('OK')
+                         .position('bottom left')
+                         .theme('success-toast')
+                         .hideDelay(2000));
         };
 
         appointments.client.deleteAppointment = function (data) {
             getAppointments();
-            // $.notify("<strong>" + data.Creator.Name + "<strong>" + " added an appointment");
-            $.notify({
-                title: '<strong>' + data.Creator.Name + '</strong>' + ' removed an appointment.',
-                message: '<p>' + data.StartDate + '</p>',
-                icon: 'glyphicon glyphicon-plus'
-            }, {
-                type: 'info',
-                placement: {
-                    from: "bottom",
-                    align: "right"
-                }
-            });
+          
+            var appointmantDate = new Date(data.StartDate);
+
+            $mdToast.show($mdToast.simple()
+                         .textContent(data.Creator.Name + ' removed an appointment.  ' + appointmantDate.toUTCString())
+                         .action('OK')
+                         .position('bottom left')
+                         .theme('error-toast')
+                         .hideDelay(2000));
 
         };
 
         appointments.client.updateAppointment = function (data) {
             getAppointments();
-            // $.notify("<strong>" + data.Creator.Name + "<strong>" + " added an appointment");
-            $.notify({
-                title: '<strong>' + data.Creator.Name + '</strong>' + ' modified an appointment.',
-                message: '<p>' + data.StartDate + '</p>',
-                icon: 'glyphicon glyphicon-plus'
-            }, {
-                type: 'info',
-                placement: {
-                    from: "bottom",
-                    align: "right"
-                }
-            });
+           
+            var appointmantDate = new Date(data.StartDate);
 
+            $mdToast.show($mdToast.simple()
+                        .textContent(data.Creator.Name + ' updated an appointment.  ' + appointmantDate.toUTCString())
+                        .action('OK')
+                        .position('bottom left')
+                        .theme('info-toast')
+                        .hideDelay(2000));
         };
 
         $.connection.hub.logging = true;

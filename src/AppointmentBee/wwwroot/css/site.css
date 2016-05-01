@@ -69,10 +69,10 @@ md-sidenav.md-closed.md-locked-open-add-active {
     width: 85vw !important;
     max-width: 250px !important;
 } 
-
-
+/*Fixing sidenav*/
 .ng-scope, #mainContainer { height: 100%; }
 
+/*Login and Signup boxes*/
 .loginBox {
   max-width:  90%;
   width: 500px
@@ -82,3 +82,15 @@ md-sidenav.md-closed.md-locked-open-add-active {
   width: 100%
 }
 
+/*Toast notifications*/
+md-toast.md-success-toast-theme .md-toast-content {
+    background-color:lightgreen;
+}
+
+md-toast.md-error-toast-theme .md-toast-content {
+    background-color: crimson;
+}
+
+md-toast.md-info-toast-theme .md-toast-content {
+    background-color: burlywood;
+}
