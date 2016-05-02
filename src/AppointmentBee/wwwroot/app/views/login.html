@@ -4,12 +4,14 @@
             <h2 class="md-toolbar-tools"><span>Login</span></h2>
         </md-toolbar>
         <md-content layout="column" class="md-padding">
-            <md-input-container>
+            <md-input-container class="md-icon-float md-block">
                 <label>Email</label>
+                <md-icon style="width:36px;" class="material-icons md-accent">mail</md-icon>
                 <input type="email" data-ng-model="loginData.email" />
             </md-input-container>
-            <md-input-container>
+            <md-input-container class="md-icon-float md-block">
                 <label>Password</label>
+                <md-icon style="width:36px;" class="material-icons md-accent">lock_outline</md-icon>
                 <input type="password" data-ng-model="loginData.password" />
             </md-input-container>
             <div layout="column" layout-align="center left">
