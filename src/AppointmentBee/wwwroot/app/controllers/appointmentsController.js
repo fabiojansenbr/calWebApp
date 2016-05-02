@@ -20,7 +20,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
                 PatientName: '',
                 PhoneNumber: ''
             },*/
-            IsAvailable: true
+            IsAvailable: true,
+            AppointmentNote: ''
         };
     };
 
@@ -121,10 +122,6 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             });
         }
     };
-
-
-
-  
 
     $scope.eventDataTransform = function (eventData) {
         var fullEvent = { id: eventData.Id, title: "", start: eventData.StartDate, end: eventData.EndDate, className: "eventAvailable" };
