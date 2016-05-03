@@ -86,24 +86,46 @@
                             </md-switch>
                         </div>
                         <p ng-show="oNewAppointment.IsAvailable">
-                            <md-input-container class="md-icon-float md-block" flex-gt-sm>
-                                <label>Name</label>
-                                <md-icon style="width:36px;" class="material-icons md-accent">person</md-icon>
-                                <input ng-model="oNewAppointment.Patient.PatientName">
-                            </md-input-container>
 
-                            <md-input-container class="md-icon-float md-block" flex-gt-sm>
-                                <label>Phone</label>
-                                <md-icon style="width:36px;" class="material-icons md-accent">call</md-icon>
-                                <input ng-model="oNewAppointment.Patient.PhoneNumber">
-                            </md-input-container>
+                                <div ng-controller="SearchBoxController" layout="column">
+                                    <md-autocomplete ng-disabled="isDisabled"
+                                                     md-no-cache="noCache"
+                                                     md-selected-item="selectedItem"
+                                                     md-search-text-change="searchTextChange(searchText)"
+                                                     md-search-text="searchText"
+                                                     md-selected-item-change="selectedItemChange(item)"
+                                                     md-items="item in querySearch(searchText)"
+                                                     md-item-text="item.PatientName"
+                                                     md-min-length="0"
+                                                     placeholder="Type a client name">
+                                        <md-item-template>
+                                            <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}}</span>
+                                        </md-item-template>
+                                        <md-not-found>
+                                            <a ng-click="newPatient(searchText)">Create new</a>
+                                        </md-not-found>
+                                    </md-autocomplete>
 
-                            <md-input-container class="md-block">
-                                <label>Note</label>
-                                <textarea ng-model="oNewAppointment.AppointmentNote" md-maxlength="300" rows="5" md-select-on-focus></textarea>
-                            </md-input-container>
+                                </div>
 
-                    </div>
+                                <md-input-container class="md-icon-float md-block" flex-gt-sm>
+                                    <label>Name</label>
+                                    <md-icon style="width:36px;" class="material-icons md-accent">person</md-icon>
+                                    <input ng-model="oNewAppointment.Patient.PatientName">
+                                </md-input-container>
+
+                                <md-input-container class="md-icon-float md-block" flex-gt-sm>
+                                    <label>Phone</label>
+                                    <md-icon style="width:36px;" class="material-icons md-accent">call</md-icon>
+                                    <input ng-model="oNewAppointment.Patient.PhoneNumber">
+                                </md-input-container>
+
+                                <md-input-container class="md-block">
+                                    <label>Note</label>
+                                    <textarea ng-model="oNewAppointment.AppointmentNote" md-maxlength="300" rows="5" md-select-on-focus></textarea>
+                                </md-input-container>
+
+                            </div>
                 </md-dialog-content>
 
                 <md-dialog-actions layout="row">
