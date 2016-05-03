@@ -46,7 +46,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
 
     var deleteAppointment = function (data) {
         appointmentsService.deleteAppointment(data).then(function (result) {
-            getAppointments();
+            $('#calendar').fullCalendar('removeEvents', data.Id);
+            $('#calendar').fullCalendar('rerenderEvents');
         })
     };
 
@@ -70,7 +71,6 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         var appointments = $.connection.appointmentHub;
         appointments.client.newAppointment = function (data) {
             getAppointments();
-          
             var appointmantDate = new Date(data.StartDate);
 
             $mdToast.show($mdToast.simple()
@@ -82,8 +82,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         };
 
         appointments.client.deleteAppointment = function (data) {
-            getAppointments();
-          
+            
+            $('#calendar').fullCalendar('removeEvents', data.Id);
+            $('#calendar').fullCalendar('rerenderEvents');
+
             var appointmantDate = new Date(data.StartDate);
 
             $mdToast.show($mdToast.simple()
