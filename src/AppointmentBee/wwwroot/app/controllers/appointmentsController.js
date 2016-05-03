@@ -53,9 +53,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     var putAppointment = function (data) {
         appointmentsService.putAppointment(data).then(function (result) {
           
-            getAppointments();
             $scope.eventDataTransform(data);
-            $('#calendar').fullCalendar('refetchEvents');
             $('#calendar').fullCalendar('rerenderEvents');
         })
     };
@@ -99,9 +97,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
 
         appointments.client.updateAppointment = function (data) {
                    
-            getAppointments();
+
             $scope.eventDataTransform(data);
-            $('#calendar').fullCalendar('refetchEvents');
             $('#calendar').fullCalendar('rerenderEvents');
 
             var appointmantDate = new Date(data.StartDate);
@@ -273,8 +270,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     };
 
     $scope.DialogCancel = function () {
-        clearNewAppointment();
         $mdDialog.cancel();
+        clearNewAppointment();
     };
 
     $scope.DialogAddAppointment = function () {
@@ -285,14 +282,14 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         }
         else
             postAppointment($scope.oNewAppointment);
-        clearNewAppointment();
         $mdDialog.hide();
+        clearNewAppointment();
     };
 
     $scope.DialogDeleteAppointment = function () {
-        deleteAppointment($scope.oNewAppointment);
-        clearNewAppointment();
+        deleteAppointment($scope.oNewAppointment);      
         $mdDialog.hide();
+        clearNewAppointment();
     };
 
     }]
