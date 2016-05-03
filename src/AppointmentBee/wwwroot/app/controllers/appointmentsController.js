@@ -301,9 +301,11 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     };
 
     $scope.DialogDeleteAppointment = function () {
-        deleteAppointment($scope.oNewAppointment);      
-        $mdDialog.hide();
-        clearNewAppointment();
+        if ($scope.oNewAppointment.Id) {
+            deleteAppointment($scope.oNewAppointment);
+            $mdDialog.hide();
+            clearNewAppointment();
+        }
     };
 
     }]
