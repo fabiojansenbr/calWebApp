@@ -220,7 +220,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     };
         /* config object */
 
-    $scope.eventDrop = function (event, delta, revertFunc) {
+    $scope.eventDateUpdate = function (event, delta, revertFunc) {
         $scope.oNewAppointment = event;
         $scope.oNewAppointment.source = {}; //was causing circular reference exceptiion - probably needs to limit appointment object
         $scope.oNewAppointment.CreatorId = $scope.oNewAppointment.Creator.Id;
@@ -248,7 +248,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         timeFormat: "HH:mm",
         //eventOverlap: false,
         eventDataTransform: $scope.eventDataTransform,
-        eventDrop: $scope.eventDrop,
+        eventDrop: $scope.eventDateUpdate,
+        eventResize: $scope.eventDateUpdate,
         changeView: $scope.viewChanged,
         renderCalender: $scope.renderCalender,
         viewRender: $scope.viewRender,
