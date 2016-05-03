@@ -85,7 +85,7 @@
                                 Available
                             </md-switch>
                         </div>
-                        <p ng-show="oNewAppointment.IsAvailable">
+                        <div ng-show="oNewAppointment.IsAvailable">
 
                                 <div ng-controller="SearchBoxController" layout="column">
                                     <md-autocomplete ng-disabled="isDisabled"
@@ -124,8 +124,8 @@
                                     <label>Note</label>
                                     <textarea ng-model="oNewAppointment.AppointmentNote" md-maxlength="300" rows="5" md-select-on-focus></textarea>
                                 </md-input-container>
-
-                            </div>
+                          </div>
+                      </div>
                 </md-dialog-content>
 
                 <md-dialog-actions layout="row">
