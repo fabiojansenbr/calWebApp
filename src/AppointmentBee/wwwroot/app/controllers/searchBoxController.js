@@ -11,8 +11,9 @@ function ($scope, $location, $timeout, patientsService, $q, $log) {
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange = searchTextChange;
     $scope.newPatient = newPatient;
+
     function newPatient(patient) {
-        alert("Create New Patient" + patient);
+        $log.info('Create New patient for:' + patient);
     }
 
     // ******************************
@@ -22,8 +23,15 @@ function ($scope, $location, $timeout, patientsService, $q, $log) {
      * Search for patients.
      */
     function querySearch(query) {
-        return results = query ? $scope.patients.filter(createFilterFor(query)) : $scope.patients,
-            deferred;
+        var results = query ? $scope.patients.filter(createFilterFor(query)) : $scope.patients,
+          deferred;
+        if ($scope.simulateQuery) {
+            deferred = $q.defer();
+            $timeout(function () { deferred.resolve(results); }, Math.random() * 1000, false);
+            return deferred.promise;
+        } else {
+            return results;
+        }
     }
     function searchTextChange(text) {
         $log.info('Text changed to ' + text);
