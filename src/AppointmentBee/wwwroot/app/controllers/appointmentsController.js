@@ -219,6 +219,16 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         }
     };
         /* config object */
+
+    $scope.eventDrop = function (event, delta, revertFunc) {
+        $scope.oNewAppointment = event;
+        $scope.oNewAppointment.source = {}; //was causing circular reference exceptiion - probably needs to limit appointment object
+        $scope.oNewAppointment.CreatorId = $scope.oNewAppointment.Creator.Id;
+        $scope.oNewAppointment.StartDate = event.start;
+        $scope.oNewAppointment.EndDate = event.end;
+        putAppointment($scope.oNewAppointment);
+    };
+
     var calendarConfig = {
         height: "auto",
         header: {
@@ -238,12 +248,14 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         timeFormat: "HH:mm",
         //eventOverlap: false,
         eventDataTransform: $scope.eventDataTransform,
+        eventDrop: $scope.eventDrop,
         changeView: $scope.viewChanged,
         renderCalender: $scope.renderCalender,
         viewRender: $scope.viewRender,
         eventClick: $scope.eventClick
     };
     
+   
     if ($scope.DetectTouchScreen()) {
         calendarConfig.dayClick = $scope.dayClick;
     }
