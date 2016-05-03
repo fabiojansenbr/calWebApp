@@ -52,9 +52,9 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     };
 
     var putAppointment = function (data) {
-        appointmentsService.putAppointment(data).then(function (result) {
-          
-            $scope.eventDataTransform(data);
+        appointmentsService.putAppointment(data).then(function (result) {                     
+        
+            $('#calendar').fullCalendar('renderEvent', data, false);
             $('#calendar').fullCalendar('rerenderEvents');
         })
     };
@@ -98,11 +98,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         };
 
         appointments.client.updateAppointment = function (data) {
-                   
-
-            $scope.eventDataTransform(data);
+                              
+            $('#calendar').fullCalendar('removeEvents', data.Id);
+            $('#calendar').fullCalendar('renderEvent', data, false);
             $('#calendar').fullCalendar('rerenderEvents');
-
             var appointmantDate = new Date(data.StartDate);
 
             $mdToast.show($mdToast.simple()
