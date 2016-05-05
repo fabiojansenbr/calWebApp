@@ -10,11 +10,11 @@ function ($scope, $location, $timeout, patientsService, $q, $log) {
     $scope.querySearch = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange = searchTextChange;
-    $scope.newPatient = newPatient;
 
-    function newPatient(patient) {
+    $scope.newPatient = function (patient) {
         $log.info('Create New patient for:' + patient);
     }
+
 
     // ******************************
     // Internal methods

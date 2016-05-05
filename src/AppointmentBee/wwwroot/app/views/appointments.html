@@ -102,7 +102,7 @@
                                             <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}}</span>
                                         </md-item-template>
                                         <md-not-found>
-                                            <a ng-click="newPatient(searchText)">Create new</a>
+                                            <a ng-mousedown="newPatient(searchText)">Create new</a>
                                         </md-not-found>
                                     </md-autocomplete>
 
