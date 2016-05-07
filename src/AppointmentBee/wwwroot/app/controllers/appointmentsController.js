@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast' , '$rootScope', '$log',
-    function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $rootScope, $log) {
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast' , '$rootScope', '$log', 'patientsService', '$q', 
+    function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $rootScope, $log, patientsService, $q) {
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
@@ -16,13 +16,14 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         $scope.oNewAppointment = {
             StartDate: '',
             EndDate: '',
-            /*Patient: {
+            Patient: {
                 PatientName: '',
                 PhoneNumber: ''
-            },*/
+            },
             IsAvailable: true,
             AppointmentNote: ''
         };
+       
     };
 
     
@@ -159,13 +160,12 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         {
             $scope.oNewAppointment = data;
             $scope.oNewAppointment.StartDate = data.start;
-            $scope.oNewAppointment.EndDate = data.end;
-            
+            $scope.oNewAppointment.EndDate = data.end;       
         }
         else
         {
             $scope.oNewAppointment.StartDate = start; //date.clone();
-            $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm");
+            $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm");            
         }
         
         $mdDialog.show({
@@ -306,6 +306,76 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             clearNewAppointment();
         }
     };
+
+
+       // *************************************************************************************
+       // Smart Patient search Box
+       // *************************************************************************************
+
+
+    $scope.simulateQuery = false;
+           // array of patients
+    $scope.patients = "";
+    loadAll();
+    $scope.querySearch = querySearch;
+    $scope.selectedItemChange = selectedItemChange;
+    $scope.searchTextChange = searchTextChange;
+
+    $scope.newPatient = function (patient) {
+        $log.info('Create New patient for:' + patient);
+    }
+
+
+        /**
+         * Search for patients.
+         */
+    function querySearch(query) {
+        var results = query ? $scope.patients.filter(createFilterFor(query)) : $scope.patients,
+          deferred;
+        if ($scope.simulateQuery) {
+            deferred = $q.defer();
+            $timeout(function () { deferred.resolve(results); }, Math.random() * 1000, false);
+            return deferred.promise;
+        } else {
+            return results;
+        }
+    }
+    function searchTextChange(text) {
+        if (text) {
+            $scope.oNewAppointment.Patient.PatientName = text;
+        }       
+    }
+    function selectedItemChange(item) {
+        if (item) {
+            $scope.oNewAppointment.Patient = item;
+        }     
+    }
+        /**
+         * Get all the patients at once. This is a cheap operation
+         */
+    function loadAll() {
+
+        patientsService.getPatients().then(function (results) {
+
+            $scope.patients = results.data;
+
+        }, function (error) {
+            //alert(error.data.message);
+        });
+
+
+    }
+        /**
+         * Create filter function for a query string
+         */
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+        return function filterFn(patient) {
+            return (patient.PatientName.indexOf(lowercaseQuery) === 0);
+        };
+
+    }
+
 
     }]
 ).directive('hbTouchmove', [function () {

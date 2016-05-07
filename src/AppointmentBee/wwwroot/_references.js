@@ -7,7 +7,6 @@
 /// <reference path="app/controllers/indexController.js" />
 /// <reference path="app/controllers/loginController.js" />
 /// <reference path="app/controllers/passwordresetcontroller.js" />
-/// <reference path="app/controllers/searchboxcontroller.js" />
 /// <reference path="app/controllers/sidenavcontroller.js" />
 /// <reference path="app/controllers/signupController.js" />
 /// <reference path="app/services/appointmentsService.js" />
