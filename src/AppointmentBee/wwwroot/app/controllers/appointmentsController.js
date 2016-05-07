@@ -23,7 +23,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             IsAvailable: true,
             AppointmentNote: ''
         };
-       
+        $scope.searchText = null;
     };
 
     
@@ -218,8 +218,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             uiCalendarConfig.calendars[calendar].fullCalendar('render');
         }
     };
-        /* config object */
 
+    // When day drag/drop and resize happens
     $scope.eventDateUpdate = function (event, delta, revertFunc) {
         $scope.oNewAppointment = event;
         $scope.oNewAppointment.source = {}; //was causing circular reference exceptiion - probably needs to limit appointment object
@@ -271,8 +271,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     $scope.uiConfig = {
         calendar: calendarConfig
     };
-        /* Change View */
-   
+
     $scope.eventSources = [];
     getAppointments();
     getUserCalendar();
@@ -340,15 +339,11 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             return results;
         }
     }
-    function searchTextChange(text) {
-        if (text) {
-            $scope.oNewAppointment.Patient.PatientName = text;
-        }       
+    function searchTextChange(text) {     
+            $scope.oNewAppointment.Patient.PatientName = text;              
     }
     function selectedItemChange(item) {
-        if (item) {
-            $scope.oNewAppointment.Patient = item;
-        }     
+            $scope.oNewAppointment.Patient = item;    
     }
         /**
          * Get all the patients at once. This is a cheap operation
