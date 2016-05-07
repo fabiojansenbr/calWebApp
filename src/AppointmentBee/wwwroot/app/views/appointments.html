@@ -100,12 +100,11 @@
                                                          md-item-text="item.PatientName"
                                                          md-min-length="0"
                                                          placeholder="Type a client name"
-                                                         md-menu-class="autocomplete-custom-template"
                                                          ng-init="searchText=oNewAppointment.Patient.PatientName">
                                             <md-item-template>                            
-                                                <span class="item-title">                                                  
-                                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>
-                                                </span>
+                                                                                               
+                                             <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>
+                                              
                                             </md-item-template>
                                         </md-autocomplete>
 
