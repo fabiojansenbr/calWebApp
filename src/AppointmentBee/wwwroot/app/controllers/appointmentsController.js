@@ -313,7 +313,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
 
 
     $scope.simulateQuery = false;
-           // array of patients
+    // array of patients
     $scope.patients = "";
     loadAll();
     $scope.querySearch = querySearch;

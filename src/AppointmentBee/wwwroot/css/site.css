@@ -95,5 +95,14 @@ md-toast.md-info-toast-theme .md-toast-content {
     background-color: burlywood;
 }
 
+.autocomplete-custom-template li {
+  border-bottom: 1px solid #ccc;
+  height: auto;
+  white-space: normal; }
+
+.autocomplete-custom-template li:last-child {
+  border-bottom-width: 0; }
+
+
 
 

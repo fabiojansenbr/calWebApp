@@ -91,7 +91,7 @@
                                     <md-icon style="width:36px; margin-top: 10px;" class="material-icons md-accent">person</md-icon>
                                     <div layout="column">
                                         <md-autocomplete 
-                                                         md-no-cache="noCache"
+                                                         md-no-cache="true"
                                                          md-selected-item="selectedItem"
                                                          md-search-text-change="searchTextChange(searchText)"
                                                          md-search-text="searchText"
@@ -100,19 +100,19 @@
                                                          md-item-text="item.PatientName"
                                                          md-min-length="0"
                                                          placeholder="Type a client name"
+                                                         md-menu-class="autocomplete-custom-template"
                                                          ng-init="searchText=oNewAppointment.Patient.PatientName">
-                                            <md-item-template>
-                                                <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}}</span>
+                                            <md-item-template>                            
+                                                <span class="item-title">                                                  
+                                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>
+                                                </span>
                                             </md-item-template>
-                                            <md-not-found>
-                                                <a ng-mousedown="newPatient(searchText)">Create new</a>
-                                            </md-not-found>
                                         </md-autocomplete>
 
                                     </div>
                                 </md-input-container>
                                 
-                                <md-input-container class="md-icon-float md-block" flex-gt-sm id="phoneBox">
+                                <md-input-container class="md-icon-float md-block" flex-gt-sm id="phoneBox" style="margin-top:12px;">
                                     <label>Phone</label>
                                     <md-icon style="width:36px;" class="material-icons md-accent">call</md-icon>
                                     <input ng-model="oNewAppointment.Patient.PhoneNumber">
