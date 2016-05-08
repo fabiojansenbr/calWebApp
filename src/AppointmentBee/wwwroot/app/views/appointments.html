@@ -1,12 +1,8 @@
 ﻿
-<div layout="column" data-ng-controller="sideNavController as sn">
-
-  
+<div layout="column" data-ng-controller="sideNavController as sn"> 
     <div layout="row" layout-fill>
-
         <md-sidenav  layout="column" md-is-locked-open="$mdMedia('gt-sm')" class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-            <md-button  data-ng-controller="indexController" data-ng-click="logOut()" class="md-primary" type="button">Logout</md-button>
-    
+            <md-button  data-ng-controller="indexController" data-ng-click="logOut()" class="md-primary" type="button">Logout</md-button>    
         </md-sidenav>
         <div layout="column" id="content">
             <md-content>
@@ -53,12 +49,8 @@
                             </md-menu-content>
                         </md-menu>
                     </div>
-                </md-toolbar>
-
-
-                <div>
-                    <div id="calendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false" calendar="myCalendar"></div>
-                </div>
+                </md-toolbar>               
+                <div id="calendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false" calendar="myCalendar"></div>               
             </md-content>
         </div>
     </div>
@@ -76,7 +68,6 @@
                         </md-button>
                     </div>
                 </md-toolbar>
-
                 <md-dialog-content>
                     <div class="md-dialog-content">
                         <div>
@@ -100,25 +91,17 @@
                                                          md-item-text="item.PatientName"
                                                          md-min-length="0"
                                                          placeholder="Type a client name">
-                                            <md-item-template>                            
-                                                                                               
-                                             <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>
-                                              
-                                            </md-item-template>
-                                            <md-not-found>
-                                                                                      
-                                            </md-not-found>
+                                            <md-item-template>                                                                                                                         
+                                             <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>                                            
+                                            </md-item-template>                        
                                         </md-autocomplete>
-
                                     </div>
-                                </md-input-container>
-                                
+                                </md-input-container>                               
                                 <md-input-container class="md-icon-float md-block" flex-gt-sm id="phoneBox" style="margin-top:12px;">
                                     <label>Phone</label>
                                     <md-icon style="width:36px;" class="material-icons md-accent">call</md-icon>
                                     <input ng-model="oNewAppointment.Patient.PhoneNumber">
                                 </md-input-container>
-
                                 <md-input-container class="md-block">
                                     <label>Note</label>
                                     <textarea ng-model="oNewAppointment.AppointmentNote" md-maxlength="300" rows="5" md-select-on-focus></textarea>
@@ -126,7 +109,6 @@
                           </div>
                       </div>
                 </md-dialog-content>
-
                 <md-dialog-actions layout="row">
                     <md-button ng-click="DialogDeleteAppointment()">
                         <md-icon class="material-icons">delete</md-icon>
