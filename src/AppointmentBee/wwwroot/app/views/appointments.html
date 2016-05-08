@@ -91,7 +91,7 @@
                                     <md-icon style="width:36px; margin-top: 10px;" class="material-icons md-accent">person</md-icon>
                                     <div layout="column">
                                         <md-autocomplete 
-                                                         md-no-cache="true"
+                                                         md-no-cache="nocache"
                                                          md-selected-item="selectedItem"
                                                          md-search-text-change="searchTextChange(searchText)"
                                                          md-search-text="searchText"
@@ -106,6 +106,9 @@
                                              <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>
                                               
                                             </md-item-template>
+                                            <md-not-found>
+                                                                                      
+                                            </md-not-found>
                                         </md-autocomplete>
 
                                     </div>
