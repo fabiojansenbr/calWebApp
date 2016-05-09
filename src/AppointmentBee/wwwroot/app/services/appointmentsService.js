@@ -14,6 +14,11 @@ app.factory('appointmentsService', ['$http', 'serverSettings', function ( $http,
 
     var _postAppointment = function (data) {
         
+        //When Patient object is empty server side is responding with error.
+        //Therefore if null check is true - removing the Patient object from the appointment object
+        if (data.Patient.PatientName == '' && data.Patient.PhoneNumber == '')
+            delete data.Patient;
+
         return $http.post(serviceBase + 'api/appointments', data).then(function (results) {
             return results;
         });

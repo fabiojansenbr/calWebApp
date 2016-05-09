@@ -23,7 +23,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             IsAvailable: true,
             AppointmentNote: ''
         };
-        $scope.searchText = null;
+        $scope.searchText = '';
     };
 
     
