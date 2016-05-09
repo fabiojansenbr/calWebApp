@@ -161,7 +161,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             $scope.oNewAppointment = data;
             $scope.oNewAppointment.StartDate = data.start;
             $scope.oNewAppointment.EndDate = data.end;
-            $scope.searchText = data.Patient.PatientName;
+            if(data.Patient){
+                $scope.searchText = data.Patient.PatientName;
+            }
+            
         }
         else
         {
