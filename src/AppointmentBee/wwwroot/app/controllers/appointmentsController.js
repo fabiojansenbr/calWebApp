@@ -16,10 +16,10 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         $scope.oNewAppointment = {
             StartDate: '',
             EndDate: '',
-           /* Patient: {
+           Patient: {
                 PatientName: '',
                 PhoneNumber: ''
-            },*/
+            },
             IsAvailable: true,
             AppointmentNote: ''
         };
