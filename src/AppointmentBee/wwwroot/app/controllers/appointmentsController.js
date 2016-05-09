@@ -285,6 +285,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
     $scope.DialogCancel = function () {
         $mdDialog.cancel();
         clearNewAppointment();
+        $scope.forceCloseAutoComplete();
     };
 
     $scope.DialogAddAppointment = function () {
@@ -297,6 +298,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             postAppointment($scope.oNewAppointment);
         $mdDialog.hide();
         clearNewAppointment();
+        $scope.forceCloseAutoComplete();
     };
 
     $scope.DialogDeleteAppointment = function () {
@@ -304,6 +306,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             deleteAppointment($scope.oNewAppointment);
             $mdDialog.hide();
             clearNewAppointment();
+            $scope.forceCloseAutoComplete();
         }
     };
 
@@ -371,6 +374,14 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         };
 
     }
+
+        //On Edge browser auto-complete remains open after the add appointment dialog is closed.
+        //Therefore the following hack is required to force close the autocomplete.
+    $scope.forceCloseAutoComplete = function () {
+        var autoChild = document.getElementById('AutoComplete').firstElementChild;
+        var el = angular.element(autoChild);
+        el.scope().$mdAutocompleteCtrl.hidden = true;
+    };
 
 
     }]
