@@ -93,7 +93,10 @@
                                                          placeholder="Type a client name">
                                             <md-item-template>                                                                                                                         
                                              <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>                                            
-                                            </md-item-template>                        
+                                            </md-item-template> 
+                                            <md-not-found>
+
+                                            </md-not-found>                       
                                         </md-autocomplete>
                                     </div>
                                 </md-input-container>                               
