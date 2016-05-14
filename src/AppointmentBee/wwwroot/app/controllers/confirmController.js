@@ -1,11 +1,10 @@
 ﻿'use strict';
-app.controller('confirmController', ['$scope', '$location', '$timeout', 'authService', 
-function ($scope, $location, $timeout, authService) {
+app.controller('confirmController', ['$scope', '$location', '$timeout', 'authService', '$mdToast',
+function ($scope, $location, $timeout, authService, $mdToast) {
 
     $scope.confirmSuccess = false;
     $scope.isProcessing = true;
-    $scope.message = "";
-    $scope.progressMessage = "";
+
 
     $scope.confirmData = {
         userid: $location.search().userid,
@@ -13,15 +12,24 @@ function ($scope, $location, $timeout, authService) {
         email: $location.search().email
     };
 
-    $scope.progressMessage = "Confirming your email..";
     $scope.isProcessing = true;
+    $mdToast.show($mdToast.simple()
+                       .textContent("Confirming your email..")
+                       .position('top left')
+                       .capsule(true)
+                       .theme('info-toast')
+                       .hideDelay(3000));
 
         authService.confirmEmail($scope.confirmData).then(function (response) {
             if (response == 200) {
                 $scope.confirmSuccess = true;
-                $scope.message = "Your account is Activated!";
                 $scope.isProcessing = true;
-                $scope.progressMessage = "Logging you in..";
+                $mdToast.show($mdToast.simple()
+                       .textContent("Your account is Activated! Logging you in..")
+                       .position('top left')
+                       .capsule(true)
+                       .theme('success-toast')
+                       .hideDelay(2000));
 
                 //Check the email from the confirmation link, if matches auto-login user
                 if ($scope.confirmData.email == authService.getEmail()) {
@@ -49,7 +57,13 @@ function ($scope, $location, $timeout, authService) {
                     errors.push(response.data.ModelState[key][i]);
                 }
             }
-            $scope.message = 'Error Occured: ' + errors.join(' ');           
+
+            $mdToast.show($mdToast.simple()
+                                   .textContent('Error Occured: ' + errors.join(' '))
+                                   .position('top left')
+                                   .capsule(true)
+                                   .theme('error-toast')
+                                   .hideDelay(50000));
             $scope.confirmSuccess = false;
             $scope.isProcessing = false;
         }).finally(function () {
