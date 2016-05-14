@@ -77,6 +77,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             $mdToast.show($mdToast.simple()
                          .textContent(data.Creator.Name + ' added an appointment.  ' + appointmantDate.toUTCString())
                          .position('bottom left')
+                         .capsule(true)
                          .theme('success-toast')
                          .hideDelay(1500));
         };
@@ -91,6 +92,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             $mdToast.show($mdToast.simple()
                          .textContent(data.Creator.Name + ' removed an appointment.  ' + appointmantDate.toUTCString())
                          .position('bottom left')
+                         .capsule(true)
                          .theme('error-toast')
                          .hideDelay(1500));
 
@@ -106,6 +108,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             $mdToast.show($mdToast.simple()
                         .textContent(data.Creator.Name + ' updated an appointment.  ' + appointmantDate.toUTCString())
                         .position('bottom left')
+                        .capsule(true)
                         .theme('info-toast')
                         .hideDelay(1500));
         };
