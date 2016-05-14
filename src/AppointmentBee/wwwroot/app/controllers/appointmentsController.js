@@ -78,7 +78,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
                          .textContent(data.Creator.Name + ' added an appointment.  ' + appointmantDate.toUTCString())
                          .position('bottom left')
                          .theme('success-toast')
-                         .hideDelay(2000));
+                         .hideDelay(1500));
         };
 
         appointments.client.deleteAppointment = function (data) {
@@ -92,7 +92,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
                          .textContent(data.Creator.Name + ' removed an appointment.  ' + appointmantDate.toUTCString())
                          .position('bottom left')
                          .theme('error-toast')
-                         .hideDelay(2000));
+                         .hideDelay(1500));
 
         };
 
@@ -107,7 +107,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
                         .textContent(data.Creator.Name + ' updated an appointment.  ' + appointmantDate.toUTCString())
                         .position('bottom left')
                         .theme('info-toast')
-                        .hideDelay(2000));
+                        .hideDelay(1500));
         };
 
         $.connection.hub.logging = true;
