@@ -1,16 +1,14 @@
 ﻿'use strict';
-app.controller('loginController', ['$scope', '$location', 'authService', '$mdToast', function ($scope, $location, authService, $mdToast) {
+app.controller('loginController', ['$scope', '$location', 'authService', '$mdToast','$timeout', function ($scope, $location, authService, $mdToast, $timeout) {
 
     $scope.loginData = {
         email: "",
         password: ""
     };
-    $scope.message = "";
 
     //forgotten password related stuff
     $scope.retrieveSuccess = false;
     $scope.isProcessing = false;
-    $scope.progressMessage = "";
 
 
     $scope.login = function () {
@@ -32,21 +30,29 @@ app.controller('loginController', ['$scope', '$location', 'authService', '$mdToa
 
     $scope.retrievePasswordReset = function () {
         $scope.isProcessing = true;
-        $scope.progressMessage = "Requesting password reset email..";
-
+    
         authService.retrievePasswordReset($scope.loginData.email).then(function (respnse) {
             $scope.retrieveSuccess = true;
-            $scope.message = 'We just sent a password reset link to ' + $scope.loginData.email;
+           
+            $mdToast.show($mdToast.simple()
+                       .textContent('We just sent a password reset link to ' + $scope.loginData.email)
+                       .position('top left')
+                       .capsule(true)
+                       .theme('success-toast')
+                       .hideDelay(2000));
             startTimer('/login');
         },
         function (response) {
-            var errors = [];
-            for (var key in response.data.ModelState) {
-                for (var i = 0; i < response.data.ModelState[key].length; i++) {
-                    errors.push(response.data.ModelState[key][i]);
-                }
-            }
-            $scope.message = errors.join(' ');
+            
+            $mdToast.show($mdToast.simple()
+                     .textContent(response.statusText)
+                     .action('ok')
+                     .highlightAction(true)
+                     .position('top left')
+                     .capsule(true)
+                     .theme('error-toast')
+                     .hideDelay(2000));
+
         }).finally(function () {
             $scope.isProcessing = false;
         });
