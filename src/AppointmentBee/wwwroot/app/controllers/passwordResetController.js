@@ -1,11 +1,9 @@
 ﻿'use strict';
-app.controller('passwordResetController', ['$scope', '$location', '$timeout', 'authService', 
-function ($scope, $location, $timeout, authService) {
+app.controller('passwordResetController', ['$scope', '$location', '$timeout', 'authService', '$mdToast', 
+function ($scope, $location, $timeout, authService, $mdToast) {
 
     $scope.resetSuccess = false;
     $scope.isProcessing = false;
-    $scope.message = "";
-    $scope.progressMessage = "";
 
     $scope.resetPasswordData = {
         userid: $location.search().userid,
@@ -20,12 +18,16 @@ function ($scope, $location, $timeout, authService) {
 
     $scope.passwordReset = function () {
         if ($scope.newPassword.password == $scope.newPassword.confirmPassword) {
-            $scope.progressMessage = "Resetting your password";
+
             authService.resetPassword($scope.newPassword.password, $scope.resetPasswordData).then(function (response) {
                 if (response == 200) {
                     $scope.resetSuccess = true;
-                    $scope.message = "Your password is changed.";
-                    $scope.progressMessage = "Redirecting you to login page.."; 
+                    $mdToast.show($mdToast.simple()
+                       .textContent("Your password is changed. Redirecting you to login page..")
+                       .position('top left')
+                       .capsule(true)
+                       .theme('success-toast')
+                       .hideDelay(4000));
                     $scope.isProcessing = true;
                     startTimer('/login');
                 };
@@ -38,14 +40,28 @@ function ($scope, $location, $timeout, authService) {
                         errors.push(response.data.ModelState[key][i]);
                     }
                 }
-                $scope.message = 'Error Occured: ' + errors.join(' ');
+              
+                $mdToast.show($mdToast.simple()
+                      .textContent('Error Occured: ' + errors.join(' '))
+                      .action('ok')
+                      .highlightAction(true)
+                      .position('top left')
+                      .capsule(true)
+                      .theme('error-toast')
+                      .hideDelay(2000));
+
                 $scope.isProcessing = false;
             }).finally(function () {
                 // 
             });
         }
         else {
-            $scope.message = 'Passwords should match';
+            $mdToast.show($mdToast.simple()
+                    .textContent('Passwords should match')
+                    .position('top left')
+                    .capsule(true)
+                    .theme('error-toast')
+                    .hideDelay(2000));
         }
      
     };
