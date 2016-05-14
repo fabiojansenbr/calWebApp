@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('loginController', ['$scope', '$location', 'authService', function ($scope, $location, authService) {
+app.controller('loginController', ['$scope', '$location', 'authService', '$mdToast', function ($scope, $location, authService, $mdToast) {
 
     $scope.loginData = {
         email: "",
@@ -20,8 +20,13 @@ app.controller('loginController', ['$scope', '$location', 'authService', functio
             $location.path('/appointments');
 
         },
-         function (err) {
-             $scope.message = err.error_description;
+         function (err) { 
+             $mdToast.show($mdToast.simple()
+                      .textContent(err.error_description)
+                      .position('top left')
+                      .capsule(true)
+                      .theme('error-toast')
+                      .hideDelay(1200));
          });
     };
 
