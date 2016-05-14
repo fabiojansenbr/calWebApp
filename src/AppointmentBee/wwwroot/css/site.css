@@ -95,6 +95,12 @@ md-toast.md-info-toast-theme .md-toast-content {
     background-color: burlywood;
 }
 
+md-toast {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0; right: 0;
+  width: 40%;
+}
 
 
 

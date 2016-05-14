@@ -1,10 +1,9 @@
 ﻿'use strict';
-app.controller('signupController', ['$scope', '$location', '$timeout', 'authService', 
-function ($scope, $location, $timeout, authService) {
+app.controller('signupController', ['$scope', '$location', '$timeout', 'authService', '$mdToast',
+function ($scope, $location, $timeout, authService, $mdToast) {
 
-    $scope.savedSuccessfully = false;
     $scope.isProcessing = false;
-    $scope.message = "";
+    $scope.savedSuccessfully = false;
 
     $scope.registration = {
         email: "",
@@ -17,7 +16,14 @@ function ($scope, $location, $timeout, authService) {
         authService.register($scope.registration).then(function (response) {
 
             $scope.savedSuccessfully = true;
-            $scope.message = "We just sent a confirmation email to " + $scope.registration.email + ".";
+            $mdToast.show($mdToast.simple()
+                        .textContent("We just sent a confirmation email to " + $scope.registration.email)
+                        .action('ok')
+                        .highlightAction(true)
+                        .position('top left')
+                        .capsule(true)
+                        .theme('success-toast')
+                        .hideDelay(250000));
         },
          function (response) {
              var errors = [];
@@ -26,7 +32,15 @@ function ($scope, $location, $timeout, authService) {
                      errors.push(response.data.ModelState[key][i]);
                  }
              }
-             $scope.message = errors.join(' ');
+             $mdToast.show($mdToast.simple()
+                       .textContent( errors.join(' '))
+                       .action('ok')
+                       .highlightAction(true)
+                       .position('top left')
+                       .capsule(true)
+                       .theme('error-toast')
+                       .hideDelay(250000));
+            
          }).finally(function () {
               $scope.isProcessing = false;
          });
