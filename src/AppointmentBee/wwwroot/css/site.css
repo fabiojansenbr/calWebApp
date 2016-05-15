@@ -102,6 +102,11 @@ md-toast {
   width: 40%;
 }
 
+/*Fix md auto complete bug*/
+.md-scroll-mask{
+        position: initial
+    }
+
 
 
 
