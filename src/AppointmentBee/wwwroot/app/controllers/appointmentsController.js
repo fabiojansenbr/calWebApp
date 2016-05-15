@@ -345,7 +345,8 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         }
     }
     function searchTextChange(text) {     
-            $scope.oNewAppointment.Patient.PatientName = text;              
+        $scope.oNewAppointment.Patient.PatientName = text;
+        $scope.selectedItem = null;
     }
     function selectedItemChange(item) {
             $scope.oNewAppointment.Patient = item;    
