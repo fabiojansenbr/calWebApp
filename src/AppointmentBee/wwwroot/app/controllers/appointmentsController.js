@@ -24,6 +24,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
             AppointmentNote: ''
         };
         $scope.searchText = '';
+        $scope.selectedItem = null;
     };
 
     
@@ -169,7 +170,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         else
         {
             $scope.oNewAppointment.StartDate = start; //date.clone();
-            $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm");            
+            $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm"); 
         }
         
         $mdDialog.show({
@@ -287,8 +288,7 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
 
     $scope.DialogCancel = function () {
         $mdDialog.cancel();
-        clearNewAppointment();
-        $scope.forceCloseAutoComplete();
+        clearNewAppointment();      
     };
 
     $scope.DialogAddAppointment = function () {
@@ -300,16 +300,14 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         else
             postAppointment($scope.oNewAppointment);
         $mdDialog.hide();
-        clearNewAppointment();
-        $scope.forceCloseAutoComplete();
+        clearNewAppointment();      
     };
 
     $scope.DialogDeleteAppointment = function () {
         if ($scope.oNewAppointment.Id) {
             deleteAppointment($scope.oNewAppointment);
             $mdDialog.hide();
-            clearNewAppointment();
-            $scope.forceCloseAutoComplete();
+            clearNewAppointment();         
         }
     };
 
