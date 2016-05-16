@@ -11,6 +11,16 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             || navigator.maxTouchPoints;       // works on IE10/11 and Surface
     };
 
+    $scope.oNewAppointment = {
+        StartDate: '',
+        EndDate: '',
+        Patient: {
+            PatientName: '',
+            PhoneNumber: ''
+        },
+        IsAvailable: true,
+        AppointmentNote: ''
+    };
 
     var clearNewAppointment = function () {
         $scope.oNewAppointment = {
@@ -172,12 +182,15 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             if(data.Patient){
                 $scope.searchText = data.Patient.PatientName;
             }
-            
+            data = null;
         }
         else
         {
+            data = null;
             $scope.oNewAppointment.StartDate = start; //date.clone();
             $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm"); 
+            $scope.oNewAppointment.Patient.PatientName = "";
+            $scope.oNewAppointment.Patient.PhoneNumber = "";
         }
         
         $mdDialog.show({
@@ -348,12 +361,16 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             return results;
         }
     }
-    function searchTextChange(text) {     
-        $scope.oNewAppointment.Patient.PatientName = text;
-        $scope.selectedItem = null;
+    function searchTextChange(text) {
+        if (text != '' && text != null)
+        {   $scope.oNewAppointment.Patient.PatientName = text;
+            $scope.selectedItem = null; }
+      
     }
     function selectedItemChange(item) {
-            $scope.oNewAppointment.Patient = item;    
+        if (item != '' && item != null) {
+            $scope.oNewAppointment.Patient = item;
+        }           
     }
         /**
          * Get all the patients at once. This is a cheap operation
