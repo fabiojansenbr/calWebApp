@@ -12,9 +12,15 @@ app.factory('calendarService', ['$http', 'serverSettings', function ( $http, ser
         });
     };
 
+    var _getUserInfo = function () {
+
+        return $http.get(serviceBase + 'api/account/GetUserInfo').then(function (result) {
+            return result;
+        });
+    };
    
     calendarServiceFactory.getUserCalendar= _getUserCalendar;
-
+    calendarServiceFactory.getUserInfo = _getUserInfo;
     return calendarServiceFactory;
 
 }]);

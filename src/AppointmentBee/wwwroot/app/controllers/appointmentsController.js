@@ -68,6 +68,13 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         })
     };
 
+    //get User Info
+    var getUserInfo = function () {
+        calendarService.getUserInfo().then(function (result) {
+            //TODO This will return Email Confirmation and user name. Display banner for unconfirmed emails. Use the name in sidenav
+        })
+    };
+
     var subscribeToAppointments = function (calendarId) {
         $.connection.hub.url = serviceBase + 'signalr';
         var appointments = $.connection.appointmentHub;
