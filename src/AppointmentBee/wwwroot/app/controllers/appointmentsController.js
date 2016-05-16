@@ -294,8 +294,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     };
 
     $scope.DialogCancel = function () {
-        $mdDialog.cancel();
-        clearNewAppointment();      
+        $mdDialog.cancel();      
     };
 
     $scope.DialogAddAppointment = function () {
@@ -306,15 +305,13 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         }
         else
             postAppointment($scope.oNewAppointment);
-        $mdDialog.hide();
-        clearNewAppointment();      
+        $mdDialog.hide();     
     };
 
     $scope.DialogDeleteAppointment = function () {
         if ($scope.oNewAppointment.Id) {
             deleteAppointment($scope.oNewAppointment);
-            $mdDialog.hide();
-            clearNewAppointment();         
+            $mdDialog.hide();        
         }
     };
 
