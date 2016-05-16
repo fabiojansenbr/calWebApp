@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast' , '$rootScope', '$log', 'patientsService', '$q', 
-    function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $rootScope, $log, patientsService, $q) {
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q',
+function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q) {
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
@@ -376,14 +376,6 @@ app.controller('appointmentsController', ['$scope', 'appointmentsService', 'cale
         };
 
     }
-
-        //On Edge browser auto-complete remains open after the add appointment dialog is closed.
-        //Therefore the following hack is required to force close the autocomplete.
-    $scope.forceCloseAutoComplete = function () {
-        var autoChild = document.getElementById('AutoComplete').firstElementChild;
-        var el = angular.element(autoChild);
-        el.scope().$mdAutocompleteCtrl.hidden = true;
-    };
 
 
     }]

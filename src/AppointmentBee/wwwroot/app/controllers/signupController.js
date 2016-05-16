@@ -7,6 +7,7 @@ function ($scope, $location, $timeout, authService, $mdToast) {
 
     $scope.registration = {
         email: "",
+        fullName: "",
         password: "",
         confirmPassword: ""
     };
