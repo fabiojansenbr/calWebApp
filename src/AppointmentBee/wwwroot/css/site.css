@@ -96,7 +96,9 @@ md-toast.md-info-toast-theme .md-toast-content {
 }
 
 
-
+md-toast {
+  position: fixed;
+}
 
 
 
