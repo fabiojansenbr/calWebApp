@@ -14,6 +14,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     $scope.oNewAppointment = {
         StartDate: '',
         EndDate: '',
+        PatientId: '',
         Patient: {
             PatientName: '',
             PhoneNumber: ''
@@ -26,6 +27,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         $scope.oNewAppointment = {
             StartDate: '',
             EndDate: '',
+            PatientId: '',
            Patient: {
                 PatientName: '',
                 PhoneNumber: ''
@@ -141,9 +143,31 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     };
 
     $scope.eventDataTransform = function (eventData) {
-        var fullEvent = { id: eventData.Id, title: "", start: eventData.StartDate, end: eventData.EndDate, className: "eventAvailable" };
-        if (eventData.Patient)
+        
+        if (eventData.Patient) {
+            var fullEvent = {
+                id: eventData.Id,
+                title: "",
+                start: eventData.StartDate,
+                end: eventData.EndDate,
+                className: "eventAvailable",
+
+            };
             fullEvent.title = eventData.Patient.PatientName;
+        } else {
+            var fullEvent = {
+                id: eventData.Id,
+                title: "",
+                Patient: {
+                    PatientName: '',
+                    PhoneNumber: ''
+                },
+                start: eventData.StartDate,
+                end: eventData.EndDate,
+                className: "eventAvailable",
+
+            };
+        }
 
         if (eventData.IsAvailable == false) {
             fullEvent.className = "eventUnavailable";
@@ -176,17 +200,17 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
         if (data)
         {
+            if (data.Patient) {
+                $scope.searchText = data.Patient.PatientName;
+            }
             $scope.oNewAppointment = data;
             $scope.oNewAppointment.StartDate = data.start;
             $scope.oNewAppointment.EndDate = data.end;
-            if(data.Patient){
-                $scope.searchText = data.Patient.PatientName;
-            }
+
             data = null;
         }
         else
         {
-            data = null;
             $scope.oNewAppointment.StartDate = start; //date.clone();
             $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm"); 
             $scope.oNewAppointment.Patient.PatientName = "";
@@ -370,6 +394,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     function selectedItemChange(item) {
         if (item != '' && item != null) {
             $scope.oNewAppointment.Patient = item;
+            $scope.oNewAppointment.PatientId = item.Id;
         }           
     }
         /**
