@@ -326,6 +326,10 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     getUserCalendar();
 
 
+    // *************************************************************************************
+    // Appointment Dialog Buttons
+    // *************************************************************************************
+
     $scope.hide = function () {
         $mdDialog.hide();
     };
@@ -427,7 +431,10 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     }
 
 
-    }]
+}]
+    // *************************************************************************************
+    // Custom Directives
+    // *************************************************************************************
 ).directive('hbTouchmove', [function () {
     return function (scope, element, attr) {
         element.on('touchmove', function (event) {
