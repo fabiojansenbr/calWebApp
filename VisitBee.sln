@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4410F5D0-F423-4470-955E-826C35377319}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0DA604D5-6575-4C2B-BA26-3EE99B125A80}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "VisitBee", "src\VisitBee\VisitBee.xproj", "{47A0931C-AAA2-4F4B-96AB-6DB1C57825E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47A0931C-AAA2-4F4B-96AB-6DB1C57825E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47A0931C-AAA2-4F4B-96AB-6DB1C57825E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47A0931C-AAA2-4F4B-96AB-6DB1C57825E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47A0931C-AAA2-4F4B-96AB-6DB1C57825E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{47A0931C-AAA2-4F4B-96AB-6DB1C57825E3} = {4410F5D0-F423-4470-955E-826C35377319}
+	EndGlobalSection
+EndGlobal
