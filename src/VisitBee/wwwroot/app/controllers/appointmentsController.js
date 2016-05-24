@@ -419,9 +419,9 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
 
     }
-        /**
-         * Create filter function for a query string
-         */
+       
+         //Create filter function for a query string
+
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
         return function filterFn(patient) {
