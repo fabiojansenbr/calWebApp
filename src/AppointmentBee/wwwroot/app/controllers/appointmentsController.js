@@ -387,8 +387,11 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     }
     function searchTextChange(text) {
         if (text != '' && text != null)
-        {   $scope.oNewAppointment.Patient.PatientName = text;
-            $scope.selectedItem = null; }
+        {
+            $scope.oNewAppointment.Patient.PatientName = text;
+            //Testing edge browser bug
+            //$scope.selectedItem = null; 
+        }
       
     }
     function selectedItemChange(item) {
