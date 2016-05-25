@@ -13,7 +13,6 @@
 /// <reference path="app/services/authService.js" />
 /// <reference path="app/services/calendarService.js" />
 /// <reference path="app/services/patientsservice.js" />
-/// <reference path="js/site.min.js" />
 /// <reference path="lib/angular/angular.js" />
 /// <reference path="lib/angular/index.js" />
 /// <reference path="lib/angular-animate/angular-animate.js" />
