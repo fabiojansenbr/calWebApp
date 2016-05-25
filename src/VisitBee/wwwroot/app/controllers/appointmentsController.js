@@ -94,12 +94,12 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             getAppointments();
             var appointmantDate = new Date(data.StartDate);
 
-            $mdToast.show($mdToast.simple()
-                         .textContent(data.Creator.Name + ' added an appointment.  ' + appointmantDate.toUTCString())
-                         .position('bottom left')
-                         .capsule(true)
-                         .theme('success-toast')
-                         .hideDelay(1500));
+            //$mdToast.show($mdToast.simple()
+            //             .textContent(data.Creator.Name + ' added an appointment.  ' + appointmantDate.toUTCString())
+            //             .position('bottom left')
+            //             .capsule(true)
+            //             .theme('success-toast')
+            //             .hideDelay(1500));
         };
 
         appointments.client.deleteAppointment = function (data) {
@@ -109,12 +109,12 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
             var appointmantDate = new Date(data.StartDate);
 
-            $mdToast.show($mdToast.simple()
-                         .textContent(data.Creator.Name + ' removed an appointment.  ' + appointmantDate.toUTCString())
-                         .position('bottom left')
-                         .capsule(true)
-                         .theme('error-toast')
-                         .hideDelay(1500));
+            //$mdToast.show($mdToast.simple()
+            //             .textContent(data.Creator.Name + ' removed an appointment.  ' + appointmantDate.toUTCString())
+            //             .position('bottom left')
+            //             .capsule(true)
+            //             .theme('error-toast')
+            //             .hideDelay(1500));
 
         };
 
@@ -125,12 +125,12 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             $('#calendar').fullCalendar('rerenderEvents');
             var appointmantDate = new Date(data.StartDate);
 
-            $mdToast.show($mdToast.simple()
-                        .textContent(data.Creator.Name + ' updated an appointment.  ' + appointmantDate.toUTCString())
-                        .position('bottom left')
-                        .capsule(true)
-                        .theme('info-toast')
-                        .hideDelay(1500));
+            //$mdToast.show($mdToast.simple()
+            //            .textContent(data.Creator.Name + ' updated an appointment.  ' + appointmantDate.toUTCString())
+            //            .position('bottom left')
+            //            .capsule(true)
+            //            .theme('info-toast')
+            //            .hideDelay(1500));
         };
 
         $.connection.hub.logging = true;
