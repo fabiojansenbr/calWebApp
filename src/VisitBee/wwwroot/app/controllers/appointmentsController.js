@@ -36,7 +36,6 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             AppointmentNote: ''
         };
         $scope.searchText = '';
-        $scope.selectedItem = null;
     };
 
     
