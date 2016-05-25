@@ -5,7 +5,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
 
-    $scope.DetectTouchScreen = function () {
+   var DetectTouchScreen = function () {
         // solution based on http://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript/4819886#4819886
         return 'ontouchstart' in window        // works on most browsers 
             || navigator.maxTouchPoints;       // works on IE10/11 and Surface
@@ -141,7 +141,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         }
     };
 
-    $scope.eventDataTransform = function (eventData) {
+    var eventDataTransform = function (eventData) {
         
         if (eventData.Patient) {
             var fullEvent = {
@@ -188,12 +188,12 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         });
     }
 
-    $scope.viewRender = function (view, element) {
+    var viewRender = function (view, element) {
         var item = view;
         TimeFix(45, "08:00:00");
     }
 
-    $scope.showAddAppointmentDialog = function (start, end, data) {
+    var showAddAppointmentDialog = function (start, end, data) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')); //  && $scope.customFullscreen;
         clearNewAppointment();
 
@@ -226,25 +226,26 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             fullscreen: useFullScreen
         })
         .then(function () {
-            
+            //Load patients for autocomplete
+            autoCompletePatientsloadAll();
         }, function () {
             clearNewAppointment();
         });
     }
 
-    $scope.dayClick = function (date, jsEvent, view) {
+    var dayClick = function (date, jsEvent, view) {
         if (!$scope.IsTouchMove) {
-            $scope.showAddAppointmentDialog(date, date.clone().add(45, 'minutes'));
+            showAddAppointmentDialog(date, date.clone().add(45, 'minutes'));
         } 
     }
 
-    $scope.eventClick = function (event, jsEvent, view) {
-        $scope.showAddAppointmentDialog(null, null, event);
+    var eventClick = function (event, jsEvent, view) {
+        showAddAppointmentDialog(null, null, event);
     }
 
-    $scope.select = function (start, end) {
+    var select = function (start, end) {
         if (!$scope.IsTouchMove) {
-            $scope.showAddAppointmentDialog(start, end);
+            showAddAppointmentDialog(start, end);
         }
     }
 
@@ -255,20 +256,15 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         else
             $('#calendar').fullCalendar('changeView', view);
     };
-
-    //hook calendar view change event to update pressed button status
-    $scope.viewChanged = function (view) {
-        //TODO - change pressed buttons
-    };
        
-    $scope.renderCalender = function (calendar) {
+    var renderCalender = function (calendar) {
         if (uiCalendarConfig.calendars[calendar]) {
             uiCalendarConfig.calendars[calendar].fullCalendar('render');
         }
     };
 
     // When day drag/drop and resize happens
-    $scope.eventDateUpdate = function (event, delta, revertFunc) {
+   var eventDateUpdate = function (event, delta, revertFunc) {
         $scope.oNewAppointment = event;
         $scope.oNewAppointment.source = {}; //was causing circular reference exceptiion - probably needs to limit appointment object
         $scope.oNewAppointment.CreatorId = $scope.oNewAppointment.Creator.Id;
@@ -295,23 +291,23 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         displayEventEnd: false,
         timeFormat: "HH:mm",
         //eventOverlap: false,
-        eventDataTransform: $scope.eventDataTransform,
-        eventDrop: $scope.eventDateUpdate,
-        eventResize: $scope.eventDateUpdate,
-        changeView: $scope.viewChanged,
-        renderCalender: $scope.renderCalender,
-        viewRender: $scope.viewRender,
-        eventClick: $scope.eventClick
+        eventDataTransform: eventDataTransform,
+        eventDrop: eventDateUpdate,
+        eventResize: eventDateUpdate,
+        //changeView: viewChanged,
+        renderCalender: renderCalender,
+        viewRender: viewRender,
+        eventClick: eventClick
     };
     
    
-    if ($scope.DetectTouchScreen()) {
-        calendarConfig.dayClick = $scope.dayClick;
+    if (DetectTouchScreen()) {
+        calendarConfig.dayClick = dayClick;
     }
     else {
         calendarConfig.selectable = true;
         calendarConfig.selectHelper = true;
-        calendarConfig.select = $scope.select;
+        calendarConfig.select = select;
         calendarConfig.editable = true;
     }
     
@@ -362,8 +358,8 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
 
     // array of patients
-    $scope.patients = "";
-    loadAll();
+    var patients = "";
+    autoCompletePatientsloadAll();
     $scope.querySearch = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange = searchTextChange;
@@ -371,7 +367,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
          * Search for patients.
          */
     function querySearch(query) {
-        var results = query ? $scope.patients.filter(createFilterFor(query)) : $scope.patients, deferred;   
+        var results = query ? patients.filter(createFilterFor(query)) :patients, deferred;   
         return results;
     }
 
@@ -391,11 +387,11 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         /**
          * Get all the patients at once. This is a cheap operation
          */
-    function loadAll() {
+    function autoCompletePatientsloadAll() {
 
         patientsService.getPatients().then(function (results) {
 
-            $scope.patients = results.data;
+            patients = results.data;
 
         }, function (error) {
             //alert(error.data.message);
