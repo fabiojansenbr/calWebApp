@@ -362,42 +362,27 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
        // *************************************************************************************
 
 
-    $scope.simulateQuery = false;
     // array of patients
     $scope.patients = "";
     loadAll();
     $scope.querySearch = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange = searchTextChange;
-
-    $scope.newPatient = function (patient) {
-        $log.info('Create New patient for:' + patient);
-    }
-
-
         /**
          * Search for patients.
          */
     function querySearch(query) {
-        var results = query ? $scope.patients.filter(createFilterFor(query)) : $scope.patients,
-          deferred;
-        if ($scope.simulateQuery) {
-            deferred = $q.defer();
-            $timeout(function () { deferred.resolve(results); }, Math.random() * 1000, false);
-            return deferred.promise;
-        } else {
-            return results;
-        }
+        var results = query ? $scope.patients.filter(createFilterFor(query)) : $scope.patients, deferred;   
+        return results;
     }
+
     function searchTextChange(text) {
         if (text != '' && text != null)
         {
-            $scope.oNewAppointment.Patient.PatientName = text;
-            //Testing edge browser bug
-            //$scope.selectedItem = null; 
-        }
-      
+            $scope.oNewAppointment.Patient.PatientName = text;          
+        }    
     }
+
     function selectedItemChange(item) {
         if (item != '' && item != null) {
             $scope.oNewAppointment.Patient = item;
