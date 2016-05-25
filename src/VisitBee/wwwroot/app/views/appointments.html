@@ -80,7 +80,8 @@
                                 <md-input-container class="md-icon-float md-block" flex-gt-sm id="nameBox" style="margin-top: 20px !important;" >
                                     <label>Name</label>
                                     <md-icon style="width:36px; margin-top: 10px;" class="material-icons md-accent">person</md-icon>
-                                    <div layout="column">
+                                    <input type="text" ng-model="oNewAppointment.Patient.PatientName">
+                                    <!--<div layout="column">
                                         <md-autocomplete id="AutoComplete"
                                                          md-no-cache="nocache"
                                                         
@@ -95,7 +96,7 @@
                                              <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>                                            
                                             </md-item-template>                                                                
                                         </md-autocomplete>
-                                    </div>
+                                    </div>-->
                                 </md-input-container>                               
                                 <md-input-container class="md-icon-float md-block" flex-gt-sm id="phoneBox" style="margin-top:12px;">
                                     <label>Phone</label>
