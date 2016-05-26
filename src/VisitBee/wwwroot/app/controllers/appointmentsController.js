@@ -41,13 +41,27 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     };
 
     
-    //this function get's only the users own calendars appointments.
+    //this function get's only the users own calendars all appointments.
     var getAppointments = function () {
         appointmentsService.getAppointments().then(function (results) {
-          
-            //maybe there is better way?
             $scope.eventSources[0] = results.data;
+        }, function (error) {
+        });
+    };
 
+    //this function gets users own calendars +-2 weeks of appointments.
+    var getAppointments4weeks = function (centerDate) {
+        appointmentsService.getAppointments4weeks(centerDate).then(function (results) {
+            $scope.eventSources[0] = results.data.Appointments;
+        }, function (error) {
+            //alert(error.data.message);
+        });
+    };
+
+     //this function gets users own calendars appointments in the given range.
+    var getAppointmentsRange = function (startDate, endDate) {
+        appointmentsService.getAppointmentsRange(startDate, endDate).then(function (results) {
+            $scope.eventSources[0] = results.data.Appointments;
         }, function (error) {
             //alert(error.data.message);
         });
@@ -55,7 +69,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
     var postAppointment = function (data) {
         appointmentsService.postAppointment(data).then(function (result) {
-            getAppointments();
+            getAppointments4weeks(new Date(data.StartDate).toJSON().slice(0, 10));
         })
     };
 
@@ -92,7 +106,12 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         $.connection.hub.url = serviceBase + 'signalr';
         var appointments = $.connection.appointmentHub;
         appointments.client.newAppointment = function (data) {
-            getAppointments();
+            //don't get all appointments
+            //getAppointments();
+
+            //get +- 2 weeks of appointments from the added appointment's start date
+            getAppointments4weeks(new Date(data.StartDate).toJSON().slice(0, 10));
+
             var appointmantDate = new Date(data.StartDate);
 
             $mdToast.show($mdToast.simple()
@@ -191,7 +210,16 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     }
 
     var viewRender = function (view, element) {
-        var item = view;
+
+        //if month view fetch appointments for the given range.
+        if (view.name == "month") {
+            getAppointmentsRange(new Date(view.intervalStart._d).toJSON().slice(0, 10),
+            new Date(view.intervalEnd._d).toJSON().slice(0, 10));
+        } else { //for week view and day view
+            //get +- 2 weeks of appointments by current weeks first day.
+            getAppointments4weeks(new Date(view.intervalStart._d).toJSON().slice(0, 10));
+        }
+       
         TimeFix(45, "08:00:00");
     }
 
@@ -258,7 +286,8 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         else
             $('#calendar').fullCalendar('changeView', view);
     };
-       
+
+    
     var renderCalender = function (calendar) {
         if (uiCalendarConfig.calendars[calendar]) {
             uiCalendarConfig.calendars[calendar].fullCalendar('render');
@@ -296,13 +325,12 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         eventDataTransform: eventDataTransform,
         eventDrop: eventDateUpdate,
         eventResize: eventDateUpdate,
-        //changeView: viewChanged,
         renderCalender: renderCalender,
         viewRender: viewRender,
         eventClick: eventClick
     };
     
-   
+
     if (DetectTouchScreen()) {
         calendarConfig.dayClick = dayClick;
     }
@@ -319,7 +347,11 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     };
 
     $scope.eventSources = [];
-    getAppointments();
+
+    
+    //This is the old method that request all the appointments. Was Causing performance issues.
+    //getAppointments();
+
     getUserCalendar();
 
 
