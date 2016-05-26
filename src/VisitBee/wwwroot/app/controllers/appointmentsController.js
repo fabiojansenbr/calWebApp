@@ -17,7 +17,8 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         PatientId: '',
         Patient: {
             PatientName: '',
-            PhoneNumber: ''
+            PhoneNumber: '',
+            OwnerId: ''
         },
         IsAvailable: true,
         AppointmentNote: ''
@@ -30,7 +31,8 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             PatientId: '',
            Patient: {
                 PatientName: '',
-                PhoneNumber: ''
+                PhoneNumber: '',
+                OwnerId: ''
             },
             IsAvailable: true,
             AppointmentNote: ''
