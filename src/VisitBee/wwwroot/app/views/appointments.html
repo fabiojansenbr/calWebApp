@@ -6,7 +6,7 @@
         </md-sidenav>
         <div layout="column" id="content">
             <md-content>
-                <md-toolbar style="min-height:50px !important; height:50px !important;" layout="row">
+                <md-toolbar style="min-height:50px !important; height:50px !important;" layout="row" ng-show="!showSearch">
                     <md-button hide-gt-sm data-ng-click="toggleList()" style="min-width:50px;">
                         <md-icon class="material-icons md-accent">menu</md-icon>
                     </md-button>
@@ -14,7 +14,7 @@
                         <span></span>
                         <!-- fill up the space between left and right area -->
                         <span flex></span>
-                        <md-button style="min-width:24px;">
+                        <md-button style="min-width:24px;" data-ng-click="showSearch = !showSearch">
                             <md-icon class="material-icons md-accent">search</md-icon>
                         </md-button>
                         <md-menu md-position-mode="target-right target">
@@ -50,6 +50,32 @@
                         </md-menu>
                     </div>
                 </md-toolbar>               
+                
+                <md-toolbar class="md-hue-1" ng-show="showSearch" style="min-height:50px !important; height:50px !important;">
+                    <div class="md-toolbar-tools">
+                        <md-button ng-click="showSearch = !showSearch" aria-label="Back" style="min-width:24px;">
+                            <md-icon class="material-icons md-accent">arrow_back</md-icon>
+                        </md-button>
+                        <div md-theme="input" flex>
+                            <md-autocomplete id="AutoCompleteToolbar"
+                                             md-no-cache="false"
+                                             md-search-text-change="searchTextChange(searchText)"
+                                             md-search-text="searchText"
+                                             md-selected-item-change="selectedItemChange(item)"
+                                             md-items="item in querySearch(searchText)"
+                                             md-item-text="item.PatientName"
+                                             md-min-length="0"
+                                             placeholder="search clients">
+                                <md-item-template>
+                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </div>
+                        
+                    </div>
+
+                </md-toolbar>
+                
                 <div id="calendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false" calendar="myCalendar"></div>               
             </md-content>
         </div>
