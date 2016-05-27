@@ -6,7 +6,7 @@
         </md-sidenav>
         <div layout="column" id="content">
             <md-content>
-                <md-toolbar style="min-height:60px !important; height:60px !important;" layout="row" ng-show="!showSearch">
+                <md-toolbar style="min-height:50px !important; height:50px !important;" layout="row" ng-show="!showSearch">
                     <md-button hide-gt-sm data-ng-click="toggleList()" style="min-width:50px;">
                         <md-icon class="material-icons md-accent">menu</md-icon>
                     </md-button>
@@ -18,7 +18,7 @@
                             <md-icon class="material-icons md-accent">search</md-icon>
                         </md-button>
                         <md-menu md-position-mode="target-right target">
-                            <md-button style="min-width:24px;"  data-ng-click="openMenu($mdOpenMenu, $event)">
+                            <md-button style="min-width:24px;" data-ng-click="openMenu($mdOpenMenu, $event)">
                                 <md-icon class="material-icons md-accent">more_vert</md-icon>
                             </md-button>
                             <md-menu-content width="3">
@@ -51,10 +51,10 @@
                     </div>
                 </md-toolbar>               
                 
-                <md-toolbar class="md-hue-1" ng-show="showSearch" style="min-height:60px !important; height:60px !important;">
+                <md-toolbar class="md-hue-1" ng-show="showSearch" style="min-height:50px !important; height:50px !important;">
                     <div class="md-toolbar-tools">
-                        <md-button ng-click="showSearch = !showSearch" aria-label="Back" style="min-height:48px !important; height:48px !important;">
-                            <md-icon style="margin-top:12px;" class="material-icons md-accent">arrow_back</md-icon>
+                        <md-button ng-click="showSearch = !showSearch" aria-label="Back" style="min-width:24px;">
+                            <md-icon class="material-icons md-accent">arrow_back</md-icon>
                         </md-button>
                         <div md-theme="input" flex>
                             <md-autocomplete id="AutoCompleteToolbar"
