@@ -381,7 +381,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     var patients = "";
 
     autoCompletePatientsloadAll();
-
+    $scope.searchText = '';
     $scope.querySearch = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange = searchTextChange;
