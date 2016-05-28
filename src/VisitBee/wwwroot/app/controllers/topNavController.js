@@ -29,7 +29,13 @@ function ($mdDialog, $scope, $mdSidenav, $mdBottomSheet, $log, patientsService, 
     //Load Patients at once
     autoCompletePatientsloadAll();
     $scope.querySearch = querySearch;
-   
+    $scope.newPatient = newPatient;
+
+    function newPatient(patient){
+       
+    }
+
+
     function autoCompletePatientsloadAll() {
 
         patientsService.getPatients().then(function (results) {

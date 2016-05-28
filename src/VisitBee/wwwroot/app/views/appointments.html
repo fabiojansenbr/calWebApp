@@ -70,7 +70,9 @@
                                 <md-item-template>
                                     <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>
                                 </md-item-template>
-                              
+                                <md-not-found>                                   
+                                    <a ng-click="newPatient(searchText)">Create new client: <strong>{{searchText}}</strong></a>
+                                </md-not-found>
                             </md-autocomplete>
                         </div>
                         
