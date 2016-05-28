@@ -1,11 +1,11 @@
 ﻿
-<div layout="column" data-ng-controller="sideNavController as sn"> 
+<div layout="column"> 
     <div layout="row" layout-fill>
         <md-sidenav  layout="column" md-is-locked-open="$mdMedia('gt-sm')" class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-            <md-button  data-ng-controller="indexController" data-ng-click="logOut()" class="md-primary" type="button">Logout</md-button>    
+            <md-button  data-ng-controller="leftNavController" data-ng-click="logOut()" class="md-primary" type="button">Logout</md-button>    
         </md-sidenav>
         <div layout="column" id="content">
-            <md-content>
+            <md-content data-ng-controller="topNavController">
                 <md-toolbar style="min-height:50px !important; height:50px !important;" layout="row" ng-show="!showSearch">
                     <md-button hide-gt-sm data-ng-click="toggleList()" style="min-width:50px;">
                         <md-icon class="material-icons md-accent">menu</md-icon>
@@ -51,24 +51,26 @@
                     </div>
                 </md-toolbar>               
                 
-                <md-toolbar class="md-hue-1" ng-show="showSearch" style="min-height:50px !important; height:50px !important;">
+                <md-toolbar class="md-hue-1" 
+                            ng-show="showSearch" 
+                            style="min-height:50px !important; height:50px !important;">
                     <div class="md-toolbar-tools">
                         <md-button ng-click="showSearch = !showSearch" aria-label="Back" style="min-width:24px;">
                             <md-icon class="material-icons md-accent">arrow_back</md-icon>
                         </md-button>
                         <div md-theme="input" flex>
-                            <md-autocomplete id="AutoCompleteToolbar"
-                                             md-no-cache="false"
-                                             md-search-text-change="searchTextChange(searchText)"
-                                             md-search-text="searchText"
-                                             md-selected-item-change="selectedItemChange(item)"
+                            <md-autocomplete  id="AutoCompleteToolbar"
+                                             md-no-cache="false"                                                                                                                                  
+                                             md-search-text="searchText"                                             
                                              md-items="item in querySearch(searchText)"
                                              md-item-text="item.PatientName"
+                                             md-selected-item="selectedItem"
                                              md-min-length="0"
                                              placeholder="search clients">
                                 <md-item-template>
                                     <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>
                                 </md-item-template>
+                              
                             </md-autocomplete>
                         </div>
                         

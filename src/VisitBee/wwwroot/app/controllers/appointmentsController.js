@@ -279,14 +279,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         }
     }
 
-    //Change the calendars view
-    $scope.changeView = function (view) {
-        if (view == 'today')
-            $('#calendar').fullCalendar('today');
-        else
-            $('#calendar').fullCalendar('changeView', view);
-    };
-
+   
     
     var renderCalender = function (calendar) {
         if (uiCalendarConfig.calendars[calendar]) {
