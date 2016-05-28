@@ -389,9 +389,28 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     $scope.querySearch = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange = searchTextChange;
-        /**
-         * Search for patients.
-         */
+    $scope.newPatient = newPatient;
+   
+    //this function is used for md-autocomplete on topbar
+    function newPatient(patient) {
+        $scope.patient = patient;
+        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+        $mdDialog.show({
+            templateUrl: 'createNewClient',
+            scope: $scope,
+            preserveScope: true,
+            bindToController: true,
+            //targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: useFullScreen
+        })
+       .then(function () {
+
+       }, function () {
+
+       });
+    }
+
     function querySearch(query) {
         var results = query ? patients.filter(createFilterFor(query)) :patients, deferred;   
         return results;
