@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('topNavController', ['$mdDialog', '$scope', '$mdSidenav', '$mdBottomSheet', '$log', 'patientsService', '$q',
-function ($mdDialog, $scope, $mdSidenav, $mdBottomSheet, $log, patientsService, $q) {
+app.controller('topNavController', ['$mdDialog', '$scope', '$mdSidenav', '$mdBottomSheet', '$log', 'patientsService', '$q', '$mdMedia',
+function ($mdDialog, $scope, $mdSidenav, $mdBottomSheet, $log, patientsService, $q, $mdMedia) {
 
    
     $scope.toggleList = function () {
@@ -31,8 +31,23 @@ function ($mdDialog, $scope, $mdSidenav, $mdBottomSheet, $log, patientsService, 
     $scope.querySearch = querySearch;
     $scope.newPatient = newPatient;
 
-    function newPatient(patient){
-       
+    function newPatient(patient) {
+        $scope.patient = patient;
+       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+        $mdDialog.show({
+            templateUrl: 'createNewClient',
+            scope: $scope,
+            preserveScope: true,
+            bindToController: true,
+            //targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: useFullScreen
+        })
+       .then(function () {
+
+       }, function () {
+          
+       });
     }
 
 
@@ -59,6 +74,11 @@ function ($mdDialog, $scope, $mdSidenav, $mdBottomSheet, $log, patientsService, 
 
     }
 
+    //Dialog buttons
+
+    $scope.DialogCancel = function () {
+        $mdDialog.cancel();
+    };
 
   
 }]);
