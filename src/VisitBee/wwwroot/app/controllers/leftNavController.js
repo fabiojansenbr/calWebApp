@@ -6,6 +6,6 @@ app.controller('leftNavController', ['$scope', '$location', 'authService', funct
         $location.path('/home');
     }
 
-    $scope.authentication = authService.authentication;
+    $scope.authentication = authService.authentication; 
 
 }]);

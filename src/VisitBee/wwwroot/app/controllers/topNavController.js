@@ -10,7 +10,7 @@ function ($mdDialog, $scope, $mdSidenav, $mdBottomSheet, $log, patientsService, 
     $scope.openMenu = function ($mdOpenMenu, ev) {
         $mdOpenMenu(ev);
     };
-
+ 
      //Change the calendars view
     $scope.changeView = function (view) {
         if (view == 'today')
