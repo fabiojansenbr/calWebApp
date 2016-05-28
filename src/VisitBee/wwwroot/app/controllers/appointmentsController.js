@@ -256,8 +256,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             fullscreen: useFullScreen
         })
         .then(function () {
-            //Load patients for autocomplete
-            autoCompletePatientsloadAll();
+           
         }, function () {
             clearNewAppointment();
         });

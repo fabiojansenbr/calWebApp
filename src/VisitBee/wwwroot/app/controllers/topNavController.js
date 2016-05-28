@@ -26,6 +26,7 @@ function ($mdDialog, $scope, $mdSidenav, $mdBottomSheet, $log, patientsService, 
 
     var patients = '';
     $scope.searchText = '';
+    //Load Patients at once
     autoCompletePatientsloadAll();
     $scope.querySearch = querySearch;
    
