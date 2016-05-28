@@ -98,7 +98,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     //get User Info
     var getUserInfo = function () {
         calendarService.getUserInfo().then(function (result) {
-            //TODO This will return Email Confirmation and user name. Display banner for unconfirmed emails. Use the name in sidenav
+            //TODO Tomasz; This will return Email Confirmation and user name. Display banner for unconfirmed emails. Use the name in sidenav
         })
     };
 
@@ -106,9 +106,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         $.connection.hub.url = serviceBase + 'signalr';
         var appointments = $.connection.appointmentHub;
         appointments.client.newAppointment = function (data) {
-            //don't get all appointments
-            //getAppointments();
-
+  
             //get +- 2 weeks of appointments from the added appointment's start date
             getAppointments4weeks(new Date(data.StartDate).toJSON().slice(0, 10));
 
@@ -211,7 +209,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
     var viewRender = function (view, element) {
 
-        //if month view fetch appointments for the given range.
+        //if month view, fetch appointments for the given motnhs' range.
         if (view.name == "month") {
             getAppointmentsRange(new Date(view.intervalStart._d).toJSON().slice(0, 10),
             new Date(view.intervalEnd._d).toJSON().slice(0, 10));
@@ -276,9 +274,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         if (!$scope.IsTouchMove) {
             showAddAppointmentDialog(start, end);
         }
-    }
-
-   
+    }   
     
     var renderCalender = function (calendar) {
         if (uiCalendarConfig.calendars[calendar]) {
@@ -333,22 +329,16 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         calendarConfig.editable = true;
     }
     
-
     $scope.uiConfig = {
         calendar: calendarConfig
     };
 
     $scope.eventSources = [];
-
-    
-    //This is the old method that request all the appointments. Was Causing performance issues.
-    //getAppointments();
-
     getUserCalendar();
 
 
     // *************************************************************************************
-    // Appointment Dialog Buttons
+    // Dialog Buttons: Appointment, New Patient, Existing Patient
     // *************************************************************************************
 
     $scope.hide = function () {
@@ -378,14 +368,15 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     };
 
 
-       // *************************************************************************************
-       // Smart Patient search Box
-       // *************************************************************************************
-
+    // *************************************************************************************
+    // Smart search Box - Appointment dialog, Toolbar on top
+    // *************************************************************************************
 
     // array of patients
     var patients = "";
+
     autoCompletePatientsloadAll();
+
     $scope.querySearch = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange = searchTextChange;
@@ -429,30 +420,22 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             $scope.oNewAppointment.PatientId = item.Id;
         }           
     }
-        /**
-         * Get all the patients at once. This is a cheap operation
-         */
+    
+    //Get all the patients at once and cache it
     function autoCompletePatientsloadAll() {
-
         patientsService.getPatients().then(function (results) {
-
             patients = results.data;
-
         }, function (error) {
             //alert(error.data.message);
         });
-
-
     }
        
-         //Create filter function for a query string
-
+    //Create filter function for a query string
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
         return function filterFn(patient) {
             return (patient.PatientName.indexOf(lowercaseQuery) === 0);
         };
-
     }
 
 
