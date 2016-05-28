@@ -367,6 +367,11 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         }
     };
 
+    $scope.DialogSavePatient = function () {
+        patientsService.postPatient($scope.newPatient).then(function (result) {
+            $mdDialog.hide();
+        })
+    };
 
     // *************************************************************************************
     // Smart search Box - Appointment dialog, Toolbar on top
@@ -380,11 +385,17 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     $scope.querySearch = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange = searchTextChange;
-    $scope.newPatient = newPatient;
+    $scope.createNewPatient = createNewPatient;
    
     //this function is used for md-autocomplete on topbar
-    function newPatient(patient) {
-        $scope.patient = patient;
+    function createNewPatient(patient) {
+
+        $scope.newPatient = {
+            patientName: patient,
+            phoneNumber: '',
+            note: ''
+        };
+
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
         $mdDialog.show({
             templateUrl: 'createNewClient',
