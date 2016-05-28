@@ -378,7 +378,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     // *************************************************************************************
 
     // array of patients
-    $scope.patients = "";
+    var patients = "";
 
     autoCompletePatientsloadAll();
 
@@ -414,7 +414,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     }
 
     function querySearch(query) {
-        var results = query ? $scope.patients.filter(createFilterFor(query)) : $scope.patients, deferred;
+        var results = query ? patients.filter(createFilterFor(query)) :patients, deferred;   
         return results;
     }
 
@@ -435,7 +435,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     //Get all the patients at once and cache it
     function autoCompletePatientsloadAll() {
         patientsService.getPatients().then(function (results) {
-            $scope.patients = results.data;
+            patients = results.data;
         }, function (error) {
             //alert(error.data.message);
         });
