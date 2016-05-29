@@ -64,11 +64,16 @@
                                              md-search-text="searchText"                                             
                                              md-items="item in querySearch(searchText)"
                                              md-item-text="item.PatientName"
-                                             md-selected-item="selectedItem"
+                                             md-selected-item="item"
                                              md-min-length="1"
                                              placeholder="search clients">
                                 <md-item-template>
-                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>
+                                    <a flex ng-click="showPatient(item)">
+                                        <span 
+                                              md-highlight-text="item.PatientName"                                              
+                                              md-highlight-flags="^i">{{item.PatientName}}</span>
+                                        <strong>:: {{item.PhoneNumber}} </strong> 
+                                    </a>                                   
                                 </md-item-template>
                                 <md-not-found>                                   
                                     <a flex ng-click="createNewPatient(searchText)">Create new client: <strong>{{searchText}}</strong></a>
@@ -160,7 +165,7 @@
         </md-dialog>
     </script>
 
-<script type="text/ng-template" id="createNewClient">
+<script type="text/ng-template" id="createNewPatient">
     <md-dialog aria-label="Mango (Fruit)">
         <form>
             <md-toolbar>
@@ -196,6 +201,56 @@
             <md-dialog-actions layout="row">
                 <span flex></span>
                 <md-button ng-click="DialogSavePatient()">
+                    <md-icon class="material-icons">check_circle</md-icon>
+                </md-button>
+                <md-button ng-click="DialogCancel()">
+                    <md-icon class="material-icons md-accent">cancel</md-icon>
+                </md-button>
+            </md-dialog-actions>
+
+        </form>
+    </md-dialog>
+</script>
+
+<script type="text/ng-template" id="showPatientData">
+    <md-dialog aria-label="Mango (Fruit)">
+        <form>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <md-icon class="material-icons md-accent">person</md-icon>
+                    <h5 style="margin-left:8px;">{{existingPatient.patientName}}</h5>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="DialogCancel()">
+                        <md-icon class="material-icons md-accent">close</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-dialog-content style="max-width:800px;max-height:810px; ">
+                <md-content class="md-padding">
+                    <md-input-container class="md-icon-float md-block" flex-gt-sm style="margin-top: 20px !important;">
+                        <label>Name</label>
+                        <md-icon style="width:36px; margin-top: 10px;" class="material-icons md-accent">person</md-icon>
+                        <input type="text" ng-model="existingPatient.patientName">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block"
+                                        flex-gt-sm id="phoneBox"
+                                        style="margin-top:12px;">
+                        <label>Phone</label>
+                        <md-icon style="width:36px;" class="material-icons md-accent">call</md-icon>
+                        <input type="tel" ng-model="existingPatient.phoneNumber">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Note</label>
+                        <textarea ng-model="existingPatient.note" md-maxlength="300" rows="5" md-select-on-focus></textarea>
+                    </md-input-container>
+                </md-content>
+            </md-dialog-content>
+            <md-dialog-actions layout="row">
+                <md-button ng-click="DialogDeletePatient()">
+                    <md-icon class="material-icons">delete</md-icon>
+                </md-button>
+                <span flex></span>
+                <md-button ng-click="DialogUpdatePatient()">
                     <md-icon class="material-icons">check_circle</md-icon>
                 </md-button>
                 <md-button ng-click="DialogCancel()">

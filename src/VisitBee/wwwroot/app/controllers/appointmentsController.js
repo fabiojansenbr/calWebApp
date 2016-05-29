@@ -311,8 +311,9 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     var useFullScreen = shouldUseFullScreen();
 
     var showAddAppointmentDialog = function (start, end, data) {
-        //Using full-screen was causing performance issues on edge browser
+
         clearNewAppointment();
+
         $scope.isPhoneNumEditable = true;
         if (data) {
             if (data.Patient) {
@@ -383,6 +384,22 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         })
     };
 
+    $scope.DialogUpdatePatient = function () {
+        patientsService.putPatient($scope.existingPatient).then(function (result) {
+            $mdDialog.hide();
+            //reload patients after a patient is updated.
+            autoCompletePatientsloadAll();
+        })
+    };
+
+    $scope.DialogDeletePatient = function () {
+        patientsService.deletePatient($scope.existingPatient).then(function (result) {
+            $mdDialog.hide();
+            //reload patients after a patient is updated.
+            autoCompletePatientsloadAll();
+        })
+    };
+
     // *************************************************************************************
     // Smart search Box - Appointment dialog, Toolbar on top
     // *************************************************************************************
@@ -396,8 +413,8 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange = searchTextChange;
     $scope.createNewPatient = createNewPatient;
-   
-    //this function is used for md-autocomplete on topbar
+    $scope.showPatient = showPatient;
+    //this function is triggered thru md-autocomplete on topbar
     function createNewPatient(patient) {
 
         $scope.newPatient = {
@@ -405,10 +422,36 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             phoneNumber: '',
             note: ''
         };
-        //Using full-screen was causing performance issues on edge browser
-        //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+      
         $mdDialog.show({
-            templateUrl: 'createNewClient',
+            templateUrl: 'createNewPatient',
+            scope: $scope,
+            preserveScope: true,
+            bindToController: true,
+            //targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: useFullScreen
+        })
+       .then(function () {
+
+       }, function () {
+
+       });
+    }
+
+    //this function is triggered thru md-autocomplete on topbar
+    function showPatient(patient) {
+
+        $scope.existingPatient = {
+            Id: patient.Id,
+            patientName: patient.PatientName,
+            phoneNumber: patient.PhoneNumber,
+            isActive: patient.IsActive,
+            note: patient.Note
+        };
+
+        $mdDialog.show({
+            templateUrl: 'showPatientData',
             scope: $scope,
             preserveScope: true,
             bindToController: true,
