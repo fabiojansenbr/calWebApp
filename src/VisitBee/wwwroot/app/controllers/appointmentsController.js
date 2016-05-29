@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdToast', '$log', 'patientsService', '$q',
-function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdToast, $log, patientsService, $q) {
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q',
+function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q) {
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
@@ -306,11 +306,21 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
 
     // *************************************************************************************
-    // Dialog Buttons: Appointment, New Patient, Existing Patient
+    // Dialogs and dialog Buttons: Appointment, New Patient, Existing Patient
     // *************************************************************************************
+
+    //Whether to use full screen or not. Fullscreen dialog causes performance problems on Edge browser. therefore disabled.  
+    var shouldUseFullScreen =  function () {
+        if (navigator.appVersion.indexOf('Edge') > -1)
+            return false;
+        else 
+            return ($mdMedia('sm') || $mdMedia('xs'));
+    };
+
+    var useFullScreen = shouldUseFullScreen();
+
     var showAddAppointmentDialog = function (start, end, data) {
         //Using full-screen was causing performance issues on edge browser
-        //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')); //  && $scope.customFullscreen;
         clearNewAppointment();
         $scope.isPhoneNumEditable = true;
         if (data) {
@@ -338,7 +348,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             bindToController: true,
             //targetEvent: ev,
             clickOutsideToClose: true,
-            //fullscreen: useFullScreen
+            fullscreen: useFullScreen
         })
         .then(function () {
 
@@ -413,7 +423,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             bindToController: true,
             //targetEvent: ev,
             clickOutsideToClose: true,
-            //fullscreen: useFullScreen
+            fullscreen: useFullScreen
         })
        .then(function () {
 
