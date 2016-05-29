@@ -59,7 +59,7 @@
                             <md-icon class="material-icons md-accent">arrow_back</md-icon>
                         </md-button>
                         <div md-theme="input" flex>
-                            <md-autocomplete  id="AutoCompleteToolbar"
+                            <md-autocomplete  id="AutoCompleteToolbar" 
                                              md-no-cache="true"                                                                                                                                  
                                              md-search-text="searchText"                                             
                                              md-items="item in querySearch(searchText)"
@@ -116,13 +116,17 @@
                                                          md-search-text-change="searchTextChange(searchText)"
                                                          md-search-text="searchText"
                                                          md-selected-item-change="selectedItemChange(item)"
+                                                         md-selected-item="selectedItem"
                                                          md-items="item in querySearch(searchText)"
                                                          md-item-text="item.PatientName"
                                                          md-min-length="1"
                                                          placeholder="Type a client name">
                                             <md-item-template>                                                                                                                         
                                              <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>                                            
-                                            </md-item-template>                                                                
+                                            </md-item-template>   
+                                            <md-not-found>
+                                                <a flex >New: <strong>{{searchText}}</strong></a>
+                                           </md-not-found>                                                             
                                         </md-autocomplete>
                                     </div>
                                 </md-input-container>                               
@@ -131,7 +135,7 @@
                                                     style="margin-top:12px;">
                                     <label>Phone</label>
                                     <md-icon style="width:36px;" class="material-icons md-accent">call</md-icon>
-                                    <input type="tel" ng-model="oNewAppointment.Patient.PhoneNumber" ng-readonly="searchText">
+                                    <input type="tel" ng-model="oNewAppointment.Patient.PhoneNumber" ng-readonly="!isPhoneNumEditable">
                                 </md-input-container>
                                
                           </div>

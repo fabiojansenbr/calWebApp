@@ -29,7 +29,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             StartDate: '',
             EndDate: '',
             PatientId: '',
-           Patient: {
+            Patient: {
                 PatientName: '',
                 PhoneNumber: '',
                 OwnerId: ''
@@ -40,7 +40,12 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         $scope.searchText = '';
     };
 
-    
+    var clearPatient = function () {
+        $scope.oNewAppointment.PatientId = '';
+        $scope.oNewAppointment.Patient.PatientName = '';
+        $scope.oNewAppointment.Patient.PhoneNumber = '';
+    };
+
     //this function get's only the users own calendars all appointments.
     var getAppointments = function () {
         appointmentsService.getAppointments().then(function (results) {
@@ -224,7 +229,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     var showAddAppointmentDialog = function (start, end, data) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')); //  && $scope.customFullscreen;
         clearNewAppointment();
-
+        $scope.isPhoneNumEditable = true;
         if (data)
         {
             if (data.Patient) {
@@ -233,8 +238,8 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             $scope.oNewAppointment = data;
             $scope.oNewAppointment.StartDate = data.start;
             $scope.oNewAppointment.EndDate = data.end;
-
             data = null;
+            $scope.isPhoneNumEditable = false;
         }
         else
         {
@@ -242,6 +247,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm"); 
             $scope.oNewAppointment.Patient.PatientName = "";
             $scope.oNewAppointment.Patient.PhoneNumber = "";
+            $scope.isPhoneNumEditable = true;
         }
         
         $mdDialog.show({
@@ -388,7 +394,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     var patients = "";
 
     autoCompletePatientsloadAll();
-    $scope.searchText = '';
+
     $scope.querySearch = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange = searchTextChange;
@@ -426,17 +432,24 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     }
 
     function searchTextChange(text) {
-        if (text != '' && text != null)
-        {
-            $scope.oNewAppointment.Patient.PatientName = text;          
-        }    
+        if (text != '' && text != null){
+            $scope.oNewAppointment.Patient.PatientName = text;
+        }else{
+            clearPatient();
+            $scope.isPhoneNumEditable = true;
+        }
     }
 
     function selectedItemChange(item) {
         if (item != '' && item != null) {
             $scope.oNewAppointment.Patient = item;
             $scope.oNewAppointment.PatientId = item.Id;
-        }           
+            //if an existing patient from the patient array is selected, make phone num editing false
+            $scope.isPhoneNumEditable = false;
+        } else {
+            clearPatient();
+            $scope.isPhoneNumEditable = true;
+        }
     }
     
     //Get all the patients at once and cache it
