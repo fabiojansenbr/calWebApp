@@ -309,6 +309,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     // Dialog Buttons: Appointment, New Patient, Existing Patient
     // *************************************************************************************
     var showAddAppointmentDialog = function (start, end, data) {
+        //Using full-screen was causing performance issues on edge browser
         //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')); //  && $scope.customFullscreen;
         clearNewAppointment();
         $scope.isPhoneNumEditable = true;
@@ -403,7 +404,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             phoneNumber: '',
             note: ''
         };
-
+        //Using full-screen was causing performance issues on edge browser
         //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
         $mdDialog.show({
             templateUrl: 'createNewClient',
