@@ -357,7 +357,12 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         }
         else
             postAppointment($scope.oNewAppointment);
-        $mdDialog.hide();     
+        $mdDialog.hide();
+
+        //reload patients after a new appointment is posted. Maybe a new patient name is entered.
+        autoCompletePatientsloadAll();
+        //clear the searchtext. this is being shared by two md-autocompletes (appointment dialog, navbar top)
+        $scope.searchText = '';
     };
 
     $scope.DialogDeleteAppointment = function () {
@@ -370,6 +375,8 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     $scope.DialogSavePatient = function () {
         patientsService.postPatient($scope.newPatient).then(function (result) {
             $mdDialog.hide();
+            //reload patients after a new patient is posted.
+            autoCompletePatientsloadAll();
         })
     };
 

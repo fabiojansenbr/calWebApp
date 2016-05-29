@@ -60,12 +60,12 @@
                         </md-button>
                         <div md-theme="input" flex>
                             <md-autocomplete  id="AutoCompleteToolbar"
-                                             md-no-cache="false"                                                                                                                                  
+                                             md-no-cache="true"                                                                                                                                  
                                              md-search-text="searchText"                                             
                                              md-items="item in querySearch(searchText)"
                                              md-item-text="item.PatientName"
                                              md-selected-item="selectedItem"
-                                             md-min-length="0"
+                                             md-min-length="1"
                                              placeholder="search clients">
                                 <md-item-template>
                                     <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>
@@ -112,13 +112,13 @@
                                     <md-icon style="width:36px; margin-top: 10px;" class="material-icons md-accent">person</md-icon>                                  
                                     <div layout="column">
                                         <md-autocomplete id="AutoComplete"
-                                                         md-no-cache="false"                                                       
+                                                         md-no-cache="true"                                                       
                                                          md-search-text-change="searchTextChange(searchText)"
                                                          md-search-text="searchText"
                                                          md-selected-item-change="selectedItemChange(item)"
                                                          md-items="item in querySearch(searchText)"
                                                          md-item-text="item.PatientName"
-                                                         md-min-length="0"
+                                                         md-min-length="1"
                                                          placeholder="Type a client name">
                                             <md-item-template>                                                                                                                         
                                              <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>                                            
