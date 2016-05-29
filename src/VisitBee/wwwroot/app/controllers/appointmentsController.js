@@ -11,19 +11,6 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             || navigator.maxTouchPoints;       // works on IE10/11 and Surface
     };
 
-    $scope.oNewAppointment = {
-        StartDate: '',
-        EndDate: '',
-        PatientId: '',
-        Patient: {
-            PatientName: '',
-            PhoneNumber: '',
-            OwnerId: ''
-        },
-        IsAvailable: true,
-        AppointmentNote: ''
-    };
-
     var clearNewAppointment = function () {
         $scope.oNewAppointment = {
             StartDate: '',
@@ -296,7 +283,11 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         calendarConfig.select = select;
         calendarConfig.editable = true;
     }
-    
+
+    // *************************************************************************************
+    // Initializers
+    // *************************************************************************************
+    clearNewAppointment();
     $scope.uiConfig = {
         calendar: calendarConfig
     };
