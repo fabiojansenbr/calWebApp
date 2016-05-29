@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q',
-function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q) {
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdToast', '$log', 'patientsService', '$q',
+function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdToast, $log, patientsService, $q) {
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
@@ -226,45 +226,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         TimeFix(45, "08:00:00");
     }
 
-    var showAddAppointmentDialog = function (start, end, data) {
-        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')); //  && $scope.customFullscreen;
-        clearNewAppointment();
-        $scope.isPhoneNumEditable = true;
-        if (data)
-        {
-            if (data.Patient) {
-                $scope.searchText = data.Patient.PatientName;
-            }
-            $scope.oNewAppointment = data;
-            $scope.oNewAppointment.StartDate = data.start;
-            $scope.oNewAppointment.EndDate = data.end;
-            data = null;
-            $scope.isPhoneNumEditable = false;
-        }
-        else
-        {
-            $scope.oNewAppointment.StartDate = start; //date.clone();
-            $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm"); 
-            $scope.oNewAppointment.Patient.PatientName = "";
-            $scope.oNewAppointment.Patient.PhoneNumber = "";
-            $scope.isPhoneNumEditable = true;
-        }
-        
-        $mdDialog.show({
-            templateUrl: 'dialog1.tmpl.html',
-            scope: $scope,
-            preserveScope: true,
-            bindToController: true,
-            //targetEvent: ev,
-            clickOutsideToClose: true,
-            fullscreen: useFullScreen
-        })
-        .then(function () {
-           
-        }, function () {
-            clearNewAppointment();
-        });
-    }
+   
 
     var dayClick = function (date, jsEvent, view) {
         if (!$scope.IsTouchMove) {
@@ -346,10 +308,43 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     // *************************************************************************************
     // Dialog Buttons: Appointment, New Patient, Existing Patient
     // *************************************************************************************
+    var showAddAppointmentDialog = function (start, end, data) {
+        //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')); //  && $scope.customFullscreen;
+        clearNewAppointment();
+        $scope.isPhoneNumEditable = true;
+        if (data) {
+            if (data.Patient) {
+                $scope.searchText = data.Patient.PatientName;
+            }
+            $scope.oNewAppointment = data;
+            $scope.oNewAppointment.StartDate = data.start;
+            $scope.oNewAppointment.EndDate = data.end;
+            data = null;
+            $scope.isPhoneNumEditable = false;
+        }
+        else {
+            $scope.oNewAppointment.StartDate = start; //date.clone();
+            $scope.oNewAppointment.EndDate = end; //date.clone().add(45, 'minutes'); //.format("MM/DD/YYYY HH:mm"); 
+            $scope.oNewAppointment.Patient.PatientName = "";
+            $scope.oNewAppointment.Patient.PhoneNumber = "";
+            $scope.isPhoneNumEditable = true;
+        }
 
-    $scope.hide = function () {
-        $mdDialog.hide();
-    };
+        $mdDialog.show({
+            templateUrl: 'dialog1.tmpl.html',
+            scope: $scope,
+            preserveScope: true,
+            bindToController: true,
+            //targetEvent: ev,
+            clickOutsideToClose: true,
+            //fullscreen: useFullScreen
+        })
+        .then(function () {
+
+        }, function () {
+            clearNewAppointment();
+        });
+    }
 
     $scope.DialogCancel = function () {
         $mdDialog.cancel();      
@@ -409,7 +404,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             note: ''
         };
 
-        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+        //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
         $mdDialog.show({
             templateUrl: 'createNewClient',
             scope: $scope,
@@ -417,7 +412,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             bindToController: true,
             //targetEvent: ev,
             clickOutsideToClose: true,
-            fullscreen: useFullScreen
+            //fullscreen: useFullScreen
         })
        .then(function () {
 
