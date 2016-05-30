@@ -444,6 +444,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
         $scope.existingPatient = {
             Id: patient.Id,
+            ownerId: patient.OwnerId,
             patientName: patient.PatientName,
             phoneNumber: patient.PhoneNumber,
             isActive: patient.IsActive,
