@@ -17,8 +17,10 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             EndDate: '',
             PatientId: '',
             Patient: {
+                Id: '',
                 PatientName: '',
                 PhoneNumber: '',
+                Note: '',
                 OwnerId: ''
             },
             IsAvailable: true,
