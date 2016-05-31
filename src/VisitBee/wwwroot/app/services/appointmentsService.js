@@ -26,6 +26,13 @@ app.factory('appointmentsService', ['$http', 'serverSettings', function ( $http,
         });
     };
 
+     var _getAppointmentsByPatient = function (patientId) {
+
+        return $http.get(serviceBase + 'api/appointments/GetAppointmentsByPatient/' + patientId).then(function (results) {
+            return results;
+        });
+    };
+
     var _postAppointment = function (data) {
         
         //When Patient object is empty server side is responding with error.
@@ -65,7 +72,8 @@ app.factory('appointmentsService', ['$http', 'serverSettings', function ( $http,
 
     appointmentsServiceFactory.getAppointments = _getAppointments;
     appointmentsServiceFactory.getAppointmentsRange = _getAppointmentsRange;
-    appointmentsServiceFactory.getAppointments4weeks = _getAppointments4weeks
+    appointmentsServiceFactory.getAppointments4weeks = _getAppointments4weeks;
+    appointmentsServiceFactory.getAppointmentsByPatient = _getAppointmentsByPatient;
     appointmentsServiceFactory.postAppointment = _postAppointment;
     appointmentsServiceFactory.deleteAppointment = _deleteAppointment;
     appointmentsServiceFactory.putAppointment = _putAppointment;

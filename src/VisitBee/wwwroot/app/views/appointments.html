@@ -214,7 +214,6 @@
 
 <script type="text/ng-template" id="showPatientData">
     <md-dialog aria-label="Mango (Fruit)">
-        <form>
             <md-toolbar>
                 <div class="md-toolbar-tools">
                     <md-icon class="material-icons md-accent">person</md-icon>
@@ -225,26 +224,46 @@
                     </md-button>
                 </div>
             </md-toolbar>
-            <md-dialog-content style="max-width:800px;max-height:810px; ">
-                <md-content class="md-padding">
-                    <md-input-container class="md-icon-float md-block" flex-gt-sm style="margin-top: 20px !important;">
-                        <label>Name</label>
-                        <md-icon style="width:36px; margin-top: 10px;" class="material-icons md-accent">person</md-icon>
-                        <input type="text" ng-model="existingPatient.patientName">
-                    </md-input-container>
-                    <md-input-container class="md-icon-float md-block"
-                                        flex-gt-sm id="phoneBox"
-                                        style="margin-top:12px;">
-                        <label>Phone</label>
-                        <md-icon style="width:36px;" class="material-icons md-accent">call</md-icon>
-                        <input type="tel" ng-model="existingPatient.phoneNumber">
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <label>Note</label>
-                        <textarea ng-model="existingPatient.note" md-maxlength="300" rows="5" md-select-on-focus></textarea>
-                    </md-input-container>
-                </md-content>
-            </md-dialog-content>
+        <md-dialog-content style="max-width:800px;max-height:810px; ">
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="data">
+                    <md-content class="md-padding">
+                        <md-input-container class="md-icon-float md-block" flex-gt-sm style="margin-top: 20px !important;">
+                            <label>Name</label>
+                            <md-icon style="width:36px; margin-top: 10px;" class="material-icons md-accent">person</md-icon>
+                            <input type="text" ng-model="existingPatient.patientName">
+                        </md-input-container>
+                        <md-input-container class="md-icon-float md-block"
+                                            flex-gt-sm id="phoneBox"
+                                            style="margin-top:12px;">
+                            <label>Phone</label>
+                            <md-icon style="width:36px;" class="material-icons md-accent">call</md-icon>
+                            <input type="tel" ng-model="existingPatient.phoneNumber">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Note</label>
+                            <textarea ng-model="existingPatient.note" md-maxlength="1000" rows="10" md-select-on-focus></textarea>
+                        </md-input-container>
+                    </md-content>
+                 </md-tab>
+                <md-tab label="history">
+                    <md-content class="md-padding">
+                        <md-list flex>
+                            <md-subheader class="md-no-sticky">Appointment History</md-subheader>
+                            <md-list-item class="md-2-line" ng-repeat="item in patientAppointments" ng-click="null">
+                                <md-icon class="material-icons md-accent">today</md-icon>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{ item.StartDate | date:'MM/dd/yyyy @ h:mma'}}</h3>
+                                    <p>{{ item.AppointmentNote }}</p>
+                                </div>
+                                <md-divider></md-divider>
+                            </md-list-item>
+                           
+                        </md-list>
+                    </md-content>
+                </md-tab>
+              </md-tabs>
+        </md-dialog-content>
             <md-dialog-actions layout="row">
                 <md-button ng-click="DialogDeletePatient()">
                     <md-icon class="material-icons">delete</md-icon>
@@ -257,7 +276,5 @@
                     <md-icon class="material-icons md-accent">cancel</md-icon>
                 </md-button>
             </md-dialog-actions>
-
-        </form>
     </md-dialog>
 </script>

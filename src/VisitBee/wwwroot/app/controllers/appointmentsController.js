@@ -453,6 +453,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
             note: patient.Note
         };
 
+       
         $mdDialog.show({
             templateUrl: 'showPatientData',
             scope: $scope,
@@ -467,6 +468,12 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
        }, function () {
 
        });
+
+        //Load patients appointment history after dialog is shown
+        appointmentsService.getAppointmentsByPatient(patient.Id).then(function (results) {
+            $scope.patientAppointments = results.data;
+        }, function (error) {
+        });
     }
 
     function querySearch(query) {
