@@ -253,7 +253,7 @@
                             <md-list-item class="md-2-line" ng-repeat="item in patientAppointments" ng-click="null">
                                 <md-icon class="material-icons md-accent">today</md-icon>
                                 <div class="md-list-item-text" layout="column">
-                                    <h3>{{ item.StartDate | date:'MM/dd/yyyy @ h:mma'}}</h3>
+                                    <h3>{{ toUTCString(item.StartDate) | date:'MM/dd/yyyy @ h:mma'}}</h3>
                                     <p>{{ item.AppointmentNote }}</p>
                                 </div>
                                 <md-divider></md-divider>

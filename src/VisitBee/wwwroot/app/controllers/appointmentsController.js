@@ -476,6 +476,11 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         });
     }
 
+    $scope.toUTCString = function (timeStamp) {
+            var convertedDate = new Date(timeStamp);
+            return convertedDate.toUTCString();
+    }
+
     function querySearch(query) {
         var results = query ? patients.filter(createFilterFor(query)) :patients, deferred;   
         return results;
