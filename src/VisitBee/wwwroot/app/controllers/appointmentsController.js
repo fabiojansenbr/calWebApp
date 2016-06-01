@@ -213,8 +213,13 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
         //if month view, fetch appointments for the given motnhs' range.
         if (view.name == "month") {
-            getAppointmentsRange(new Date(view.intervalStart._d).toJSON().slice(0, 10),
-            new Date(view.intervalEnd._d).toJSON().slice(0, 10));
+            //Add +10 days more threshold for the months range to retrieve last and next months' ending and beginning weeks' appointments.
+            var start = new Date(view.intervalStart._d);
+            start.setDate(start.getDate() - 10);
+            var end = new Date(view.intervalEnd._d);
+            end.setDate(start.getDate() + 10);
+
+            getAppointmentsRange(start.toJSON().slice(0, 10), end.toJSON().slice(0, 10));
         } else { //for week view and day view
             //get +- 2 weeks of appointments by current weeks first day.
             getAppointments4weeks(new Date(view.intervalStart._d).toJSON().slice(0, 10));
