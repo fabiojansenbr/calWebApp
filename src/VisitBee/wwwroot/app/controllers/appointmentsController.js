@@ -487,7 +487,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     }
 
     function searchTextChange(text) {
-        if (text != '' && text != null){
+        if (text !== '' && text !== null){
             $scope.oNewAppointment.Patient.PatientName = text;
         }else{
             clearPatient();
@@ -496,7 +496,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     }
 
     function selectedItemChange(item) {
-        if (item != '' && item != null) {
+        if (item !== '' && item !== null) {
             $scope.oNewAppointment.Patient = item;
             $scope.oNewAppointment.PatientId = item.Id;
             //if an existing patient from the patient array is selected, make phone num editing false

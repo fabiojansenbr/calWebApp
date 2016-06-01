@@ -65,12 +65,13 @@
                                              md-items="item in querySearch(searchText)"
                                              md-item-text="item.PatientName"
                                              md-selected-item="item"
+                                             md-selected-item-change="showPatient(item)"
                                              md-min-length="1"
                                              md-match-case-insensitive="true"
                                              md-select-on-match="false"
                                              placeholder="search clients">
                                 <md-item-template>
-                                    <a flex ng-click="showPatient(item)">
+                                    <a flex>
                                         <span 
                                               md-highlight-text="item.PatientName"                                              
                                               md-highlight-flags="^i">{{item.PatientName}}</span>
@@ -126,6 +127,7 @@
                                                          md-items="item in querySearch(searchText)"
                                                          md-item-text="item.PatientName"
                                                          md-min-length="1"
+                                                         md-autofocus ="true"
                                                          placeholder="Type a client name">
                                             <md-item-template>                                                                                                                         
                                              <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.PatientName}} </span> <strong>  {{item.PhoneNumber}}</strong>                                            
