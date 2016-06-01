@@ -32,18 +32,18 @@
         <div layout="column" id="content">
             <md-content data-ng-controller="topNavController">
                 <md-toolbar style="min-height:50px !important; height:50px !important;" layout="row" ng-show="!showSearch">
-                    <md-button hide-gt-sm data-ng-click="toggleList()" style="min-width:50px;">
-                        <md-icon class="material-icons md-accent">menu</md-icon>
+                    <md-button hide-gt-sm data-ng-click="toggleList()" style="min-width:60px;">
+                        <md-icon style="margin-top:8px !important;" class="material-icons md-accent">menu</md-icon>
                     </md-button>
                     <div class="md-toolbar-tools" style="height:inherit !important;">
                         <span></span>
                         <!-- fill up the space between left and right area -->
                         <span flex></span>
-                        <md-button style="min-width:24px;" data-ng-click="showSearch = !showSearch">
+                        <md-button style="min-width:50px;" data-ng-click="showSearch = !showSearch">
                             <md-icon class="material-icons md-accent">search</md-icon>
                         </md-button>
                         <md-menu md-position-mode="target-right target">
-                            <md-button style="min-width:24px;" data-ng-click="openMenu($mdOpenMenu, $event)">
+                            <md-button style="min-width:50px;" data-ng-click="openMenu($mdOpenMenu, $event)">
                                 <md-icon class="material-icons md-accent">more_vert</md-icon>
                             </md-button>
                             <md-menu-content width="3">
