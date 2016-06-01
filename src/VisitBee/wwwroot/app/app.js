@@ -51,8 +51,15 @@ app.constant('serverSettings', {
    serviceBaseUri: serviceBase
 });
 
-app.run(['$rootScope', '$location', 'authService', function ($rootScope, $location, authService) {
+app.run(['$rootScope', '$location', 'authService', '$mdDialog', function ($rootScope, $location, authService, $mdDialog) {
 
+    $rootScope.$on('$locationChangeStart', function (event) {
+        // Check if there is a dialog active
+        if (angular.element(document).find('md-dialog').length > 0) {
+            event.preventDefault(); // Prevent route from changing
+            $mdDialog.cancel();  // hide the active dialog
+        }
+    })
 
     //Attempt auto-login if user is not authenticated/token is expired and credentials saved.
     if (authService.getAuthStatus() == false && authService.rememberMe()) {
