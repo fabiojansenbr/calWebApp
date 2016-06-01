@@ -15,7 +15,7 @@ app.factory('calendarService', ['$http', 'serverSettings', function ( $http, ser
     var _getUserInfo = function () {
 
         return $http.get(serviceBase + 'api/account/GetUserInfo').then(function (result) {
-            return result;
+            return result.data;
         });
     };
    
