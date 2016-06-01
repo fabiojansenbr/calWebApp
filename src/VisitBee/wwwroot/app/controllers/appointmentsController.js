@@ -520,7 +520,8 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
         return function filterFn(patient) {
-            return (patient.PatientName.indexOf(lowercaseQuery) === 0);
+            var lowercasePatientName = angular.lowercase(patient.PatientName);
+            return (lowercasePatientName.indexOf(lowercaseQuery) === 0);
         };
     }
 

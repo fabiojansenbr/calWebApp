@@ -66,6 +66,8 @@
                                              md-item-text="item.PatientName"
                                              md-selected-item="item"
                                              md-min-length="1"
+                                             md-match-case-insensitive="true"
+                                             md-select-on-match="false"
                                              placeholder="search clients">
                                 <md-item-template>
                                     <a flex ng-click="showPatient(item)">
