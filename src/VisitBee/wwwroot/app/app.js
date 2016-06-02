@@ -40,8 +40,8 @@ app.config(function ($routeProvider, $mdThemingProvider) {
     $routeProvider.otherwise({ redirectTo: "/home" });
 
     $mdThemingProvider.theme('default')
-        .primaryPalette('deep-purple')
-        .accentPalette('purple');
+        .primaryPalette('indigo')
+        .accentPalette('blue');
 
 });
 
