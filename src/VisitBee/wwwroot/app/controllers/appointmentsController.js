@@ -417,7 +417,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     };
 
     // *************************************************************************************
-    // Smart search Box - Appointment dialog, Toolbar on top
+    // Smart search Box - Appointment dialog, Toolbar on top, All Patients
     // *************************************************************************************
 
     // array of patients
@@ -430,6 +430,9 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     $scope.searchTextChange = searchTextChange;
     $scope.createNewPatient = createNewPatient;
     $scope.showPatient = showPatient;
+    $scope.showAllPatients = showAllPatients;
+
+
     //this function is triggered thru md-autocomplete on topbar
     function createNewPatient(patient) {
 
@@ -487,6 +490,35 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         appointmentsService.getAppointmentsByPatient(patient.Id).then(function (results) {
             $scope.patientAppointments = results.data;
         }, function (error) {
+        });
+    }
+
+
+    function showAllPatients() {
+        $scope.allPatients = '';
+        $scope.isLoadingAllPatients = true;
+
+        $mdDialog.show({
+            templateUrl: 'showAllPatients',
+            scope: $scope,
+            preserveScope: true,
+            bindToController: true,
+            //targetEvent: ev,
+            clickOutsideToClose: true,
+            fullscreen: useFullScreen
+        })
+       .then(function () {
+
+       }, function () {
+
+       });
+
+        //patient service get all patients
+        patientsService.getPatients().then(function (results) {
+            $scope.allPatients = results.data;
+            $scope.isLoadingAllPatients = false;
+        }, function (error) {
+            //alert(error.data.message);
         });
     }
 

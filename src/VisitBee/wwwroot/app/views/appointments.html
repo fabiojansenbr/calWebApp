@@ -11,6 +11,18 @@
                  </md-list-item>
             </md-list>
 
+            <!--Middle List-->
+            <md-list>
+                <md-divider style="min-width:270px;"></md-divider>
+                <md-list-item class="md-2-line" data-ng-controller="appointmentsController" ng-click="showAllPatients()">
+                    <md-icon class="material-icons md-primary">people</md-icon>
+                    <div class="md-list-item-text">
+                        <h4>Clients</h4>
+                    </div>
+                </md-list-item>
+                <md-divider style="min-width:270px;"></md-divider>
+            </md-list>
+
             <!--Bottom List-->
             <md-list>               
                 <md-divider style="min-width:270px;"></md-divider>
@@ -312,5 +324,41 @@
                     <md-icon class="material-icons md-accent">close</md-icon>
                 </md-button>
             </md-dialog-actions>
+    </md-dialog>
+</script>
+
+
+<script type="text/ng-template" id="showAllPatients">
+    <md-dialog aria-label="Mango (Fruit)">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-icon class="material-icons md-accent">people</md-icon>
+                <h5 style="margin-left:8px;">All Clients</h5>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="DialogCancel()">
+                    <md-icon class="material-icons md-accent">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="max-width:800px;max-height:810px; ">                         
+                    <md-content class="md-padding">                      
+                        <md-list flex>  
+                            <md-divider></md-divider>                        
+                            <md-list-item class="md-3-line" ng-repeat="item in allPatients" ng-click="showPatient(item)">
+                                <md-icon class="material-icons md-accent">person</md-icon>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{item.PatientName}}</h3>
+                                    <h4>{{item.PhoneNumber}}</h4>
+                                    <p>{{ item.Note }}</p>
+                                </div>
+                                <md-divider></md-divider>
+                            </md-list-item>
+                        </md-list>
+
+                        <div layout="row" layout-align="center center">
+                            <md-progress-circular md-mode="{{isLoadingAllPatients ? 'indeterminate' : 'null'}}" md-diameter="96"></md-progress-circular>
+                        </div>
+                    </md-content>
+        </md-dialog-content>
     </md-dialog>
 </script>
