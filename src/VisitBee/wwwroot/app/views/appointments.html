@@ -2,14 +2,21 @@
 <div layout="column"> 
     <div layout="row" layout-fill>
         <md-sidenav  layout-align="space-between-center" layout="column" md-is-locked-open="$mdMedia('gt-sm')" class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-            <md-list>
-                <md-button flex ng-href="#/appointments" class="md-primary" type="button">VizitBee</md-button>
+
+           <!--Top List-->
+             <md-list>
+                 <md-list-item class="md-2-line" ng-click="home()">
+                  <img ng-src="img/blue.png" class="md-avatar" alt="" />
+                  <h2 style="color:dodgerblue; font-weight:300;" >VisitBee</h2>                
+                 </md-list-item>
             </md-list>
+
+            <!--Bottom List-->
             <md-list>               
                 <md-divider style="min-width:270px;"></md-divider>
 
                 <md-list-item data-ng-controller="leftNavController" class="md-2-line" ng-click="logOut()">
-                    <md-icon style="min-width:8px;"  class="material-icons md-accent">perm_identity</md-icon>
+                    <md-icon style="min-width:8px;"  class="material-icons md-primary">perm_identity</md-icon>
                     <div class="md-list-item-text" layout="column">
                         <h4>{{userAccount.email}}</h4>
                         <p>Sign-Out</p>
@@ -19,7 +26,7 @@
                 <md-divider style="min-width:270px;"></md-divider>
 
                 <md-list-item data-ng-controller="leftNavController" class="md-2-line" ng-click="settings()">
-                    <md-icon class="material-icons md-accent">settings</md-icon>
+                    <md-icon class="material-icons md-primary">settings</md-icon>
                     <div class="md-list-item-text" >
                         <h4>Settings</h4>
                     </div>
