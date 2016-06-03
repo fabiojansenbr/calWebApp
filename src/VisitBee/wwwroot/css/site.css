@@ -68,6 +68,7 @@ md-sidenav.md-closed.md-locked-open-add-active {
     min-width: 270px !important;
     width: 85vw !important;
     max-width: 270px !important;
+    background-color:#f9f9f9;
 } 
 /*Fixing sidenav*/
 .ng-scope, #mainContainer { height: 100%; }
@@ -99,6 +100,12 @@ md-toast.md-info-toast-theme .md-toast-content {
 md-toast {
   position: fixed;
 }
+
+md-bottom-sheet {
+    background-color:#e6e6e6;
+    max-height:300px;
+}
+
 
 
 

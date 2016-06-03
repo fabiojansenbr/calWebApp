@@ -37,7 +37,7 @@
 
                 <md-divider style="min-width:270px;"></md-divider>
 
-                <md-list-item data-ng-controller="leftNavController" class="md-2-line" ng-click="settings()">
+                <md-list-item data-ng-controller="leftNavController" class="md-2-line" ng-click="showSettings()">
                     <md-icon class="material-icons md-primary">settings</md-icon>
                     <div class="md-list-item-text" >
                         <h4>Settings</h4>
@@ -139,7 +139,7 @@
     </div>
 </div>
 
-    <script type="text/ng-template" id="dialog1.tmpl.html">
+    <script type="text/ng-template" id="appointmentDialog">
         <md-dialog aria-label="Mango (Fruit)" ng-cloak>
             <form>
                 <md-toolbar>
@@ -361,4 +361,24 @@
                     </md-content>
         </md-dialog-content>
     </md-dialog>
+</script>
+
+
+
+<script type="text/ng-template" id="settingsBottomSheet">
+    <md-bottom-sheet class="md-grid" layout="column" >
+        <div layout="row" layout-align="center center">
+            <h2>Settings</h2>
+        </div>
+        <div>
+            <md-list layout="row" layout-align="center center">
+                <md-list-item>
+                        <md-button class="md-grid-item-content" ng-click="settingClick('theme')">
+                            <md-icon style="font-size:48px; min-width:48px;" class="material-icons md-accent">color_lens</md-icon>
+                            <label>Theme</label>
+                        </md-button>
+                </md-list-item>
+            </md-list>
+        </div>
+    </md-bottom-sheet>
 </script>

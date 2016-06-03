@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q',
-function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q) {
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q', '$mdBottomSheet',
+function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q, $mdBottomSheet) {
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
@@ -350,7 +350,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         }
 
         $mdDialog.show({
-            templateUrl: 'dialog1.tmpl.html',
+            templateUrl: 'appointmentDialog',
             scope: $scope,
             preserveScope: true,
             bindToController: true,
@@ -571,6 +571,21 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         };
     }
 
+    // *************************************************************************************
+    // Settings
+    // *************************************************************************************
+
+     $scope.showSettings = function() {
+        $mdBottomSheet.show({
+            templateUrl: 'settingsBottomSheet',
+            scope: $scope,
+            preserveScope: true,
+            bindToController: true,
+          clickOutsideToClose: true
+        }).then(function () {
+
+    });
+  };
 
 }]
     // *************************************************************************************
