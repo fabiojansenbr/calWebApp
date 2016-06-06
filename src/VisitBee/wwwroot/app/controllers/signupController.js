@@ -16,6 +16,8 @@ function ($scope, $location, $timeout, authService, $mdToast) {
          $scope.isProcessing = true;
         authService.register($scope.registration).then(function (response) {
 
+            $location.path('/login');
+
             $scope.savedSuccessfully = true;
             $mdToast.show($mdToast.simple()
                         .textContent("We just sent a confirmation email to " + $scope.registration.email)
