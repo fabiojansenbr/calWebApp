@@ -58,9 +58,13 @@
                         <span></span>
                         <!-- fill up the space between left and right area -->
                         <span flex></span>
+                        <md-button style="min-width:12px;" class="md-fab md-mini md-primary" aria-label="Notificaitons">
+                            2<md-icon style="font-size:18px; margin-top:10px!important;" class="material-icons">message</md-icon>
+                        </md-button>
                         <md-button style="min-width:50px;" data-ng-click="showSearch = !showSearch">
                             <md-icon class="material-icons md-accent">search</md-icon>
                         </md-button>
+                        
                         <md-menu md-position-mode="target-right target">
                             <md-button style="min-width:50px;" data-ng-click="openMenu($mdOpenMenu, $event)">
                                 <md-icon class="material-icons md-accent">more_vert</md-icon>
@@ -93,6 +97,8 @@
                                 </md-menu-item>
                             </md-menu-content>
                         </md-menu>
+
+                      
                     </div>
                 </md-toolbar>               
                 
