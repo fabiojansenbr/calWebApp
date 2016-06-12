@@ -58,9 +58,19 @@
                         <span></span>
                         <!-- fill up the space between left and right area -->
                         <span flex></span>
-                        <md-button style="min-width:12px;" class="md-fab md-mini md-primary" aria-label="Notificaitons">
-                            2<md-icon style="font-size:18px; margin-top:10px!important;" class="material-icons">message</md-icon>
-                        </md-button>
+                        <md-menu md-position-mode="target-right target">
+                            <md-button style="min-width:12px;" class="md-fab md-mini md-primary" data-ng-click="openMenu($mdOpenMenu, $event)">
+                                2<md-icon style="font-size:18px; margin-top:10px!important;" class="material-icons">message</md-icon>
+                            </md-button>
+                            <md-menu-content width="2">
+                                <md-menu-item>
+                                    <a>User X shared their calendar with you</a> 
+                                </md-menu-item>
+                                <md-menu-item>
+                                   <a> User Y shared their calendar with you</a>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
                         <md-button style="min-width:50px;" data-ng-click="showSearch = !showSearch">
                             <md-icon class="material-icons md-accent">search</md-icon>
                         </md-button>
@@ -70,20 +80,22 @@
                                 <md-icon class="material-icons md-accent">more_vert</md-icon>
                             </md-button>
                             <md-menu-content width="3">
-                                <md-menu-item>
-                                    <md-button style="min-width:36px; height:unset !important;" data-ng-click="changeView('agendaDay')">
+                                <md-menu-item data-ng-click="changeView('agendaDay')">
+                                    <md-button style="min-width:36px; height:unset !important;" >
                                         <md-icon class="material-icons md-accent">view_day</md-icon>
                                         day
                                     </md-button>
                                 </md-menu-item>
-                                <md-menu-item>
-                                    <md-button style="min-width:36px; height:unset !important;" data-ng-click="changeView('agendaWeek')">
+                                <md-menu-divider></md-menu-divider>
+                                <md-menu-item data-ng-click="changeView('agendaWeek')">
+                                    <md-button style="min-width:36px; height:unset !important;" >
                                         <md-icon class="material-icons md-accent">view_week</md-icon>
                                         week
                                     </md-button>
                                 </md-menu-item>
-                                <md-menu-item>
-                                    <md-button style="min-width:36px; height:unset !important;" data-ng-click="changeView('month')">
+                                <md-menu-divider></md-menu-divider>
+                                <md-menu-item data-ng-click="changeView('month')">
+                                    <md-button style="min-width:36px; height:unset !important;" >
                                         <md-icon class="material-icons md-accent">date_range</md-icon>
                                         month
                                     </md-button>
