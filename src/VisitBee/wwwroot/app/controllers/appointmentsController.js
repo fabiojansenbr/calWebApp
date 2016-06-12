@@ -8,7 +8,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     $scope.userAccount = {
         userName: '',
         email: '',
-        emailConfirmed: false
+        emailConfirmed: true
     };
 
    var DetectTouchScreen = function () {
