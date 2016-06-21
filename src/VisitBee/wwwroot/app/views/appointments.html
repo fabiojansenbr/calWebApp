@@ -60,15 +60,18 @@
                         <span flex></span>
                         <md-menu md-position-mode="target-right target">
                             <md-button style="min-width:12px;" class="md-fab md-mini md-primary" data-ng-click="openMenu($mdOpenMenu, $event)">
-                                2<md-icon style="font-size:18px; margin-top:10px!important;" class="material-icons">message</md-icon>
+                                {{pendingCalendarCount}}<md-icon style="font-size:18px; margin-top:10px!important;" class="material-icons">message</md-icon>
                             </md-button>
-                            <md-menu-content width="2">
-                                <md-menu-item>
-                                    <a>User X shared their calendar with you</a> 
-                                </md-menu-item>
-                                <md-menu-item>
-                                   <a> User Y shared their calendar with you</a>
-                                </md-menu-item>
+                            <md-menu-content width="{{pendingCalendarCount}}">
+                                <md-list flex>
+                                    <md-list-item class="md-2-line" ng-repeat="item in pendingCalendars">
+                                        <div class="md-list-item-text" layout="column">
+                                            <h3><b>{{item.CalendarOwner.Name}}</b> wants to share their calendar with you</h3>
+                                            <h4>Accept or Decline</h4>
+                                        </div>
+                                        <md-divider></md-divider>
+                                    </md-list-item>
+                                </md-list>
                             </md-menu-content>
                         </md-menu>
                         <md-button style="min-width:50px;" data-ng-click="showSearch = !showSearch">

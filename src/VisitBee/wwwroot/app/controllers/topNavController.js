@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('topNavController', ['$mdDialog', '$scope', '$mdSidenav', '$mdBottomSheet', '$log', 'patientsService', '$q', '$mdMedia',
-function ($mdDialog, $scope, $mdSidenav, $mdBottomSheet, $log, patientsService, $q, $mdMedia) {
+app.controller('topNavController', ['$mdDialog', '$scope', '$mdSidenav', 'sharedCalendarService',
+function ($mdDialog, $scope, $mdSidenav, sharedCalendarService) {
 
    
     $scope.toggleList = function () {
@@ -11,13 +11,29 @@ function ($mdDialog, $scope, $mdSidenav, $mdBottomSheet, $log, patientsService, 
         $mdOpenMenu(ev);
     };
  
-     //Change the calendars view
+    //Change the calendars view
     $scope.changeView = function (view) {
         if (view == 'today')
             $('#calendar').fullCalendar('today');
         else
             $('#calendar').fullCalendar('changeView', view);
     };
+
+    //Pending Calendar Share Requests.
+    $scope.pendingCalendarCount;
+    $scope.pendingCalendars;
+   
+    var getPendingCalendars = function () {
+        sharedCalendarService.getPendingCalendars().then(function (result) {
+            $scope.pendingCalendarCount = result.length;
+            $scope.pendingCalendars = result;
+        },
+        function (err) {
+            //handle error result.
+        });
+    };
+
+    getPendingCalendars();
 
   
 }]);
