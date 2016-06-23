@@ -63,12 +63,28 @@
                                 {{pendingCalendarCount}}<md-icon style="font-size:18px; margin-top:10px!important;" class="material-icons">message</md-icon>
                             </md-button>
                             <md-menu-content width="{{pendingCalendarCount}}">
-                                <md-list flex>
-                                    <md-list-item class="md-2-line" ng-repeat="item in pendingCalendars">
-                                        <div class="md-list-item-text" layout="column">
-                                            <h3><b>{{item.CalendarOwner.Name}}</b> wants to share their calendar with you</h3>
-                                            <h4>Accept or Decline</h4>
-                                        </div>
+                                <md-list flex>                          
+                                    <md-list-item class="md-2-line" ng-repeat="item in pendingCalendars">                                       
+                                        <div layout="column" style="margin-bottom:10px;">
+                                            <div layout="row">
+                                                <md-icon style="font-size:48px; min-width:52px!important; min-height:52px!important;" 
+                                                         class="material-icons md-primary">person_add</md-icon>
+                                            </div>
+                                            
+                                            <div class="md-list-item-text" layout="column" style="margin:10px;">
+                                                <h3><b>{{item.CalendarOwner.Name}}</b> wants to share their calendar with you</h3>                                                   
+                                           </div>
+                                          
+                                            <div layout="row" layout-align="center center">
+                                                <md-button class="md-fab md-mini md-primary" layout="center" ng-click="">
+                                                    <md-icon class="material-icons md-primary">check</md-icon>
+                                                                                                      
+                                                </md-button>
+                                                <md-button  class="md-fab md-mini md-warn" layout="center" ng-click="">
+                                                    <md-icon class="material-icons md-accent">close</md-icon>
+                                                </md-button>
+                                            </div>
+                                        </div>                                                                              
                                         <md-divider></md-divider>
                                     </md-list-item>
                                 </md-list>
@@ -154,10 +170,10 @@
 
                 </md-toolbar>
                 
-                <div id="calendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false" calendar="myCalendar"></div>
-                
+                <div id="calendar" ui-calendar="uiConfig.calendar" class="span8 calendar" 
+                     ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false" calendar="myCalendar"></div>               
                 <md-toolbar class="md-warn" ng-hide="userAccount.emailConfirmed" style="position:fixed !important; bottom: 0px !important">
-                    <div class="md-toolbar-tools">Confirm your email to use all functionalities</div>
+                    <div class="md-toolbar-tools">Please confirm your email to use full functionality.</div>
                 </md-toolbar>         
             </md-content>
 
@@ -165,7 +181,7 @@
     </div>
 </div>
 
-    <script type="text/ng-template" id="appointmentDialog">
+<script type="text/ng-template" id="appointmentDialog">
         <md-dialog aria-label="Mango (Fruit)" ng-cloak>
             <form>
                 <md-toolbar>
@@ -356,7 +372,6 @@
     </md-dialog>
 </script>
 
-
 <script type="text/ng-template" id="showAllPatients">
     <md-dialog aria-label="Mango (Fruit)">
         <md-toolbar>
@@ -391,8 +406,6 @@
         </md-dialog-content>
     </md-dialog>
 </script>
-
-
 
 <script type="text/ng-template" id="settingsBottomSheet">
     <md-bottom-sheet class="md-grid" layout="column" >
