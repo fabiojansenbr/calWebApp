@@ -71,15 +71,15 @@
                                                          class="material-icons md-primary">person_add</md-icon>
                                             </div>
                                             
-                                            <div class="md-list-item-text" layout="column" style="margin:10px;">
+                                            <div class="md-list-item-text" layout="column" style="margin:20px!important;">
                                                 <h3><b>{{item.CalendarOwner.Name}}</b> wants to share their calendar with you</h3>                                                   
                                            </div>
                                           
                                             <div layout="row" layout-align="center center">
-                                                <md-button class="md-fab md-mini md-primary" ng-click="">
+                                                <md-button class="md-fab md-mini md-primary" ng-click="acceptPendingCalendar(item.Id)">
                                                     <md-icon style="margin-top:8px;" class="material-icons md-primary">check</md-icon>                                                                                                     
                                                 </md-button>
-                                                <md-button  class="md-fab md-mini md-warn"  ng-click="">
+                                                <md-button  class="md-fab md-mini md-warn"  ng-click="declinePendingCalendar(item.Id)">
                                                     <md-icon style="margin-top:8px;" class="material-icons md-accent">close</md-icon>
                                                 </md-button>
                                             </div>

@@ -11,8 +11,22 @@ app.factory('sharedCalendarService', ['$http', 'serverSettings', function ( $htt
             return result.data;
         });
     };
+
+    var _acceptPendingCalendar = function (calendarId) {
+        return $http.put(serviceBase + 'api/SharedCalendars/InvitationStatus/' + calendarId +  '/accepted').then(function (result) {
+            return result;
+        });
+    };
+
+    var _declinePendingCalendar = function (calendarId) {
+        return $http.put(serviceBase + 'api/SharedCalendars/InvitationStatus/' + calendarId + '/declined').then(function (result) {
+            return result;
+        });
+    };
    
     sharedCalendarServiceFactory.getPendingCalendars = _getPendingCalendars;
+    sharedCalendarServiceFactory.acceptPendingCalendar = _acceptPendingCalendar;
+    sharedCalendarServiceFactory.declinePendingCalendar = _declinePendingCalendar;
     return sharedCalendarServiceFactory;
 
 }]);

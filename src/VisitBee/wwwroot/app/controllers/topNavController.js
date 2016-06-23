@@ -25,7 +25,13 @@ function ($mdDialog, $scope, $mdSidenav, sharedCalendarService) {
    
     var getPendingCalendars = function () {
         sharedCalendarService.getPendingCalendars().then(function (result) {
-            $scope.pendingCalendarCount = result.length;
+
+            if (result.length == 0) {
+                $scope.pendingCalendarCount = '';
+            } else {
+                $scope.pendingCalendarCount = result.length;
+            }
+        
             $scope.pendingCalendars = result;
         },
         function (err) {
@@ -33,6 +39,21 @@ function ($mdDialog, $scope, $mdSidenav, sharedCalendarService) {
         });
     };
 
+    $scope.acceptPendingCalendar = function (id) {
+        sharedCalendarService.acceptPendingCalendar(id).then(function (result) {
+            //after successfull acception - refresh pending calendar count.
+            getPendingCalendars();
+        });
+    };
+
+    $scope.declinePendingCalendar = function (id) {
+        sharedCalendarService.declinePendingCalendar(id).then(function (result) {
+            //after successfull rejection - refresh pending calendar count.
+            getPendingCalendars();
+        });
+    };
+
+    //Initialized functions by default.
     getPendingCalendars();
 
   
