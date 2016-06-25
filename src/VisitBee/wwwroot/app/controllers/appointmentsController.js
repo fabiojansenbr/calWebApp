@@ -5,11 +5,6 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
 
-    $scope.userAccount = {
-        userName: '',
-        email: '',
-        emailConfirmed: true
-    };
 
    var DetectTouchScreen = function () {
         // solution based on http://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript/4819886#4819886
@@ -95,14 +90,6 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         })
     };
 
-    //get User Info
-    var getUserInfo = function () {
-        calendarService.getUserInfo().then(function (result) {
-            $scope.userAccount.userName = result.Name;
-            $scope.userAccount.email = result.Email;
-            $scope.userAccount.emailConfirmed = result.EmailConfirmed;
-        })
-    };
 
     var subscribeToAppointments = function (calendarId) {
         $.connection.hub.url = serviceBase + 'signalr';
@@ -309,7 +296,6 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
     $scope.eventSources = [];
     getUserCalendar();
-    getUserInfo();
 
 
     // *************************************************************************************

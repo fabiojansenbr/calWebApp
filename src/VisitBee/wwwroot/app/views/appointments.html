@@ -171,7 +171,8 @@
                 
                 <div id="calendar" ui-calendar="uiConfig.calendar" class="span8 calendar" 
                      ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false" calendar="myCalendar"></div>               
-                <md-toolbar class="md-warn" ng-hide="userAccount.emailConfirmed" style="position:fixed !important; bottom: 0px !important">
+                
+                <md-toolbar class="md-warn" data-ng-controller="leftNavController" ng-hide="userAccount.emailConfirmed" style="position:fixed !important; bottom: 0px !important">
                     <div class="md-toolbar-tools">Please confirm your email to use full functionality.</div>
                 </md-toolbar>         
             </md-content>
