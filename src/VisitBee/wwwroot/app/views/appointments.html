@@ -20,6 +20,16 @@
                         <h4>Clients</h4>
                     </div>
                 </md-list-item>
+
+                <md-divider style="min-width:270px;"></md-divider>
+
+                <md-list-item class="md-2-line" data-ng-controller="leftNavController" ng-click="showInvitationDialog()">
+                    <md-icon class="material-icons md-primary">person_add</md-icon>
+                    <div class="md-list-item-text">
+                        <h4>Invite Collaborators</h4>
+                    </div>
+                </md-list-item>
+
                 <md-divider style="min-width:270px;"></md-divider>
             </md-list>
 
@@ -423,4 +433,40 @@
             </md-list>
         </div>
     </md-bottom-sheet>
+</script>
+
+<script type="text/ng-template" id="inviteCollaborator">
+    <md-dialog aria-label="Mango (Fruit)">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-icon class="material-icons md-accent">person_add</md-icon>
+                <h5 style="margin-left:8px;">Invite Collaborator</h5>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="DialogCancel()">
+                    <md-icon class="material-icons md-accent">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="max-width:800px;max-height:810px; ">
+            <md-content class="md-padding">
+
+                <p class="md-body-2">Please enter the email of the user you would like to share your calendar with.</p>
+                    <div layout="column" layout-align="center center">
+                        <md-input-container>
+                            <input ng-model="collaborator.CollaboratorEmail" type="email" placeholder="Email" required autofocus>
+                        </md-input-container>
+                    </div>
+                    <div layout="column" layout-align="center center">
+                        <md-button style="text-transform:none !important" type="submit" class="md-primary md-raised"
+                                   data-ng-click="sendInvitation()">invite</md-button>
+                    </div>
+
+                    <md-divider></md-divider>
+
+                    <div layout="row" layout-align="center center">
+                        <md-progress-circular md-mode="{{isSendingInvitation ? 'indeterminate' : 'null'}}" md-diameter="32"></md-progress-circular>
+                    </div>
+</md-content>
+        </md-dialog-content>
+    </md-dialog>
 </script>

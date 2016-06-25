@@ -23,10 +23,18 @@ app.factory('sharedCalendarService', ['$http', 'serverSettings', function ( $htt
             return result;
         });
     };
+
+    var _shareCalendarWith = function (data) {
+
+        return $http.post(serviceBase + 'api/SharedCalendars/ShareCalendarWith', data).then(function (results) {
+            return results;
+        });
+    };
    
     sharedCalendarServiceFactory.getPendingCalendars = _getPendingCalendars;
     sharedCalendarServiceFactory.acceptPendingCalendar = _acceptPendingCalendar;
     sharedCalendarServiceFactory.declinePendingCalendar = _declinePendingCalendar;
+    sharedCalendarServiceFactory.shareCalendarWith = _shareCalendarWith;
     return sharedCalendarServiceFactory;
 
 }]);
