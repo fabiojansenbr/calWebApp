@@ -89,6 +89,23 @@ app.controller('leftNavController', ['$scope', '$location', 'authService', 'cale
         });
     };
 
+
+     /************************************************************
+    * Shared Calendars with me
+    ************************************************************/
+    
+    $scope.acceptedCalendars = {}
+
+    var getAcceptedCalendars = function () {
+        sharedCalendarService.getAcceptedCalendars().then(function (result) {
+            $scope.acceptedCalendars = result;
+        },
+        function (err) {
+            //handle error result.
+        });
+    };
+
+
     //User account details. 
     var getUserInfo = function () {
         calendarService.getUserInfo().then(function (result) {
@@ -100,5 +117,6 @@ app.controller('leftNavController', ['$scope', '$location', 'authService', 'cale
 
     //Default initialized methods
     getUserInfo();
+    getAcceptedCalendars();
 
 }]);

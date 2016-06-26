@@ -1,6 +1,6 @@
 ﻿
 <div layout="column"> 
-    <div layout="row" layout-fill>
+    <div layout="row" layout-fill ng-controller="leftNavController">
         <md-sidenav  layout-align="space-between-center" layout="column" md-is-locked-open="$mdMedia('gt-sm')" class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
 
            <!--Top List-->
@@ -12,9 +12,9 @@
             </md-list>
 
             <!--Middle List-->
-            <md-list>
+            <md-list >
                 <md-divider style="min-width:270px;"></md-divider>
-                <md-list-item class="md-2-line" data-ng-controller="appointmentsController" ng-click="showAllPatients()">
+                <md-list-item class="md-2-line" ng-controller="appointmentsController" ng-click="showAllPatients()">
                     <md-icon class="material-icons md-primary">people</md-icon>
                     <div class="md-list-item-text">
                         <h4>Clients</h4>
@@ -23,7 +23,7 @@
 
                 <md-divider style="min-width:270px;"></md-divider>
 
-                <md-list-item class="md-2-line" data-ng-controller="leftNavController" ng-click="showInvitationDialog()">
+                <md-list-item class="md-2-line"  ng-click="showInvitationDialog()">
                     <md-icon class="material-icons md-primary">person_add</md-icon>
                     <div class="md-list-item-text">
                         <h4>Invite Collaborators</h4>
@@ -31,6 +31,30 @@
                 </md-list-item>
 
                 <md-divider style="min-width:270px;"></md-divider>
+
+                <md-list-item class="md-2-line" ng-click="showCalendars = !showCalendars">
+                    <md-icon class="material-icons md-primary">event</md-icon>
+                    <div class="md-list-item-text">
+                        <h4>Calendars</h4>
+                    </div>
+                </md-list-item>
+
+                <md-divider style="min-width:270px;"></md-divider>
+
+                <md-list-item  ng-show="showCalendars" style="margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar()"
+                              ng-repeat="item in acceptedCalendars">
+                    <div layout="column" layout-align="center center" style="max-height:32px;">
+                        <md-divider></md-divider>
+                        <div layout="row" layout-align="center center">
+                            <h5>{{item.CalendarOwner.Name}}</h5>
+                        </div>
+                      
+                    </div>
+
+                </md-list-item>
+
+               
+
             </md-list>
 
             <!--Bottom List-->
@@ -81,8 +105,9 @@
                                                          class="material-icons md-primary">person_add</md-icon>
                                             </div>
                                             
-                                            <div class="md-list-item-text" layout="column" style="margin:20px!important;">
-                                                <h3><b>{{item.CalendarOwner.Name}}</b> wants to share their calendar with you</h3>                                                   
+                                            <div class="md-list-item-text" layout="column" layout-align="center center" style="margin:20px!important;">
+                                                <h3><b>{{item.CalendarOwner.Name}}</b></h3> 
+                                                <h3>wants to share their calendar with you</h3>                                                   
                                            </div>
                                           
                                             <div layout="row" layout-align="center center">
