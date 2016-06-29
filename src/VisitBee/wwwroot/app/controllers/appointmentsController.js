@@ -1,6 +1,23 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q', '$mdBottomSheet',
-function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q, $mdBottomSheet) {
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q', '$mdBottomSheet', '$timeout',
+function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q, $mdBottomSheet, $timeout) {
+
+    // countdown
+    var countDowner, countDown = 30;
+    countDowner = function () {
+        if (countDown < 0) {
+            $("#warning").fadeOut(2000);
+            countDown = 0;
+            return; 
+        } else {
+            $scope.countDown_text = countDown;
+            countDown--;
+            $timeout(countDowner, 1000);
+        }
+    };
+
+    $scope.countDown_text = countDown;
+    countDowner()
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
