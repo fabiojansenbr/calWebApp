@@ -12,6 +12,13 @@ app.factory('sharedCalendarService', ['$http', 'serverSettings', function ( $htt
         });
     };
 
+    var _getAcceptedCalendars = function () {
+
+        return $http.get(serviceBase + 'api/SharedCalendars/GetSharedCalendarsByStatus/Accepted').then(function (result) {
+            return result.data;
+        });
+    };
+
     var _acceptPendingCalendar = function (calendarId) {
         return $http.put(serviceBase + 'api/SharedCalendars/InvitationStatus/' + calendarId +  '/accepted').then(function (result) {
             return result;
@@ -32,6 +39,7 @@ app.factory('sharedCalendarService', ['$http', 'serverSettings', function ( $htt
     };
    
     sharedCalendarServiceFactory.getPendingCalendars = _getPendingCalendars;
+    sharedCalendarServiceFactory.getAcceptedCalendars = _getAcceptedCalendars;
     sharedCalendarServiceFactory.acceptPendingCalendar = _acceptPendingCalendar;
     sharedCalendarServiceFactory.declinePendingCalendar = _declinePendingCalendar;
     sharedCalendarServiceFactory.shareCalendarWith = _shareCalendarWith;
