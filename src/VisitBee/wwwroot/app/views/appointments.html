@@ -14,27 +14,52 @@
             <!--Middle List-->
             <md-list >
                 <md-divider style="min-width:270px;"></md-divider>
-                <md-list-item class="md-2-line" ng-controller="appointmentsController" ng-click="showAllPatients()">
-                    <md-icon class="material-icons md-primary">people</md-icon>
-                    <div class="md-list-item-text">
-                        <h4>Clients</h4>
+
+                <md-list-item class="md-2-line"  ng-click="showMyCalendarMenu = !showMyCalendarMenu">
+                    <div style="position: relative; margin-bottom:20px;">
+                        <md-icon style="width:100%; height:100%;position: absolute;top:0;left:0;"
+                                 class="material-icons md-accent">event</md-icon>
+                        <md-icon style="margin-left:4px; margin-top:6px; width:100%; height:100%;position: absolute;top:0;left:0;"
+                                 class="material-icons md-primary">person</md-icon>
+                    </div>
+                    <div class="md-list-item-text" style="margin-left:56px;">
+                        <h4>My Calendar</h4>
                     </div>
                 </md-list-item>
 
                 <md-divider style="min-width:270px;"></md-divider>
 
-                <md-list-item class="md-2-line"  ng-click="showInvitationDialog()">
-                    <md-icon class="material-icons md-primary">person_add</md-icon>
-                    <div class="md-list-item-text">
-                        <h4>Invite Collaborators</h4>
-                    </div>
+                <md-list-item style="margin-left:30px;"   ng-show="showMyCalendarMenu" 
+                              ng-controller="appointmentsController" ng-click="showAllPatients()">
+                    <div layout="row" layout-align="left center" style="max-height:32px;">
+                        <md-icon class="material-icons md-primary" style="margin-top:7px;font-size:18px;">people</md-icon>
+                        <div style="font-size:14px; margin-left:10px;">
+                            <p>Clients</p>
+                        </div>
+                    </div>                      
+                </md-list-item>
+
+                <md-divider style="min-width:270px;"></md-divider>
+
+                <md-list-item style="margin-left:30px;" ng-show="showMyCalendarMenu" ng-click="showInvitationDialog()">
+                    <div layout="row" layout-align="left center" style="max-height:32px;">
+                        <md-icon class="material-icons md-primary" style="margin-top:7px;font-size:18px;">person_add</md-icon>
+                        <div style="font-size:14px; margin-left:10px;">
+                            <p>Invite Collaborators</p>
+                        </div>
+                    </div>   
                 </md-list-item>
 
                 <md-divider style="min-width:270px;"></md-divider>
 
                 <md-list-item class="md-2-line" ng-click="showCalendars = !showCalendars">
-                    <md-icon class="material-icons md-primary">event</md-icon>
-                    <div class="md-list-item-text">
+                    <div style="position: relative; margin-bottom:20px;" >
+                        <md-icon style="width:100%; height:100%;position: absolute;top:0;left:0;" 
+                                 class="material-icons md-accent">event_note</md-icon>
+                        <md-icon style="margin-left:4px; margin-top:10px; width:100%; height:100%;position: absolute;top:0;left:0;" 
+                                 class="material-icons md-primary">event_note</md-icon>
+                    </div>
+                    <div class="md-list-item-text" style="margin-left:56px;">
                         <h4>Calendars</h4>
                     </div>
                 </md-list-item>
