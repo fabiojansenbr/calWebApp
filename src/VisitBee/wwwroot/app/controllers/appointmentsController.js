@@ -17,7 +17,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     };
 
     $scope.countDown_text = countDown;
-    countDowner()
+    countDowner();
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
