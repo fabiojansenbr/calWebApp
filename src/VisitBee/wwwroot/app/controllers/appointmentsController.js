@@ -304,7 +304,7 @@ function ($scope, appointmentsService, calendarService, sharedCalendarService, s
 
 
     $scope.changeCalendar = function(calendarId){
-        if(calendarId == ''){
+        if(calendarId == '' || typeof calendarId !== "undefined"){
             calendarId = calendarService.getMyCalendarId();
         }
             
