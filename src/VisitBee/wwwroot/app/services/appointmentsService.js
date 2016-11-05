@@ -5,25 +5,30 @@ app.factory('appointmentsService', ['$http', 'serverSettings', function ( $http,
 
     var appointmentsServiceFactory = {};
 
-    var _getAppointments = function () {
-
-        return $http.get(serviceBase + 'api/appointments').then(function (results) {
-            return results;
-        });
+    var _getAppointments4weeks = function (centerDate, calendarId) {
+        if(calendarId){
+            return $http.get(serviceBase + 'api/appointments/Get4Weeks/' + centerDate + '?CalendarId=' + calendarId).then(function (results) {
+                            return results;
+                        });  
+        }else{
+              return $http.get(serviceBase + 'api/appointments/Get4Weeks/' + centerDate).then(function (results) {
+                return results;
+            });  
+        }
+                
     };
 
-    var _getAppointments4weeks = function (centerDate) {
-
-        return $http.get(serviceBase + 'api/appointments/Get4Weeks/' + centerDate).then(function (results) {
-            return results;
-        });
-    };
-
-    var _getAppointmentsRange = function (startDate, endDate) {
-
-        return $http.get(serviceBase + 'api/appointments/GetFromRange/' + startDate + '/' + endDate).then(function (results) {
-            return results;
-        });
+    var _getAppointmentsRange = function (startDate, endDate, calendarId) {
+        if(calendarId){
+            return $http.get(serviceBase + 'api/appointments/GetFromRange/' + startDate + '/' + endDate + '?CalendarId=' + calendarId).then(function (results) {
+                    return results;
+                });          
+        }else{
+            return $http.get(serviceBase + 'api/appointments/GetFromRange/' + startDate + '/' + endDate).then(function (results) {
+                    return results;
+                });
+        }
+       
     };
 
      var _getAppointmentsByPatient = function (patientId) {
@@ -70,7 +75,6 @@ app.factory('appointmentsService', ['$http', 'serverSettings', function ( $http,
         });
     };
 
-    appointmentsServiceFactory.getAppointments = _getAppointments;
     appointmentsServiceFactory.getAppointmentsRange = _getAppointmentsRange;
     appointmentsServiceFactory.getAppointments4weeks = _getAppointments4weeks;
     appointmentsServiceFactory.getAppointmentsByPatient = _getAppointmentsByPatient;

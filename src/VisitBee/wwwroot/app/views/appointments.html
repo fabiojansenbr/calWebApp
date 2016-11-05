@@ -5,9 +5,11 @@
 
            <!--Top List-->
              <md-list>
-                 <md-list-item class="md-2-line" ng-click="home()">
+                 <md-list-item ng-controller="appointmentsController" class="md-2-line" ng-click="changeCalendar()">
                   <img ng-src="img/blue.png" class="md-avatar" alt="" />
-                  <h2 style="color:dodgerblue; font-weight:300;" >VisitBee</h2>                
+                  <div class="md-list-item-text">
+                      <h2 style="color:dodgerblue; font-weight:300;" >VisitBee</h2>  
+                  </div>                              
                  </md-list-item>
 
                  <md-divider style="min-width:270px;"></md-divider>
@@ -53,7 +55,7 @@
 
                  <md-divider style="min-width:270px;"></md-divider>
 
-                 <md-list-item ng-show="showCalendars" style="margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar()"
+                 <md-list-item ng-controller="appointmentsController" ng-show="showCalendars" style="margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar(item.CalendarOwnerId)"
                                ng-repeat="item in acceptedCalendars">
                      <div layout="column" layout-align="center center" style="max-height:32px;">
                          <md-divider></md-divider>

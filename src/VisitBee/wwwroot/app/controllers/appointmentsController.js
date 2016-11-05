@@ -1,23 +1,6 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q', '$mdBottomSheet', '$timeout',
-function ($scope, appointmentsService, calendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q, $mdBottomSheet, $timeout) {
-
-    // countdown
-    var countDowner, countDown = 30;
-    countDowner = function () {
-        if (countDown < 0) {
-            $("#warning").fadeOut(2000);
-            countDown = 0;
-            return; 
-        } else {
-            $scope.countDown_text = countDown;
-            countDown--;
-            $timeout(countDowner, 1000);
-        }
-    };
-
-    $scope.countDown_text = countDown;
-    countDowner();
+app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'sharedCalendarService','serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q', '$mdBottomSheet', '$timeout',
+function ($scope, appointmentsService, calendarService, sharedCalendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q, $mdBottomSheet, $timeout) {
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
@@ -31,6 +14,7 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
     var clearNewAppointment = function () {
         $scope.oNewAppointment = {
+            CalendarId: '',
             StartDate: '',
             EndDate: '',
             PatientId: '',
@@ -53,35 +37,37 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         $scope.oNewAppointment.Patient.PhoneNumber = '';
     };
 
-    //this function get's only the users own calendars all appointments.
-    var getAppointments = function () {
-        appointmentsService.getAppointments().then(function (results) {
-            $scope.eventSources[0] = results.data;
-        }, function (error) {
-        });
-    };
-
     //this function gets users own calendars +-2 weeks of appointments.
-    var getAppointments4weeks = function (centerDate) {
-        appointmentsService.getAppointments4weeks(centerDate).then(function (results) {
-            $scope.eventSources[0] = results.data.Appointments;
+    var getAppointments4weeks = function (centerDate, calendarId) {
+        appointmentsService.getAppointments4weeks(centerDate, calendarId).then(function (results) {
+            $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar( 'addEventSource', results.data.Appointments);
+            $('#calendar').fullCalendar('rerenderEvents');
+            
         }, function (error) {
             //alert(error.data.message);
         });
     };
 
      //this function gets users own calendars appointments in the given range.
-    var getAppointmentsRange = function (startDate, endDate) {
-        appointmentsService.getAppointmentsRange(startDate, endDate).then(function (results) {
-            $scope.eventSources[0] = results.data.Appointments;
+    var getAppointmentsRange = function (startDate, endDate, calendarId) {
+        appointmentsService.getAppointmentsRange(startDate, endDate, calendarId).then(function (results) {
+             $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar( 'addEventSource', results.data.Appointments);
+            $('#calendar').fullCalendar('rerenderEvents');
+
         }, function (error) {
             //alert(error.data.message);
         });
     };
 
     var postAppointment = function (data) {
+        var curCalId = calendarService.getCurrentCalendarId();
+        if(curCalId){
+            data.CalendarId = curCalId;
+        }
         appointmentsService.postAppointment(data).then(function (result) {
-            getAppointments4weeks(new Date(data.StartDate).toJSON().slice(0, 10));
+            showCalendarEvents(curCalId);
         })
     };
 
@@ -103,18 +89,38 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     //get the User's own calendar
     var getUserCalendar = function () {
         calendarService.getUserCalendar().then(function (result) {
+            calendarService.setCurrentCalendarId(result);
             subscribeToAppointments(result);
         })
     };
 
+    var showCalendarEvents = function (calendarId) {       
+       var view =  $('#calendar').fullCalendar('getCalendar').view;
+       //if month view, fetch appointments for the given motnhs' range.
+        if (view.name == "month") {
+            //Add +10 days more threshold for the months range to retrieve last and next months' ending and beginning weeks' appointments.
+            var start = new Date(view.intervalStart._d);
+            start.setDate(start.getDate() - 10);
+            var end = new Date(view.intervalEnd._d);
+            end.setDate(start.getDate() + 10);
+
+            getAppointmentsRange(start.toJSON().slice(0, 10), end.toJSON().slice(0, 10), calendarId);
+        } else { //for week view and day view
+            //get +- 2 weeks of appointments by current weeks first day.
+            getAppointments4weeks(new Date(view.intervalStart._d).toJSON().slice(0, 10), calendarId);
+        }
+              TimeFix(45, "08:00:00");
+       
+   };
 
     var subscribeToAppointments = function (calendarId) {
         $.connection.hub.url = serviceBase + 'signalr';
         var appointments = $.connection.appointmentHub;
         appointments.client.newAppointment = function (data) {
-  
-            //get +- 2 weeks of appointments from the added appointment's start date
-            getAppointments4weeks(new Date(data.StartDate).toJSON().slice(0, 10));
+            //If the notification is the same as the current displayed calendar - refresh the current calendar
+            if(data.CalendarId == calendarService.getCurrentCalendarId()){
+                showCalendarEvents(data.CalendarId);
+            }
 
             var appointmantDate = new Date(data.StartDate);
 
@@ -143,10 +149,13 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         };
 
         appointments.client.updateAppointment = function (data) {
-                              
-            $('#calendar').fullCalendar('removeEvents', data.Id);
-            $('#calendar').fullCalendar('renderEvent', data, false);
-            $('#calendar').fullCalendar('rerenderEvents');
+             
+             if(data.CalendarId == calendarService.getCurrentCalendarId()){
+                   $('#calendar').fullCalendar('removeEvents', data.Id);
+                    $('#calendar').fullCalendar('renderEvent', data, false);
+                    $('#calendar').fullCalendar('rerenderEvents');
+            }                 
+          
             var appointmantDate = new Date(data.StartDate);
 
             $mdToast.show($mdToast.simple()
@@ -161,7 +170,14 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
         if ($.connection.hub && $.connection.hub.state === $.signalR.connectionState.disconnected) {
             $.connection.hub.start().done(function () {
+                //Subscribe to my calendar
                 appointments.server.subscribeToCalendar(calendarId);
+                //Subscribe to other calendars
+                 sharedCalendarService.getAcceptedCalendars().then(function (result) {
+                     result.forEach(function(entry) {
+                         appointments.server.subscribeToCalendar(entry.CalendarOwnerId);
+                    });
+                });
             });
         }
     };
@@ -214,25 +230,8 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
     }
 
     var viewRender = function (view, element) {
-
-        //if month view, fetch appointments for the given motnhs' range.
-        if (view.name == "month") {
-            //Add +10 days more threshold for the months range to retrieve last and next months' ending and beginning weeks' appointments.
-            var start = new Date(view.intervalStart._d);
-            start.setDate(start.getDate() - 10);
-            var end = new Date(view.intervalEnd._d);
-            end.setDate(start.getDate() + 10);
-
-            getAppointmentsRange(start.toJSON().slice(0, 10), end.toJSON().slice(0, 10));
-        } else { //for week view and day view
-            //get +- 2 weeks of appointments by current weeks first day.
-            getAppointments4weeks(new Date(view.intervalStart._d).toJSON().slice(0, 10));
-        }
-       
-        TimeFix(45, "08:00:00");
+        showCalendarEvents(calendarService.getCurrentCalendarId()); 
     }
-
-   
 
     var dayClick = function (date, jsEvent, view) {
         if (!$scope.IsTouchMove) {
@@ -303,6 +302,16 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
         calendarConfig.editable = true;
     }
 
+
+    $scope.changeCalendar = function(calendarId){
+        if(calendarId == ''){
+            calendarId = calendarService.getMyCalendarId();
+        }
+            
+        calendarService.setCurrentCalendarId(calendarId);  
+        showCalendarEvents(calendarId);
+    };
+
     // *************************************************************************************
     // Initializers
     // *************************************************************************************
@@ -313,7 +322,23 @@ function ($scope, appointmentsService, calendarService, serverSettings, $mdDialo
 
     $scope.eventSources = [];
     getUserCalendar();
+    
+    //countdown
+    var countDowner, countDown = 30;
+    countDowner = function () {
+        if (countDown < 0) {
+            $("#warning").fadeOut(2000);
+            countDown = 0;
+            return; 
+        } else {
+            $scope.countDown_text = countDown;
+            countDown--;
+            $timeout(countDowner, 1000);
+        }
+    };
 
+    $scope.countDown_text = countDown;
+    countDowner();
 
     // *************************************************************************************
     // Dialogs and dialog Buttons: Appointment, New Patient, Existing Patient
