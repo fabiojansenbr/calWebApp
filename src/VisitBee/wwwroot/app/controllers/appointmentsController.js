@@ -1,10 +1,11 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope', 'appointmentsService', 'calendarService', 'sharedCalendarService','serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q', '$mdBottomSheet', '$timeout',
-function ($scope, appointmentsService, calendarService, sharedCalendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q, $mdBottomSheet, $timeout) {
+app.controller('appointmentsController', ['$scope','$rootScope', 'appointmentsService', 'calendarService', 'sharedCalendarService','serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q', '$mdBottomSheet', '$timeout', 'themeProvider', '$mdTheming',
+function ($scope, $rootScope, appointmentsService, calendarService, sharedCalendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q, $mdBottomSheet, $timeout, themeProvider, $mdTheming) {
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
-
+    
+    $rootScope.currentCalendarOwner = {name:null, id:null};
 
    var DetectTouchScreen = function () {
         // solution based on http://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript/4819886#4819886
@@ -62,12 +63,13 @@ function ($scope, appointmentsService, calendarService, sharedCalendarService, s
     };
 
     var postAppointment = function (data) {
-        var curCalId = calendarService.getCurrentCalendarId();
+        var curCalId= calendarService.getCurrentCalendarId();
         if(curCalId){
             data.CalendarId = curCalId;
         }
+
         appointmentsService.postAppointment(data).then(function (result) {
-            showCalendarEvents(curCalId);
+            showCalendarEvents(curCal.Id);
         })
     };
 
@@ -89,8 +91,8 @@ function ($scope, appointmentsService, calendarService, sharedCalendarService, s
     //get the User's own calendar
     var getUserCalendar = function () {
         calendarService.getUserCalendar().then(function (result) {
-            calendarService.setCurrentCalendarId(result);
-            subscribeToAppointments(result);
+            calendarService.setCurrentCalendarId(result.Id);
+            subscribeToAppointments(result.Id);
         })
     };
 
@@ -282,7 +284,7 @@ function ($scope, appointmentsService, calendarService, sharedCalendarService, s
         weekends: false,
         displayEventEnd: false,
         timeFormat: "HH:mm",
-        //eventOverlap: false,
+        eventOverlap: true,
         eventDataTransform: eventDataTransform,
         eventDrop: eventDateUpdate,
         eventResize: eventDateUpdate,
@@ -302,14 +304,26 @@ function ($scope, appointmentsService, calendarService, sharedCalendarService, s
         calendarConfig.editable = true;
     }
 
-
-    $scope.changeCalendar = function(calendarId){
-        if(calendarId == '' || typeof calendarId == "undefined"){
-            calendarId = calendarService.getMyCalendarId();
+  
+    $scope.changeCalendar = function(calendar){
+        //If no calendarId specified - set my calendarid
+        var calId;
+        if(typeof calendar == "undefined"){
+            calId = calendarService.getMyCalendar().Id;
+            //set the app theme to my calendar theme
+            themeProvider.setDefaultTheme('myCalendar');
+             $rootScope.currentCalendarOwner.name = '';
+            $rootScope.currentCalendarOwner.id = '';      
+        }else{            
+            calId = calendar.CalendarOwnerId;
+            //If it's not my calendar set the theme to 
+            themeProvider.setDefaultTheme('sharedCalendar');
+            $rootScope.currentCalendarOwner.name = calendar.CalendarOwner.Name;
+            $rootScope.currentCalendarOwner.Id = calId;      
         }
-            
-        calendarService.setCurrentCalendarId(calendarId);  
-        showCalendarEvents(calendarId);
+      
+        calendarService.setCurrentCalendarId(calId);          
+        showCalendarEvents(calId);
     };
 
     // *************************************************************************************

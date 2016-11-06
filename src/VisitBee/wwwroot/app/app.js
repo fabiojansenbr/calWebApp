@@ -1,6 +1,6 @@
 ﻿var app = angular.module('AngularCalendar', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'ui.calendar', 'ngMaterial', 'ngMessages', 'ngAria']);
 
-app.config(function ($routeProvider, $mdThemingProvider) {
+app.config(['$routeProvider', '$mdThemingProvider', '$provide',function ($routeProvider, $mdThemingProvider, $provide) {
 
     $routeProvider.when("/home", {
         controller: "homeController",
@@ -43,7 +43,17 @@ app.config(function ($routeProvider, $mdThemingProvider) {
         .primaryPalette('blue')
         .accentPalette('pink');
 
-});
+    $mdThemingProvider.theme('myCalendar')
+        .primaryPalette('blue')
+        .accentPalette('pink');
+
+    $mdThemingProvider.theme('sharedCalendar')
+        .primaryPalette('purple')
+        .accentPalette('green');
+
+    $mdThemingProvider.alwaysWatchTheme(true);
+    $provide.value('themeProvider', $mdThemingProvider);
+}]);
 
 var serviceBase = 'http://calrest.azurewebsites.net/';
 //var serviceBase  = 'http://localhost:53292/';

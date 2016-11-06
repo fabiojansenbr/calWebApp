@@ -55,9 +55,9 @@
 
                  <md-divider style="min-width:270px;"></md-divider>
 
-                 <md-list-item ng-controller="appointmentsController" ng-show="showCalendars" style="margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar(item.CalendarOwnerId)"
+                 <md-list-item  ng-controller="appointmentsController" ng-show="showCalendars" style="margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar(item)"
                                ng-repeat="item in acceptedCalendars">
-                     <div layout="column" layout-align="center center" style="max-height:32px;">
+                     <div  layout="column" layout-align="center center" style="max-height:32px;">
                          <md-divider></md-divider>
                          <div layout="row" layout-align="center center">
                              <h5>{{item.CalendarOwner.Name}}</h5>
@@ -95,7 +95,7 @@
             </md-list>
               
         </md-sidenav>
-        <div layout="column" id="content">
+        <div layout="row" id="content">
             <md-content data-ng-controller="topNavController">
                 <md-toolbar style="min-height:50px !important; height:50px !important;" layout="row" ng-show="!showSearch">
                     <md-button hide-gt-sm data-ng-click="toggleList()" style="min-width:60px;">
@@ -216,7 +216,12 @@
                     </div>
 
                 </md-toolbar>
+
+                <div style="height:5%" ng-show="currentCalendarOwner.name" layout="row" layout-align="center center">
+                    <h4 ng-show="currentCalendarOwner.name">{{currentCalendarOwner.name}}</h2>
+                </div>
                 
+                      
                 <div id="calendar" ui-calendar="uiConfig.calendar" class="span8 calendar" 
                      ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false" calendar="myCalendar"></div>               
                 

@@ -1,13 +1,13 @@
 ﻿'use strict';
-app.controller('leftNavController', ['$scope', '$location', 'authService', 'calendarService', 'sharedCalendarService', '$mdDialog', '$mdMedia', '$mdToast',
-    function ($scope, $location, authService, calendarService, sharedCalendarService, $mdDialog, $mdMedia, $mdToast) {
+app.controller('leftNavController', ['$scope', '$rootScope', '$location', 'authService', 'calendarService', 'sharedCalendarService', '$mdDialog', '$mdMedia', '$mdToast',
+    function ($scope, $rootScope, $location, authService, calendarService, sharedCalendarService, $mdDialog, $mdMedia, $mdToast) {
 
     $scope.userAccount = {
         userName: '',
         email: '',
         emailConfirmed: true
     };
-
+  
     $scope.logOut = function () {
         authService.logOut();
         $location.path('/home');
