@@ -13,17 +13,17 @@ html *
 }
 
 #loading-bar .bar {
-  background: #44b1ff
+  background: tomato
 }
 #loading-bar-spinner .spinner-icon {
-  border-top-color:  #44b1ff;
-  border-left-color: #44b1ff;
+  border-top-color:  tomato;
+  border-left-color: tomato;
 }
 #loading-bar .peg {
-  -moz-box-shadow: #0067b1 1px 0 6px 1px;
-  -ms-box-shadow: #0067b1 1px 0 6px 1px;
-  -webkit-box-shadow: #0067b1 1px 0 6px 1px;
-  box-shadow: #0067b1 1px 0 6px 1px;
+  -moz-box-shadow: darkred 1px 0 6px 1px;
+  -ms-box-shadow: darkred 1px 0 6px 1px;
+  -webkit-box-shadow: darkred 1px 0 6px 1px;
+  box-shadow: darkred 1px 0 6px 1px;
 }
 
 /*---appointments classe---*/
