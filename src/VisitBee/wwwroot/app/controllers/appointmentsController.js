@@ -69,7 +69,7 @@ function ($scope, $rootScope, appointmentsService, calendarService, sharedCalend
         }
 
         appointmentsService.postAppointment(data).then(function (result) {
-            showCalendarEvents(curCal.Id);
+            showCalendarEvents(curCalId);
         })
     };
 
