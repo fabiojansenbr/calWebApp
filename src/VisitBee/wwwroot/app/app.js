@@ -100,16 +100,6 @@ app.run(['$rootScope', '$location', 'authService', '$mdDialog', function ($rootS
 }]);
 
 
-//hide address bar on scrolling for mobiles
-window.addEventListener("load", function () {
-    // Set a timeout...
-    setTimeout(function () {
-        // Hide the address bar!
-        window.scrollTo(0, 1);
-    }, 0);
-});
-
-
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
