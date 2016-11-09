@@ -61,7 +61,7 @@ app.constant('serverSettings', {
    serviceBaseUri: serviceBase
 });
 
-app.run(['$rootScope', '$location', 'authService', '$mdDialog', function ($rootScope, $location, authService, $mdDialog) {
+app.run(['$rootScope', '$location', 'authService', '$mdDialog', '$window', function ($rootScope, $location, authService, $mdDialog, $window) {
 
     $rootScope.$on('$locationChangeStart', function (event) {
         // Check if there is a dialog active
@@ -96,12 +96,16 @@ app.run(['$rootScope', '$location', 'authService', '$mdDialog', function ($rootS
 
         });
     }
- 
+
+    $window.addEventListener("load", function () {
+        // Set a timeout...
+        setTimeout(function () {
+            // Hide the address bar!
+            $window.scrollTo(0, 1);
+        }, 0);
+    });
 
 }]);
-
-
-
 
 
 
