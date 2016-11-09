@@ -1,12 +1,15 @@
 ﻿'use strict';
-app.controller('appointmentsController', ['$scope','$rootScope', 'appointmentsService', 'calendarService', 'sharedCalendarService','serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q', '$mdBottomSheet', '$timeout', 'themeProvider', '$mdTheming',
-function ($scope, $rootScope, appointmentsService, calendarService, sharedCalendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q, $mdBottomSheet, $timeout, themeProvider, $mdTheming) {
+app.controller('appointmentsController', ['$scope','$rootScope', 'appointmentsService', 'calendarService', 'sharedCalendarService','serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q', '$mdBottomSheet', '$timeout', 'themeProvider', '$mdTheming', '$mdSidenav',
+function ($scope, $rootScope, appointmentsService, calendarService, sharedCalendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q, $mdBottomSheet, $timeout, themeProvider, $mdTheming, $mdSidenav) {
 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
     
     $rootScope.currentCalendarOwner = {name:null, id:null};
-
+   
+   $scope.toggleList = function () {
+        $mdSidenav('left').toggle();
+    };
    var DetectTouchScreen = function () {
         // solution based on http://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript/4819886#4819886
         return 'ontouchstart' in window        // works on most browsers 
