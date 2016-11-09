@@ -17,13 +17,16 @@
                  <md-list-item class="md-2-line" ng-click="showMyCalendarMenu = !showMyCalendarMenu">
                      <md-icon class="material-icons md-primary">person</md-icon>
                      <div class="md-list-item-text">
-                         <h4>My Calendar</h4>
-                     </div>
+                            <div layout="column" layout-align="center"> 
+                                <h4>My Calendar</h4> 
+                                <img width="20px" src="img/down.svg"   ng-class="{toggleButton: showMyCalendarMenu}" class="md-secondary md-primary"></img>
+                            </div>
+                    </div>
                  </md-list-item>
 
                  <md-divider style="min-width:270px;"></md-divider>
 
-                 <md-list-item style="margin-left:30px;" ng-show="showMyCalendarMenu"
+                 <md-list-item class="animate-show left-nav-md-list"  ng-show="showMyCalendarMenu"
                                ng-controller="appointmentsController" ng-click="showAllPatients()">
                      <div layout="row" layout-align="left center" style="max-height:32px;">
                          <md-icon class="material-icons md-primary" style="margin-top:7px;font-size:18px;">people</md-icon>
@@ -31,32 +34,33 @@
                              <p>Clients</p>
                          </div>
                      </div>
+               
                  </md-list-item>
 
-                 <md-divider style="min-width:270px;"></md-divider>
-
-                 <md-list-item style="margin-left:30px;" ng-show="showMyCalendarMenu" ng-click="showInvitationDialog()">
+                 <md-list-item class="animate-show left-nav-md-list"  ng-show="showMyCalendarMenu" ng-click="showInvitationDialog()">
                      <div layout="row" layout-align="left center" style="max-height:32px;">
                          <md-icon class="material-icons md-primary" style="margin-top:7px;font-size:18px;">person_add</md-icon>
                          <div style="font-size:14px; margin-left:10px;">
                              <p>Invite Collaborators</p>
+                         </div>
+                     </div>     
+                 </md-list-item>
+
+              <md-divider style="min-width:270px;"></md-divider>
+                 <md-list-item class="md-2-line" ng-click="showCalendars = !showCalendars">
+                     <md-icon class="material-icons md-primary">event_note</md-icon>
+                     <div class="md-list-item-text">
+                         <div layout="column" layout-align="center"> 
+                            <h4>Calendars</h4> 
+                            <img width="20px" src="img/down.svg"   ng-class="{toggleButton: showCalendars}" class="md-secondary md-primary"></img>
                          </div>
                      </div>
                  </md-list-item>
 
                  <md-divider style="min-width:270px;"></md-divider>
 
-                 <md-list-item class="md-2-line" ng-click="showCalendars = !showCalendars">
-                     <md-icon class="material-icons md-primary">event_note</md-icon>
-                     <div class="md-list-item-text">
-                         <h4>Calendars</h4>
-                     </div>
-                 </md-list-item>
-
-                 <md-divider style="min-width:270px;"></md-divider>
-
-                 <md-list-item  ng-controller="appointmentsController" ng-show="showCalendars" style="margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar(item)"
-                               ng-repeat="item in acceptedCalendars">
+                 <md-list-item  class="animate-show" ng-controller="appointmentsController" ng-show="showCalendars" 
+                 style="border-left:solid; margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar(item)" ng-repeat="item in acceptedCalendars">
                      <div  layout="column" layout-align="center center" style="max-height:32px;">
                          <md-divider></md-divider>
                          <div layout="row" layout-align="center center">

@@ -83,6 +83,7 @@ md-sidenav.md-closed.md-locked-open-add-active {
   width: 100%
 }
 
+
 /*Toast notifications*/
 md-toast.md-success-toast-theme .md-toast-content {
     background-color:lightgreen;
@@ -106,8 +107,38 @@ md-bottom-sheet {
     max-height:300px;
 }
 
+.left-nav-md-list {
+    border-top-left-radius:10px; 
+    border-bottom-left-radius:10px; 
+    border-left:solid 0.1px 
+    lightgrey; 
+    border-bottom:solid 0.1px lightgrey; 
+    margin-left:30px;
+}
+
+.animate-show {
+  opacity:1;
+}
+
+.animate-show.ng-hide-add.ng-hide-add-active,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+  -webkit-transition:all linear 0.2s;
+  transition:all linear 0.2s;
+}
+
+.animate-show.ng-hide {
+  line-height:0;
+  opacity:0;
+  padding:0 30px;
+}
 
 
+.toggleButton {
+    -ms-transform: rotate(180deg)  !important; /* IE 9 */
+    -webkit-transform: rotate(180deg) !important; /* Chrome, Safari, Opera */
+    transform: translate3d(0,-50%,0) rotate(180deg) !important;
+    transition:all linear 0.2s;
+}
 
 
 
