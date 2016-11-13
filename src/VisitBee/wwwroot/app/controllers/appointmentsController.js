@@ -340,22 +340,6 @@ function ($scope, $rootScope, appointmentsService, calendarService, sharedCalend
     $scope.eventSources = [];
     getUserCalendar();
     
-    //countdown
-    var countDowner, countDown = 30;
-    countDowner = function () {
-        if (countDown < 0) {
-            $("#warning").fadeOut(2000);
-            countDown = 0;
-            return; 
-        } else {
-            $scope.countDown_text = countDown;
-            countDown--;
-            $timeout(countDowner, 1000);
-        }
-    };
-
-    $scope.countDown_text = countDown;
-    countDowner();
 
     // *************************************************************************************
     // Dialogs and dialog Buttons: Appointment, New Patient, Existing Patient

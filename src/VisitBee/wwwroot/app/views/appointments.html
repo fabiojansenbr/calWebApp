@@ -239,11 +239,10 @@
                 <div id="calendar" ui-calendar="uiConfig.calendar" class="span8 calendar" 
                      ng-model="eventSources" hb-touchmove="IsTouchMove=true" hb-touchend="IsTouchMove=false" calendar="myCalendar"></div>               
                 
-                <md-toolbar class="md-warn" data-ng-controller="leftNavController" ng-hide="userAccount.emailConfirmed" style="position:fixed !important; bottom: 0px !important; height: 0%">
+                <md-toolbar class="animate-show md-warn" data-ng-controller="leftNavController" ng-hide="userAccount.emailConfirmed || showme == false" style="position:fixed !important; bottom: 0px !important; height: 0%">
                     <div class="md-toolbar-tools">Please confirm your email to use all functionalities. Resend your confirmation email&nbsp;                                                       
-                        <md-button ng-disabled="countDown_text" class="md-fab md-mini" aria-label="Mini FAB" style="background-color: darkgray; margin-left: 5px">
-                            <div ng-show="countDown_text > 0" style="color:white; font-size: 20px">{{countDown_text}}</div>
-                            <md-icon ng-show="countDown_text == 0" class="material-icons md-accent" style="height: 69%">email</md-icon>
+                        <md-button class="md-fab md-mini" aria-label="Mini FAB" style="background-color: darkgray; margin-left: 5px" ng-click="showme=false">
+                            <md-icon class="material-icons md-accent" style="height: 69%">email</md-icon>
                         </md-button>                                       
                     </div>
                 </md-toolbar>  
