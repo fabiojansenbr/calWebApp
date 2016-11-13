@@ -52,15 +52,25 @@
                      <div class="md-list-item-text">
                          <div layout="column" layout-align="center"> 
                             <h4>Calendars</h4> 
-                            <img width="20px" src="img/down.svg"   ng-class="{toggleButton: showCalendars}" class="md-secondary md-primary"></img>
+                            <img width="20px" src="img/down.svg" ng-class="{toggleButton: showCalendars}" class="md-secondary md-primary"></img>
                          </div>
                      </div>
                  </md-list-item>
 
                  <md-divider style="min-width:270px;"></md-divider>
 
+                 <md-list-item class="animate-show" ng-controller="appointmentsController" ng-show="showCalendars"
+                               style="border-left:solid 1px; margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar()">
+                     <div layout="column" layout-align="center center" style="max-height:32px;">
+                         <md-divider></md-divider>
+                         <div layout="row" layout-align="center center">
+                             <h5>My Calendar</h5>
+                         </div>
+                     </div>
+                 </md-list-item>
+
                  <md-list-item  class="animate-show" ng-controller="appointmentsController" ng-show="showCalendars" 
-                 style="border-left:solid 1px;; margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar(item); toggleList()" ng-repeat="item in acceptedCalendars">
+                 style="border-left:solid 1px; margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar(item); toggleList()" ng-repeat="item in acceptedCalendars">
                      <div  layout="column" layout-align="center center" style="max-height:32px;">
                          <md-divider></md-divider>
                          <div layout="row" layout-align="center center">
