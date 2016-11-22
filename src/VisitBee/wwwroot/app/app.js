@@ -58,7 +58,8 @@ app.config(['$routeProvider', '$mdThemingProvider', '$provide',function ($routeP
 var serviceBase = 'http://calrest.azurewebsites.net/';
 //var serviceBase  = 'http://localhost:53292/';
 app.constant('serverSettings', {
-   serviceBaseUri: serviceBase
+    serviceBaseUri: serviceBase,
+    clientId: 'visitbee'
 });
 
 app.run(['$rootScope', '$location', 'authService', '$mdDialog', '$window', function ($rootScope, $location, authService, $mdDialog, $window) {
