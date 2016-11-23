@@ -71,7 +71,7 @@ app.controller('loginController', ['$scope', '$location', 'authService', '$mdToa
 
         var redirectUri = location.protocol + '//' + location.host + '/authcomplete.html';
 
-        var externalProviderUrl = serverSettings.ServiceBaseUri + "api/Account/ExternalLogin?provider=" + provider
+        var externalProviderUrl = serverSettings.serviceBaseUri + "api/Account/ExternalLogin?provider=" + provider
                                                                     + "&response_type=token&client_id=" + serverSettings.clientId
                                                                     + "&redirect_uri=" + redirectUri;
         window.$windowScope = $scope;
