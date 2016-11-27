@@ -1,33 +1,38 @@
-﻿<form  layout="column" layout-align="center center" layout-fill="layout-fill" >
-    <div layout="column" class="loginBox md-whiteframe-z1" role="form">
-        <md-toolbar>
-            <h2 class="md-toolbar-tools"><span>Login</span></h2>
-        </md-toolbar>
-        <md-content layout="column" class="md-padding">
-            <md-input-container class="md-icon-float md-block">
-                <label>Email</label>
-                <md-icon style="width:36px;" class="material-icons md-accent">mail</md-icon>
-                <input type="email" data-ng-model="loginData.email" />
-            </md-input-container>
-            <md-input-container class="md-icon-float md-block">
-                <label>Password</label>
-                <md-icon style="width:36px;" class="material-icons md-accent">lock_outline</md-icon>
-                <input type="password" data-ng-model="loginData.password" />
-            </md-input-container>
-            <div layout="column" layout-align="center left" style="margin-left:3px;">
-                <md-checkbox data-ng-model="loginData.remember"><small class="md-caption">Remember Me </small> </md-checkbox>
+﻿<section layout="row" layout-align="center center"  class="backgroundGradient">
+        <form layout="column" layout-align="center center" >
+            <script> 
+            $("#landing").hide();
+            </script> 
+            <div class="loginBox md-whiteframe-z1" role="form">
+                <md-toolbar>
+                    <h2 class="md-toolbar-tools"><span>Login</span></h2>
+                </md-toolbar>
+                <md-content layout="column" class="md-padding">
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Email</label>
+                        <md-icon style="width:36px;" class="material-icons md-accent">mail</md-icon>
+                        <input type="email" data-ng-model="loginData.email" />
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block">
+                        <label>Password</label>
+                        <md-icon style="width:36px;" class="material-icons md-accent">lock_outline</md-icon>
+                        <input type="password" data-ng-model="loginData.password" />
+                    </md-input-container>
+                    <div layout="column" layout-align="center left" style="margin-left:3px;">
+                        <md-checkbox data-ng-model="loginData.remember"><small class="md-caption">Remember Me </small> </md-checkbox>
+                    </div>
+                    <div layout="row" layout-align="center center">
+                        <md-button class="md-raised md-primary" type="submit" data-ng-click="login()">Login</md-button>
+                    </div>
+                
+                    <div layout="row" layout-align="center center" style="padding-top:20px;">
+                        <div layout="column" layout-align="center center" >                   
+                            <small>Don't have an account? <a ng-href="#/signup">Sign Up</a></small>
+                        </div>              
+                        <div flex="flex"></div>
+                        <md-button style="text-transform:none !important" href="" md-no-ink="md-no-ink" class="md-primary" ng-href="#/forgotpassword"><small class="md-caption">Forgot Password?</small></md-button>
+                    </div>
+                </md-content>
             </div>
-            <div layout="row" layout-align="center center">
-                <md-button class="md-raised md-primary" type="submit" data-ng-click="login()">Login</md-button>
-            </div>
-           
-            <div layout="row" layout-align="center center" style="padding-top:20px;">
-                <div layout="column" layout-align="center center" >                   
-                    <small>Don't have an account? <a ng-href="#/signup">Sign Up</a></small>
-                </div>              
-                <div flex="flex"></div>
-                <md-button style="text-transform:none !important" href="" md-no-ink="md-no-ink" class="md-primary" ng-href="#/forgotpassword"><small class="md-caption">Forgot Password?</small></md-button>
-            </div>
-        </md-content>
-    </div>
-</form>
+        </form>
+</section>

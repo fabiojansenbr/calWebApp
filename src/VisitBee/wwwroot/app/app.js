@@ -6,6 +6,10 @@ app.config(['$routeProvider', '$mdThemingProvider', '$provide',function ($routeP
         controller: "homeController",
         templateUrl: "/app/views/home.html"
     });
+        $routeProvider.when("/landing", {
+        controller: "homeController",
+        templateUrl: "/app/views/landing.html"
+    });
 
     $routeProvider.when("/login", {
         controller: "loginController",
@@ -96,14 +100,6 @@ app.run(['$rootScope', '$location', 'authService', '$mdDialog', '$window', funct
 
         });
     }
-
-    $window.addEventListener("load", function () {
-        // Set a timeout...
-        setTimeout(function () {
-            // Hide the address bar!
-            $window.scrollTo(0, 1);
-        }, 0);
-    });
 
 }]);
 

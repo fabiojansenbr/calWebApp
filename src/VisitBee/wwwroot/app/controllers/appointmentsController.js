@@ -1,7 +1,7 @@
 ﻿'use strict';
 app.controller('appointmentsController', ['$scope','$rootScope', 'appointmentsService', 'calendarService', 'sharedCalendarService','serverSettings', '$mdDialog', '$mdMedia', '$mdToast', '$log', 'patientsService', '$q', '$mdBottomSheet', '$timeout', 'themeProvider', '$mdTheming', '$mdSidenav',
 function ($scope, $rootScope, appointmentsService, calendarService, sharedCalendarService, serverSettings, $mdDialog, $mdMedia, $mdToast, $log, patientsService, $q, $mdBottomSheet, $timeout, themeProvider, $mdTheming, $mdSidenav) {
-
+ 
     var serviceBase = serverSettings.serviceBaseUri;
     $scope.IsTouchMove = false;
     

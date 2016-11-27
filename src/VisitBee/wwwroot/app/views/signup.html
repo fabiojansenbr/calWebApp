@@ -1,4 +1,8 @@
-﻿<form layout="column" layout-align="center center" layout-fill="layout-fill">
+﻿<section class="backgroundGradient"> 
+<form layout="column" layout-align="center center" layout-fill="layout-fill">
+    <script> 
+       $("#landing").hide();
+    </script>
     <div  layout="column" class="loginBox md-whiteframe-z1" role="form">
         <md-toolbar>
             <h2 class="md-toolbar-tools"><span>Sign Up</span></h2>
@@ -35,6 +39,7 @@
         <md-progress-circular md-mode="{{isProcessing ? 'indeterminate' : 'null'}}" md-diameter="96"></md-progress-circular>
     </div>
 </form>
+</section>
 
 
 
