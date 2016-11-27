@@ -9,6 +9,12 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
         email: ""
     };
 
+    var _externalAuthData = {
+        provider: "",
+        userName: "",
+        externalAccessToken: ""
+    };
+
     var _credentials = {
         email: "",
         password: ""
@@ -183,6 +189,53 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
         });
     };
 
+    var _obtainAccessToken = function (externalData) {
+
+        var deferred = $q.defer();
+
+        $http.get(serviceBase + 'api/account/ObtainLocalAccessToken', { params: { provider: externalData.provider, externalAccessToken: externalData.externalAccessToken } }).success(function (response) {
+
+            localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: "", useRefreshTokens: false });
+
+            _authentication.isAuth = true;
+            _authentication.userName = response.userName;
+            _authentication.useRefreshTokens = false;
+
+            deferred.resolve(response);
+
+        }).error(function (err, status) {
+            _logOut();
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+
+    };
+
+    var _registerExternal = function (registerExternalData) {
+
+        var deferred = $q.defer();
+
+        $http.post(serviceBase + 'api/account/registerexternal', registerExternalData).success(function (response) {
+
+            localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: "", useRefreshTokens: false });
+
+            _authentication.isAuth = true;
+            _authentication.userName = response.userName;
+            _authentication.useRefreshTokens = false;
+
+            deferred.resolve(response);
+
+        }).error(function (err, status) {
+            _logOut();
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+
+    };
+
+
     authServiceFactory.register = _register;
     authServiceFactory.login = _login;
     authServiceFactory.autoLogin = _autoLogin;
@@ -197,6 +250,10 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'serverSetting
     authServiceFactory.getEmail = _getEmail;
     authServiceFactory.retrievePasswordReset = _retrievePasswordReset;
     authServiceFactory.resetPassword = _resetPassword;
+
+    authServiceFactory.obtainAccessToken = _obtainAccessToken;
+    authServiceFactory.externalAuthData = _externalAuthData;
+    authServiceFactory.registerExternal = _registerExternal;
 
     return authServiceFactory;
 }]);
