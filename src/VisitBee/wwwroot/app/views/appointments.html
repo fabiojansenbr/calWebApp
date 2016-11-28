@@ -63,7 +63,7 @@
                  <md-divider style="min-width:270px;"></md-divider>
 
                  <md-list-item class="animate-show" ng-controller="appointmentsController" ng-show="showCalendars"
-                               style="border-left:solid 1px; margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar()">
+                               style="border-left:solid 1px; border-left-color: dodgerblue; margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar(); toggleList()">
                      <div layout="column" layout-align="center center" style="max-height:32px;">
                          <md-divider></md-divider>
                          <div layout="row" layout-align="center center">
@@ -73,7 +73,7 @@
                  </md-list-item>
 
                  <md-list-item  class="animate-show" ng-controller="appointmentsController" ng-show="showCalendars" 
-                 style="border-left:solid 1px; margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar(item); toggleList()" ng-repeat="item in acceptedCalendars">
+                 style="border-left:solid 1px;   border-left-color: purple; margin-left:30px; margin-bottom:5px;" ng-click="changeCalendar(item); toggleList()" ng-repeat="item in acceptedCalendars">
                      <div  layout="column" layout-align="center center" style="max-height:32px;">
                          <md-divider></md-divider>
                          <div layout="row" layout-align="center center">
@@ -234,8 +234,8 @@
 
                 </md-toolbar>
 
-                <div style="height:5%" ng-show="currentCalendarOwner.name" layout="row" layout-align="center center">
-                    <h4 ng-show="currentCalendarOwner.name">{{currentCalendarOwner.name}}</h2>
+                <div style="height:7%" ng-show="currentCalendarOwner.name" layout="row" layout-align="center center">
+                    <h2 style="font-size:20px;" ng-show="currentCalendarOwner.name">{{currentCalendarOwner.name}}</h2>
                 </div>
                 
                       
@@ -261,7 +261,7 @@
             <form>
                 <md-toolbar>
                     <div class="md-toolbar-tools">
-                        <h5>{{ oNewAppointment.StartDate.format('DD-MM-YYYY HH:mm')}} - {{ oNewAppointment.EndDate.format('HH:mm') }}</h5>
+                        <h4 style="font-size:16px;">{{ oNewAppointment.StartDate.format('DD-MM-YYYY HH:mm')}} - {{ oNewAppointment.EndDate.format('HH:mm') }}</h4>
                         <span flex></span>
                         <md-button class="md-icon-button" ng-click="DialogCancel()">
                             <i class="material-icons">clear</i>
